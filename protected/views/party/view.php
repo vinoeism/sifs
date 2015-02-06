@@ -181,7 +181,7 @@ $this->menu=array(
 	'id'=>'receipt-grid',
 	'dataProvider'=>$receiptDataProvider,
 	'columns'=>array(
-		'id',
+//		'id',
 		'receipt_date',
 		//'branch_id',
                 array(
@@ -190,18 +190,15 @@ $this->menu=array(
                     'value'=>'isset($data->parties)?$data->parties->party_name:"  -  "',
                 ),            
 		'mode',
-//		'instrument_no',
+		'instrument_no',
 		
-//		'instrument_date',
+		'instrument_date',
 //		'instrument_bank',
-		'currency',
-		'exchange_rate',
-		'TDS',
-		'discount',
-		'amount',
+//		'currency',
+//		'exchange_rate',
+//		'TDS',
+//		'discount',
+//		'amount',
 		'total_amount',		
-		array(
-			'class'=>'CButtonColumn',
-		),
 	),
 )); ?>
