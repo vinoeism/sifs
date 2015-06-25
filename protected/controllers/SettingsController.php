@@ -1,6 +1,6 @@
 <?php
 
-class SettingsController extends Controller
+class SettingsController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -15,6 +15,7 @@ class SettingsController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+                        'rights',
 			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
