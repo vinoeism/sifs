@@ -13,6 +13,10 @@
 	<?php echo CHtml::encode($data->branch_name); ?>
 	<br />
 
+       	<b><?php echo CHtml::encode($data->getAttributeLabel('branch_code')); ?>:</b>
+	<?php echo CHtml::encode($data->branch_code); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('branch_location')); ?>:</b>
 	<?php echo CHtml::encode($data->branch_location); ?>
 	<br />

@@ -48,6 +48,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		//'id',
 		'branch_name',
+                'branch_code',
 		'branch_location',
 		'is_registered_office',
 		'PAN_no',

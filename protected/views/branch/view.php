@@ -32,6 +32,7 @@ $this->sidemenu=array(
 //		'id',
 //		'branch_name',
 		'branch_location',
+                'branch_code',
 //		'is_registered_office',
 		'PAN_no',
 		'ST_registration_no',

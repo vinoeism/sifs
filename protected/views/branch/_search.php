@@ -18,6 +18,11 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'branch_code'); ?>
+		<?php echo $form->textField($model,'branch_code',array('size'=>60,'maxlength'=>5)); ?>
+	</div>
+
+        <div class="row">
 		<?php echo $form->label($model,'branch_location'); ?>
 		<?php echo $form->textField($model,'branch_location',array('size'=>50,'maxlength'=>50)); ?>
 	</div>

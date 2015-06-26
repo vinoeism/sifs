@@ -22,6 +22,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'branch_code'); ?>
+		<?php echo $form->textField($model,'branch_code',array('size'=>7,'maxlength'=>5)); ?>
+		<?php echo $form->error($model,'branch_code'); ?>
+	</div>
+
+        <div class="row">
 		<?php echo $form->labelEx($model,'branch_location'); ?>
 		<?php echo $form->textField($model,'branch_location',array('size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'branch_location'); ?>

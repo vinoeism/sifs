@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $branch_name
  * @property string $branch_location
+ * @property string $branch_code
  * @property integer $is_registered_office
  * @property string $PAN_no
  * @property string $ST_registration_no
@@ -44,8 +45,10 @@ class Branch extends sifsActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('branch_name, branch_location', 'required'),
+			array('branch_name, branch_location, branch_code', 'required'),
 			array('is_registered_office, created_by, updated_by', 'numerical', 'integerOnly'=>true),
+                        array('branch_code', 'length', 'max'=>5),
+                        array('branch_code', 'length', 'min'=>3),
 			array('branch_name', 'length', 'max'=>100),
                         array('is_registered_office','boolean'),
 			array('branch_location, PAN_no, ST_registration_no', 'length', 'max'=>50),
@@ -53,7 +56,7 @@ class Branch extends sifsActiveRecord
 			array('created_on, updated_on', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, branch_name, branch_location, is_registered_office, PAN_no, ST_registration_no, comments, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
+			array('id, branch_name, branch_location, branch_code, is_registered_office, PAN_no, ST_registration_no, comments, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -84,6 +87,7 @@ class Branch extends sifsActiveRecord
 			'id' => 'ID',
 			'branch_name' => 'Branch Name',
 			'branch_location' => 'Branch Location',
+                        'branch_code' => 'Branch code',
 			'is_registered_office' => 'Is Regd Office',
 			'PAN_no' => 'PAN No',
 			'ST_registration_no' => 'Sales Tax No',
@@ -109,6 +113,7 @@ class Branch extends sifsActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('branch_name',$this->branch_name,true);
 		$criteria->compare('branch_location',$this->branch_location,true);
+		$criteria->compare('branch_code',$this->branch_code,true);                
 		$criteria->compare('is_registered_office',$this->is_registered_office);
 		$criteria->compare('PAN_no',$this->PAN_no,true);
 		$criteria->compare('ST_registration_no',$this->ST_registration_no,true);
