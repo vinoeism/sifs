@@ -24,14 +24,23 @@
 
 	<div id="header">
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-                <div id="settings">settings</div>
-	</div><!-- header -->
-
+        </div><!-- header -->
+        <div id="profilemenu">
+            <?php $this->widget('zii.widgets.CMenu',array(
+			'items'=>array(
+                            array('label'=>'settings', 'url'=>array('/settings/index')),
+                            array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                            array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                        ),
+                )); ?>
+        </div>
+	<!-- profile menu -->
+        <br/>
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+				//array('label'=>'Home', 'url'=>array('/site/index')),
+				//array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                                 array('label'=>'Branch', 'url'=>array('/branch/index', )),
                                 array('label'=>'Party', 'url'=>array('/party/index')),
                                 array('label'=>'Jobs', 'url'=>array('/job/index', )),
@@ -39,11 +48,12 @@
                                 array('label'=>'Income', 'url'=>array('/invoice/index', )),
 				array('label'=>'Contact', 'url'=>array('/site/contact')),
                                 array('label'=>'Miracle!', 'url'=>array('miracle/index')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+//				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+//				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+//                                array('label'=>'Settings', 'url'=>array('/settings/index'))
 			),
 		)); ?>
-	</div><!-- mainmenu -->
+	</div><!-- main menu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
