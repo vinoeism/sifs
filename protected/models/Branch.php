@@ -12,10 +12,12 @@
  * @property string $PAN_no
  * @property string $ST_registration_no
  * @property string $comments
+ * @property string $bank_id
  * @property integer $created_by
  * @property string $created_on
  * @property integer $updated_by
  * @property string $updated_on
+ * 
  */
 class Branch extends sifsActiveRecord
 {
@@ -56,7 +58,7 @@ class Branch extends sifsActiveRecord
 			array('created_on, updated_on', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, branch_name, branch_location, branch_code, is_registered_office, PAN_no, ST_registration_no, comments, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
+			array('id, branch_name, branch_location, branch_code, is_registered_office, PAN_no, ST_registration_no, comments, bank_id, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,7 +76,7 @@ class Branch extends sifsActiveRecord
                     'users' => array(self::MANY_MANY, 'User', 'userbranch(branch_id,user_id)'),
                     'vouchers' => array(self::HAS_MANY, 'Voucher', 'branch_id'),
                     'payments' => array(self::HAS_MANY, 'Payment', 'branch_id'),
-                    'banks' => array(self::HAS_MANY, 'Bank', 'branch_id'),
+                    'banks' => array(self::HAS_MANY, 'Bank', 'branch_id','condition'=>'isActive=1'),
 		);
 	}
 
@@ -92,6 +94,7 @@ class Branch extends sifsActiveRecord
 			'PAN_no' => 'PAN No',
 			'ST_registration_no' => 'Sales Tax No',
 			'comments' => 'Comments',
+                        'bank_id' => 'Default Bank',
 			'created_by' => 'Created By',
 			'created_on' => 'Created On',
 			'updated_by' => 'Updated By',
@@ -118,6 +121,7 @@ class Branch extends sifsActiveRecord
 		$criteria->compare('PAN_no',$this->PAN_no,true);
 		$criteria->compare('ST_registration_no',$this->ST_registration_no,true);
 		$criteria->compare('comments',$this->comments,true);
+		$criteria->compare('bank_id',$this->bank_id,true);                                
 		$criteria->compare('created_by',$this->created_by);
 		$criteria->compare('created_on',$this->created_on,true);
 		$criteria->compare('updated_by',$this->updated_by);
@@ -126,5 +130,5 @@ class Branch extends sifsActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
+	}        
 }
