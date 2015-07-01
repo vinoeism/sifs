@@ -127,16 +127,18 @@ class BranchController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+                $banksDataProvider = CHtml::listData($model->banks,'id','bank_name');
 
 		if(isset($_POST['Branch']))
 		{
-			$model->attributes=$_POST['Branch'];
+			$model->attributes=$_POST['Branch'];    
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+                        'banksDataProvider' => $banksDataProvider,
 		));
 	}
 
