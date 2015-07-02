@@ -56,6 +56,8 @@ class Party extends sifsActiveRecord
 			array('credit_days, debit_days, created_by, updated_by', 'numerical', 'integerOnly'=>true),
 			array('party_name', 'length', 'max'=>150),
                         array('short_code','unique'),
+                        array('pan_no','unique'),
+                        array('service_tax_no','unique'),
                         array('is_blacklisted','boolean'),
 			array('short_code', 'length', 'max'=>5),
 			array('pan_no', 'length', 'max'=>25),
@@ -76,8 +78,8 @@ class Party extends sifsActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
                     'addresses' => array(self::HAS_MANY, 'Address', 'party_id'),
-                    'jobs' => array(self::HAS_MANY, 'Job', 'client_id'),                    
-		);
+                    'jobs' => array(self::HAS_MANY, 'Job', 'client_id'),  
+                    );
 	}
 
 	/**
