@@ -37,6 +37,8 @@ if (!isset($model->passed_by) || (isset($model->rejected_by))){
 	),
 )); ?>
 <br/>
+<h3>Total voucher amount INR <?php echo $model->total_amount+$model->total_tax_1+$model->total_tax_2-$model->tds-$model->discount ?></h3>
+
 <h2><?php echo $model->parties->party_name; ?> -- Bill details </h2>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
