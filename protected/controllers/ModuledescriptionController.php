@@ -223,9 +223,17 @@ class ModuledescriptionController extends Controller
                         }			
                         if($model->save(false))
                         {
-                            //updating the corresponding voucher row with totals
-                            $this->updateParentModule($model);
-                            $this->redirect(array('voucher/view','id'=>$model->voucher_id));
+                                //updating the corresponding voucher row with totals
+                                $this->updateParentModule($model);
+                                if ($model->invoice_id==NULL || empty($model->invoice_id) || $model->invoice_id=='')
+                                {
+                                	$this->redirect(array('voucher/view','id'=>$model->voucher_id));
+                                }
+                                if ($model->voucher_id==NULL || empty($model->voucher_id) || $model->voucher_id=='')
+                                {
+                                	$this->redirect(array('invoice/view','id'=>$model->invoice_id));
+                                }                         
+                                
                         }
 		}
 
@@ -241,20 +249,15 @@ class ModuledescriptionController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-                            echo 'here';
-
 		$model = $this->loadModel($id);
-                echo 'here';
                 $criteria = new CDbCriteria;
                 $criteria->select = array(
                         'SUM(amount) as amount',
                         'SUM(tax_1_amount) as tax_1',
                         'SUM(tax_2_amount) as tax_2',
                     );
-                if (!empty($model->voucher_id) && ($model->voucher_id != 0))
+                if (!($model->voucher_id == NULL) && !empty($model->voucher_id) && ($model->voucher_id != 0))
                 {
-                echo 'here';
-
                     $voucherId = $model->voucher_id;
                     $criteria->addCondition('voucher_id = '.$model->voucher_id);
                     $criteria->addCondition('isActive = 1');
@@ -266,12 +269,26 @@ class ModuledescriptionController extends Controller
 
                     $model->vouchers->save(false);
                     $model->delete();
-                echo 'here';
                     
                     $this->redirect(array('voucher/view','id'=>$voucherId));
 
-                }                
+                } 
+                if (!($model->invoice_id == NULL) && !empty($model->invoice_id) && ($model->invoice_id != 0))
+                {
+                    $invoice_id = $model->invoice_id;
+                    $criteria->addCondition('invoice_id = '.$model->invoice_id);
+                    $criteria->addCondition('isActive = 1');
 
+                    $update_amounts = $model->find($criteria);
+                    $model->invoices->total_amount = $update_amounts->amount - $model->amount;
+                    $model->invoices->total_tax_1 = $update_amounts->tax_1 - $model->tax_1_amount;
+                    $model->invoices->total_tax_2 = $update_amounts->tax_2 - $model->tax_2_amount;
+
+                    $model->invoices->save(false);
+                    $model->delete();
+                    
+                    $this->redirect(array('invoice/view','id'=>$invoice_id));
+                }
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 //		if(!isset($_GET['ajax']))
 //			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
