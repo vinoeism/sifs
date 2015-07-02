@@ -70,13 +70,14 @@ class Branch extends sifsActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-                    'addresses' => array(self::HAS_MANY, 'Address', 'branch_id'),
+                    'addresses' => array(self::HAS_ONE, 'Address', 'branch_id'),
                     'jobs' => array(self::HAS_MANY, 'Job', 'branch_id'),
                     'taxes' => array(self::MANY_MANY, 'Tax', 'branchtax(branch_id,tax_id)'),
                     'users' => array(self::MANY_MANY, 'User', 'userbranch(branch_id,user_id)'),
                     'vouchers' => array(self::HAS_MANY, 'Voucher', 'branch_id'),
                     'payments' => array(self::HAS_MANY, 'Payment', 'branch_id'),
                     'banks' => array(self::HAS_MANY, 'Bank', 'branch_id','condition'=>'isActive=1'),
+                    'primarybank' => array(self::HAS_ONE, 'Bank', 'branch_id'),
 		);
 	}
 
