@@ -159,15 +159,15 @@ class AddressController extends Controller
 		if(isset($_POST['Address']))
 		{
 			$model->attributes=$_POST['Address'];
-                        if (!(empty($model->branch_id) && !($model->branch_id==0))) 
+                        if ($model->branch_id==NULL || empty($model->branch_id) || ($model->branch_id==0)) 
+                        {
+                            if($model->save())
+                                $this->redirect(array('party/view','id'=>$model->party_id));
+                        }
+                        if ($model->party_id==NULL || empty($model->party_id) || ($model->party_id==0)) 
                         {
                             if($model->save())
                                     $this->redirect(array('branch/view','id'=>$model->branch_id));
-                        }
-                        if (!(empty($model->party_id) && !($model->party_id==0))) 
-                        {
-                            if($model->save())
-                                    $this->redirect(array('party/view','id'=>$model->party_id));
                         }	
                 }
 		$this->render('update',array(
