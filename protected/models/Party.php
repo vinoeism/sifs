@@ -136,7 +136,7 @@ class Party extends sifsActiveRecord
         
         /** 
          * Retrieves the various party types
-         * @return array an array of possible rty types
+         * @return array an array of possible party types
          */
         public function getPartyTypes()
         {
@@ -146,4 +146,17 @@ class Party extends sifsActiveRecord
                 self::TYPE_AGENT=>'Agent',
             );
         }        
+
+        /** 
+         * Retrieves the various terms of payment types
+         * @return array an array of possible Terms 
+         */
+        public function getTermsOfPaymentTypes()
+        {
+            $criteria = new CDbCriteria();            
+            $criteria->condition = 'setting_key = "termsofinvoice"';
+            $termsOfInvoiceArray = CHtml::listData(Settings::model()->findAll($criteria),'id','setting_value');
+
+            return $termsOfInvoiceArray;
+        }         
 }
