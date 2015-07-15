@@ -53,15 +53,15 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'credit_days'); ?>
-		<?php echo $form->textField($model,'credit_days'); ?>
+		<?php echo $form->dropDownList($model,'credit_days',$model->getTermsOfPaymentTypes(), array('prompt'=>'-- Select Terms of Payment --',)); ?>
 		<?php echo $form->error($model,'credit_days'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'debit_days'); ?>
-		<?php echo $form->textField($model,'debit_days'); ?>
-		<?php echo $form->error($model,'debit_days'); ?>
-	</div>
+<!--	<div class="row">
+		<?php //echo $form->labelEx($model,'debit_days'); ?>
+		<?php //echo $form->textField($model,'debit_days'); ?>
+		<?php //echo $form->error($model,'debit_days'); ?>
+	</div>-->
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
