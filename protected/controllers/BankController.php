@@ -78,7 +78,7 @@ class BankController extends Controller
                             $model->employee_id = $moduleId;
 
                         if($model->save())
-				$this->redirect(array(strtolower($module).'/view','id'=>$model->id));
+				$this->redirect(array(strtolower($module).'/view','id'=>$moduleId));
 		}
 
 		$this->render('create',array(
