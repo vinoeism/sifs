@@ -88,7 +88,7 @@ class JobController extends Controller
                 $invoiceDataProvider = new CActiveDataProvider('Invoice',
                             array(
                                 'criteria'=>array(
-                                    'condition'=>'job_id=:jobId',
+                                    'condition'=>'job_id=:jobId and is_active=1',
                                     'params'=>array(':jobId'=>  $this->loadModel($id)->id),
                                 ),
                                 'pagination'=>array(
