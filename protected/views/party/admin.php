@@ -61,8 +61,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'is_blacklisted',
 		'pan_no',
 		'service_tax_no',
-		'credit_days',
-		'debit_days',
+		array(
+                    'name'=>'credit_days',
+                    'filter'=>$model->getTermsOfPaymentTypes(),
+                    'value'=>'Settings::model()->findByPK($data->credit_days) != NULL ? Settings::model()->findByPK($data->credit_days)->setting_value : "Not set"',
+                ),
+		//'debit_days',
 		/*
                 'created_by',
 		'created_on',
