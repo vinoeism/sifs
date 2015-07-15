@@ -70,6 +70,8 @@ class Bank extends sifsActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+                    'branches'=> array(self::BELONGS_TO, 'Branch', 'bank_id'),
+
 		);
 	}
 
