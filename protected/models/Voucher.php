@@ -135,7 +135,7 @@ class Voucher extends sifsActiveRecord
 			'asset_id' => 'Asset',
 			'total_tax_1' => 'Tax 1',
 			'total_tax_2' => 'Tax 2',
-			'total_amount' => 'Amount',
+			'total_amount' => 'Pre-tax Amount',
 			'towards' => 'Towards',
 			'comments' => 'Comments',
                         'pay_to' => 'Pay to',
