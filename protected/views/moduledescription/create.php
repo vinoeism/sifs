@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	//array('label'=>'List Moduledescription', 'url'=>array('index')),
-	array('label'=>'Manage Moduledescription', 'url'=>array('admin')),
+	//array('label'=>'Manage Moduledescription', 'url'=>array('admin')),
 );
 ?>
 
