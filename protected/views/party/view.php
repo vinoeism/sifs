@@ -36,8 +36,11 @@ $this->menu=array(
                 ),
 		'pan_no',
 		'service_tax_no',
-		'credit_days',
-		'debit_days',
+		array(
+                    'name'=>'credit_days',
+                    'value'=> Settings::model()->findByPK($model->credit_days)->setting_value,
+                ),
+		//'debit_days',
 	),
 )); ?>
 
@@ -81,8 +84,11 @@ $this->menu=array(
 		'ifsc_code',
 		'swift_code',
 		'comments',
-		'status',
-		'isActive',
+		//'status',
+                array(
+                    'name' => 'isActive',
+                    'value' => '$data->isActive? "Yes":"No"',
+                ),            
 	),
 )); ?>
 
