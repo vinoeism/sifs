@@ -26,7 +26,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('credit_days')); ?>:</b>
-	<?php echo CHtml::encode($data->credit_days); ?>
+	<?php echo CHtml::encode(Settings::model()->findByPK($data->credit_days)->setting_value); ?>
 	<br />
 
 	<?php /*
