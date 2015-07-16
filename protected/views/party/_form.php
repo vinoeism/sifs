@@ -53,7 +53,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'credit_days'); ?>
-		<?php echo $form->dropDownList($model,'credit_days',$model->getTermsOfPaymentTypes(), array('prompt'=>'-- Select Terms of Payment --',)); ?>
+		<?php echo $form->dropDownList($model,'credit_days',$model->getTermsOfPaymentTypes(), array('prompt'=>'-- Select Terms of Payment --','options'=>array('18'=>array('selected'=>true)))); ?>
 		<?php echo $form->error($model,'credit_days'); ?>
 	</div>
 
