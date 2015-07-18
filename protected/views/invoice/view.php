@@ -37,7 +37,10 @@ $this->sidemenu=array(
                     'name'=>'party_id',
                     'value'=>$model->parties->party_name,
                 ),		
-		'invoice_terms',
+		array(
+                    'name'=>'invoice_terms',
+                    'value'=>Settings::model()->findByPk($model->invoice_terms)->setting_value,
+                ),		
 		'total_tax_1',
 		'total_tax_2',
 		'total_amount',
