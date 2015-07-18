@@ -43,7 +43,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php 
+$invoiceGridWidget = $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'invoice-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -68,7 +69,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                     'value'=>'isset($data->parties)?$data->parties->party_name:"  -  "',
                 ),            
 		'total_tax_1',
-		'total_tax_2',
+		//'total_tax_2',
 		'total_amount',
   		'status', 
 		array(
@@ -98,4 +99,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		*/
 
 	),
-)); ?>
+)); 
+$this->renderExportGridButton($invoiceGridWidget,'Export as csv',array('class'=>'btn btn-info pull-right'));
+
+?>
