@@ -8,11 +8,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	//array('label'=>'List Invoice', 'url'=>array('index')),
-	//array('label'=>'Create Invoice', 'url'=>array('create')),
 	array('label'=>'Update Invoice', 'url'=>array('update', 'id'=>$model->id)),
-	//array('label'=>'Delete Invoice', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Delete Invoice', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Invoice', 'url'=>array('index')),
+        array('label'=>'Print PDF', 'url'=>array('printPDF', 'id'=>$model->id),'linkOptions'=> array('target'=>'_blank')),
 );
 $this->sidemenu=array(
     array('label'=>'Add item', 'url'=>array('moduledescription/create','moduleid'=>$model->id,'modulename'=>'INVOICE')),
