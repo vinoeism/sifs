@@ -113,8 +113,11 @@ class ReceiptController extends RController
 	public function actionCreate()
 	{
 		$model=new Receipt;
-                if (isset($_GET['branchID']))
+                $receiptMode = isset($_POST['ReceiptMode'])?$_POST['ReceiptMode']:'';
+                if (isset($_GET['branchID'])) {
                     $model->branch_id = $_GET['branchID'];
+                    $receiptMode = 'BRANCH';
+                }
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -129,6 +132,7 @@ class ReceiptController extends RController
 
 		$this->render('create',array(
 			'model'=>$model,
+                        'receiptMode'=>$receiptMode,
 		));
 	}
         
@@ -139,12 +143,15 @@ class ReceiptController extends RController
 	public function actionReceive()
 	{
 		$model=new Receipt;
-                if (isset($_GET['branchID']))
+                $receiptMode = isset($_POST['ReceiptMode'])?$_POST['ReceiptMode']:'';
+                if (isset($_GET['branchID'])) {
                     $model->branch_id = $_GET['branchID'];
+                    $receiptMode = 'BRANCH';
+                }
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+                
 		if(isset($_POST['Receipt']))
 		{
 			$model->attributes=$_POST['Receipt'];
@@ -152,9 +159,9 @@ class ReceiptController extends RController
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
 		$this->render('create',array(
 			'model'=>$model,
+                        'receiptMode'=>$receiptMode,
 		));
 	}
 	/**
