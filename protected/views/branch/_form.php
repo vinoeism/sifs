@@ -56,8 +56,15 @@
 		<?php echo $form->textArea($model,'comments',array('size'=>60,'maxlength'=>300)); ?>
 		<?php echo $form->error($model,'comments'); ?>
 	</div>
-
-
+        
+        <?php if (!$model->isNewRecord) { ?>
+            <div class="row">
+                    <?php echo $form->labelEx($model,'bank_id'); ?>
+                    <?php echo $form->dropDownList($model,'bank_id',$banksDataProvider); ?>
+                    <?php echo $form->error($model,'bank_id'); ?>
+            </div>
+        <?php } ?>
+        
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
