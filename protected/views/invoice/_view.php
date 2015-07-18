@@ -30,7 +30,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('invoice_terms')); ?>:</b>
-	<?php echo CHtml::encode($data->invoice_terms); ?>
+	<?php echo CHtml::encode(Settings::model()->findByPk($data->invoice_terms)->setting_value); ?>
 	<br />
 
 	<?php /*
