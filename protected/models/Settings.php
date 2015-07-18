@@ -91,4 +91,18 @@ class Settings extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+	/**
+	 * Retrieves a setting value based on the setting key
+	 * @return string the setting value.
+	 */        
+        public function findBySettingKey($settingKey) 
+        {   
+            $criteria = new CDbCriteria();            
+            $criteria->condition = 'setting_key = "'.$settingKey.'"';
+            $setting = Settings::model()->findAll($criteria);
+
+            return $setting[0]->setting_value;            
+            
+        }
 }
