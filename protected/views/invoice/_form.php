@@ -34,7 +34,6 @@
                         'htmlOptions' => array(
                             'size' => '12', // textField size
                             'maxlength' => '12', // textField maxlength
-                            'value'=>CTimestamp::formatDate('Y/m/d')
                         ),
                     ));
                 ?>  		
@@ -53,11 +52,13 @@
 		<?php echo $form->error($model,'invoice_terms'); ?>
 	</div>
         
-	<div class="row">
-		<?php echo $form->labelEx($model,'is_active'); ?>
-		<?php echo $form->checkbox($model,'is_active',array('checked'=>'checked')); ?>
-		<?php echo $form->error($model,'is_active'); ?>
-	</div>
+        <?php if (!$model->isNewRecord) { ?>
+            <div class="row">
+                    <?php echo $form->labelEx($model,'is_active'); ?>
+                    <?php echo $form->checkbox($model,'is_active',array('checked'=>'checked')); ?>
+                    <?php echo $form->error($model,'is_active'); ?>
+            </div>
+        <?php } ?>
 <!--	<div class="row">
 		<?php echo $form->labelEx($model,'total_tax_1'); ?>
 		<?php echo $form->textField($model,'total_tax_1',array('size'=>10,'maxlength'=>10)); ?>
