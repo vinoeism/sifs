@@ -12,7 +12,7 @@
  * @property string $PAN_no
  * @property string $ST_registration_no
  * @property string $comments
- * @property string $bank_id
+ * @property integer $bank_id
  * @property integer $created_by
  * @property string $created_on
  * @property integer $updated_by
@@ -48,7 +48,7 @@ class Branch extends sifsActiveRecord
 		// will receive user inputs.
 		return array(
 			array('branch_name, branch_location, branch_code', 'required'),
-			array('is_registered_office, created_by, updated_by', 'numerical', 'integerOnly'=>true),
+			array('is_registered_office, bank_id, created_by, updated_by', 'numerical', 'integerOnly'=>true),
                         array('branch_code', 'length', 'max'=>5),
                         array('branch_code', 'length', 'min'=>3),
 			array('branch_name', 'length', 'max'=>100),
