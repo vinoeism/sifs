@@ -10,7 +10,7 @@
  * @property integer $job_id
  * @property string $invoice_date
  * @property integer $party_id
- * @property string $invoice_terms
+ * @property integer $invoice_terms
  * @property string $total_tax_1
  * @property string $total_tax_2
  * @property string $total_amount
@@ -173,4 +173,20 @@ class Invoice extends sifsActiveRecord
                 $parties[$job->transporter] = $job->tranporters->party_name;
             return $parties;
         }
+
+                /** 
+         * Retrieves the various terms of payment types
+         * @return array an array of possible Terms 
+         */
+        public function getTermsOfPaymentTypes()
+        {
+            $criteria = new CDbCriteria();            
+            $criteria->condition = 'setting_key = "termsofinvoice"';
+            $termsOfInvoiceArray = CHtml::listData(Settings::model()->findAll($criteria),'id','setting_value');
+
+            return $termsOfInvoiceArray;
+        }    
+        
+        
+        
 }
