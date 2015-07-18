@@ -49,7 +49,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'invoice_terms'); ?>
-		<?php echo $form->textArea($model,'invoice_terms',array('size'=>60,'maxlength'=>1000)); ?>
+		<?php echo $form->dropDownList($model,'invoice_terms',$model->getTermsOfPaymentTypes(), array('prompt'=>'-- Select Terms of Payment --','options'=>array('18'=>array('selected'=>true)))); ?>
 		<?php echo $form->error($model,'invoice_terms'); ?>
 	</div>
         
