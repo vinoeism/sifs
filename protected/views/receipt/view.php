@@ -23,8 +23,14 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'receipt_date',
-		'branch_id',
-		'party_id',
+		array(
+                    'name'=>'branch_id',
+                    'value'=>$model->branches->branch_name,
+                ),
+		array(
+                    'name'=>'party_id',
+                    'value'=>$model->parties->party_name,
+                ),            
 		'mode',
 		'instrument_no',
 		'instrument_date',
