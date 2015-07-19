@@ -125,7 +125,7 @@
         <i style="font-size: 9;">
             1. We reserve the right to charge interest at 24% per annum, for delays after 30 days from the date of invoice <br>
             2. We certify that we have not charged for our service as CHA in excess of the rates approved by commissioner of customs from time to time under Regulation 25 of CHA L.R.84. <br><br>
-            Please make the payments in the name of "<?php echo $model->branches->branch_name; ?>" through Cheque/DD only <br><br>
+            Please make the payments in the name of "<?php echo Settings::model()->findBySettingKey('invoiceChequeName'); ?>" through Cheque/DD only <br><br>
             For NEFT/RTGS, please use the below details<br>
             <?php $this->widget('zii.widgets.CDetailView', array(
             'data'=>$model,
