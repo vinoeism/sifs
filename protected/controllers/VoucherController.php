@@ -379,7 +379,7 @@ class VoucherController extends RController
                 if (isset($model->total_tax_2) && ($model->total_tax_2!=0))
                     $netamount = $netamount + $model->total_tax_2;
                 if (isset($model->tds) && ($model->tds!=0))
-                    $netamount = $netamount - $model->tds;
+                    $netamount = $netamount + $model->tds;
 
                 $model->discount = $model->bill_amount - $netamount;
                 $netamount = $netamount + $model->discount;
