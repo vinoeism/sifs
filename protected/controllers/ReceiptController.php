@@ -113,12 +113,12 @@ class ReceiptController extends RController
 	public function actionCreate()
 	{
 		$model=new Receipt;
-                $receiptMode = isset($_GET['ReceiptMode'])?$_GET['ReceiptMode']:'';
-
+                $receiptMode = isset($_POST['ReceiptMode'])?$_POST['ReceiptMode']:'';
                 if (isset($_GET['branchID'])) {
                     $model->branch_id = $_GET['branchID'];
                     $receiptMode = 'BRANCH';
                 }
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -143,12 +143,12 @@ class ReceiptController extends RController
 	public function actionReceive()
 	{
 		$model=new Receipt;
-                $receiptMode = isset($_GET['ReceiptMode'])?$_GET['ReceiptMode']:'';
-                //fetch the actual invoice amount & branch id from invoce model
-                $invoiceModel = isset($_GET['id'])?Invoice::model()->findbyPk($_GET['id']):'';
-                $model->amount = $invoiceModel->total_amount;
-                $model->branch_id = $invoiceModel->branch_id;
-                
+                $receiptMode = isset($_POST['ReceiptMode'])?$_POST['ReceiptMode']:'';
+                if (isset($_GET['branchID'])) {
+                    $model->branch_id = $_GET['branchID'];
+                    $receiptMode = 'BRANCH';
+                }
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
                 
