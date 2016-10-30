@@ -91,8 +91,11 @@ class InvoiceController extends RController
         private function generateREFNo($model)
         {
                 $codePart = Settings::model()->findBySettingKey('companyshortcode').Branch::model()->findByPK($model->branch_id)->branch_code;
-                $yearPart = date('y');
-                $yearPart = $yearPart.($yearPart+1);
+                // logic for changing the year part, only after MARCH - Financial year and thereby generating the yearpart
+                $currYear = date('m')>3?date('y'):date('y')-1; 
+                $nextYear = str_pad($currYear+1, 2, '0', STR_PAD_LEFT); 
+                $yearPart = $currYear.$nextYear;
+                //logic for generating the last 5 digits
                 $numberPart = Settings::model()->findBySettingKey('invoicestart')+Invoice::model()->count();
                 $numberPart = str_pad($numberPart, Settings::model()->findBySettingKey('invoicedecimals'), '0', STR_PAD_LEFT);
                 return $codePart.$yearPart.$numberPart;
