@@ -118,9 +118,9 @@ class ModuledescriptionController extends Controller
                 $model->vouchers->total_amount = $update_amounts->amount;
                 if (!empty($model->vouchers->tds) && ($model->vouchers->tds != 0))
                     $model->vouchers->total_amount = $model->vouchers->total_amount - $model->vouchers->tds;
-                if (!empty($model->vouchers->discount) && ($model->vouchers->discount != 0))
-                    $model->vouchers->total_amount = $model->vouchers->total_amount - $model->vouchers->discount;
-
+//                if (!empty($model->vouchers->discount) && ($model->vouchers->discount != 0))
+//                    $model->vouchers->total_amount = $model->vouchers->total_amount - $model->vouchers->discount;
+                $model->vouchers->discount =0;
                 $model->vouchers->total_tax_1 = $update_amounts->tax_1;
                 $model->vouchers->total_tax_2 = $update_amounts->tax_2;
 
