@@ -37,7 +37,7 @@
                     ),	
                     array(
                         'name'=>'carrier_name',
-                        'value'=>$model->jobs->carrier_name.' '.$model->jobs->voyage_no ,
+                        'value'=>$model->jobs->liner_carrier_name.' '.$model->jobs->voyage_no ,
                     ),	
                     array(
                         'name'=>'origin',
