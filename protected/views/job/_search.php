@@ -179,8 +179,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'carrier_name'); ?>
-		<?php echo $form->textField($model,'carrier_name',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->label($model,'liner_carrier_name'); ?>
+		<?php echo $form->textField($model,'liner_carrier_name',array('size'=>60,'maxlength'=>100)); ?>
       		<?php echo $form->textField($model,'voyage_no',array('size'=>25,'maxlength'=>25)); ?>
 	</div>
 
@@ -276,7 +276,53 @@
                             'maxlength' => '12', // textField maxlength
                         ),
                     ));
-                ?>	</div>
+                ?>	
+        </div>
+    
+	<div class="row">
+		<?php echo $form->label($model,'mbl_mawb_no'); ?>
+		<?php echo $form->textField($model,'mbl_mawb_no',array('size'=>20,'maxlength'=>50)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'mbl_mawb_date'); ?>
+                <?php
+                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                        'model' => $model,
+                        'attribute' => 'mbl_mawb_date',
+                        'options' => array(
+                            'showOn' => 'both', // also opens with a button
+                            'dateFormat' => 'yy-mm-dd',
+                        ),
+                        'htmlOptions' => array(
+                            'size' => '12', // textField size
+                            'maxlength' => '12', // textField maxlength
+                        ),
+                    ));
+                ?>	
+        </div>
+	<div class="row">
+		<?php echo $form->label($model,'hbl_hawb_no'); ?>
+		<?php echo $form->textField($model,'hbl_hawb_no',array('size'=>20,'maxlength'=>50)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'hbl_hawb_date'); ?>
+                <?php
+                    $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                        'model' => $model,
+                        'attribute' => 'hbl_hawb_date',
+                        'options' => array(
+                            'showOn' => 'both', // also opens with a button
+                            'dateFormat' => 'yy-mm-dd',
+                        ),
+                        'htmlOptions' => array(
+                            'size' => '12', // textField size
+                            'maxlength' => '12', // textField maxlength
+                        ),
+                    ));
+                ?>	
+        </div>
 
 	<div class="row">
 		<?php echo $form->label($model,'transhipment_arrival_date'); ?>

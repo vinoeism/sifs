@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	//array('label'=>'List Job', 'url'=>array('index')),
-	array('label'=>'Manage Job', 'url'=>array('admin')),
+	array('label'=>'List Job', 'url'=>array('index')),
+	//array('label'=>'Manage Job', 'url'=>array('admin')),
 );
 ?>
 
