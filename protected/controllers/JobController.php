@@ -96,12 +96,24 @@ class JobController extends Controller
                                 )
                             )
                         );
+                $contrsDataProvider= new CActiveDataProvider('Package',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=>  $this->loadModel($id)->id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
                 $this->render('view',array(
 			'model'=>$this->loadModel($id),
                         'voucherDataProvider'=>$voucherDataProvider,
                         'tasksDataProvider'=>$tasksDataProvider,
                         'statusDataProvider'=>$statusDataProvider,
                         'invoiceDataProvider'=>$invoiceDataProvider,
+                        'contrsDataProvider'=>$contrsDataProvider,
 		));
 	}
 
@@ -116,7 +128,9 @@ class JobController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
                 $branchesDataProvider = CHtml::listData(Yii::app()->session['branches'],'id','branch_name');
-                
+                $model->REFNO = Job::model()->createJobREF();
+                $model->init_date = date('Y-m-d');
+
 		if(isset($_POST['Job']))
 		{
 			$model->attributes=$_POST['Job'];
@@ -158,10 +172,11 @@ class JobController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
+                $formName = isset($_GET['formName'])?$_GET['formName']:'';
 		$this->render('update',array(
 			'model'=>$model,
                         'branchesDataProvider'=>$branchesDataProvider,
+                        'formName'=>$formName,
 		));
 	}
 
