@@ -95,7 +95,7 @@ class PackageController extends Controller
                                 $model->jobs->gross_weight_unit = $PackageModel[0]->weight_unit;
                                 $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
                                 $model->jobs->chargeable_weight_unit = Package::UNIT_CNTRS;
-                                $model->jobs->packages = $PackageModel[0]->total_quantity." Container(s)";
+                                $model->jobs->packages = "".$PackageModel[0]->total_quantity." ".Package::TYPE_CONTR;
                                 $model->jobs->save();
 
                             } else {
@@ -111,7 +111,7 @@ class PackageController extends Controller
                                 $model->jobs->gross_weight_unit = $PackageModel[0]->weight_unit;
                                 $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
                                 $model->jobs->chargeable_weight_unit = $PackageModel[0]->weight_unit;
-                                $model->jobs->packages = $PackageModel[0]->total_quantity." Package(s)";
+                                $model->jobs->packages = $PackageModel[0]->total_quantity." ".Package::TYPE_PKG;
                                 $model->jobs->save();                                
                             }
                             $this->redirect(array('job/view','id'=>$model->job_id));
