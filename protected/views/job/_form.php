@@ -16,30 +16,26 @@
 	<?php echo $form->errorSummary($model); ?>
 	
         <div class="row">
-		<?php echo $form->labelEx($model,'type / mode / terms'); ?>
+		<?php echo $form->labelEx($model,'branch_id'); ?>
+		<?php echo $form->dropDownList($model,'branch_id',$branchesDataProvider); ?>
 		<?php echo $form->dropDownList($model,'type',$model->getTypeOptions()); ?>
 		<?php echo $form->dropDownList($model,'mode',$model->getModeOptions()); ?>
                 <?php echo $form->dropDownList($model,'terms',$model->getTermsOptions()); ?>
+		<?php echo $form->textField($model,'REFNO',array('size'=>25,'maxlength'=>50)); ?>            
                 <?php echo $form->error($model,'type'); ?>
-	</div>
-        
-	<div class="row">
-		<?php echo $form->labelEx($model,'REFNO'); ?>
-		<?php echo $form->textField($model,'REFNO',array('size'=>50,'maxlength'=>50)); ?>
+                <?php echo $form->error($model,'mode'); ?>
+                <?php echo $form->error($model,'terms'); ?>
 		<?php echo $form->error($model,'REFNO'); ?>
+		<?php echo $form->error($model,'branch_id'); ?>
 	</div>
 
         <div class="row">
-		<?php echo $form->labelEx($model,'client_id'); ?>
+		<?php echo $form->labelEx($model,'client_id | Client REF No(if any)'); ?>
 		<?php echo $form->dropDownList($model,'client_id',$model->getPartyOptions(), array('prompt'=>'-- Select Client --',)); ?>
+		<?php echo $form->textField($model,'Client_REFNO',array('size'=>20,'maxlength'=>50)); ?>            
                 <?php echo $form->error($model,'client_id'); ?>
-        </div>
-        
-	<div class="row">
-		<?php echo $form->labelEx($model,'Client_REFNO'); ?>
-		<?php echo $form->textField($model,'Client_REFNO',array('size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'Client_REFNO'); ?>
-	</div>
+        </div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'init_date'); ?>
@@ -60,11 +56,6 @@
                 <?php echo $form->error($model,'init_date'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'branch_id'); ?>
-		<?php echo $form->dropDownList($model,'branch_id',$branchesDataProvider); ?>
-		<?php echo $form->error($model,'branch_id'); ?>
-	</div>
 <!--
 	<div class="row">
 		<?php echo $form->labelEx($model,'quote_id'); ?>
@@ -82,6 +73,12 @@
 		<?php echo $form->error($model,'agent'); ?>
         </div>
 
+<div class="row">
+		<?php echo $form->labelEx($model,'cargo'); ?>
+		<?php echo $form->textArea($model,'cargo',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'cargo'); ?>
+	</div>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'enquiry_by'); ?>
 		<?php echo $form->textField($model,'enquiry_by'); ?>
@@ -93,31 +90,7 @@
 		<?php echo $form->textField($model,'handled_by'); ?>
 		<?php echo $form->error($model,'handled_by'); ?>
 	</div>
-<!--
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_by'); ?>
-		<?php echo $form->textField($model,'created_by'); ?>
-		<?php echo $form->error($model,'created_by'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_on'); ?>
-		<?php echo $form->textField($model,'created_on'); ?>
-		<?php echo $form->error($model,'created_on'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'updated_by'); ?>
-		<?php echo $form->textField($model,'updated_by'); ?>
-		<?php echo $form->error($model,'updated_by'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'updated_on'); ?>
-		<?php echo $form->textField($model,'updated_on'); ?>
-		<?php echo $form->error($model,'updated_on'); ?>
-	</div>
--->
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

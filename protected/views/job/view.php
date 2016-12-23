@@ -9,18 +9,19 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	//array('label'=>'List Job', 'url'=>array('index')),
-	array('label'=>'Create Job', 'url'=>array('create')),
-	array('label'=>'Delete Job', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Create New Job', 'url'=>array('create')),
+        array('label'=>'Update '.$model->REFNO, 'url'=>array('update', 'id'=>$model->id)),
+    
+	array('label'=>'Delete '.$model->REFNO, 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 if ($model->mode == 'SEA FCL') {
     $this->sidemenu = array(
-            array('label'=>'Update '.$model->REFNO, 'url'=>array('update', 'id'=>$model->id)),
-            array('label'=>'Update Cargo details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'CARGO')),    
-            array('label'=>'Update Contr details', 'url'=>array('package/create', 'jobID'=>$model->id, 'formName'=>'CONTR')),    
+//            array('label'=>'Update Cargo details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'CARGO')),    
             array('label'=>'Update Routing details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'ROUTING')),
             array('label'=>'Update Docs details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'DOCS')),
             array('label'=>'', 'url'=>array('', 'id'=>$model->id, 'formName'=>'DOCS')),
 
+            array('label'=>'Add Contr details', 'url'=>array('package/create', 'jobID'=>$model->id, 'formName'=>'CONTR')),            
             array('label'=>'Add Status', 'url'=>array('modulestatus/create','moduleid'=>$model->id, 'modulename'=>"JOB")),
             array('label'=>'Add Task', 'url'=>array('task/create','jobID'=>$model->id)),
             array('label'=>'Add Voucher', 'url'=>array('voucher/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)),
@@ -28,12 +29,11 @@ if ($model->mode == 'SEA FCL') {
     );
 } else {
     $this->sidemenu = array(
-    	array('label'=>'Update '.$model->REFNO, 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Update Cargo details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'CARGO')),    
-        array('label'=>'Update Package details', 'url'=>array('package/create', 'jobID'=>$model->id, 'formName'=>'PKG')),    
+//	array('label'=>'Update Cargo details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'CARGO')),    
 	array('label'=>'Update Routing details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'ROUTING')),
 	array('label'=>'Update Docs details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'DOCS')),
-
+        
+        array('label'=>'Add Package details', 'url'=>array('package/create', 'jobID'=>$model->id, 'formName'=>'PKG')),            
         array('label'=>'Add Status', 'url'=>array('modulestatus/create','moduleid'=>$model->id, 'modulename'=>"JOB")),
         array('label'=>'Add Task', 'url'=>array('task/create','jobID'=>$model->id)),
         array('label'=>'Add Voucher', 'url'=>array('voucher/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)),
@@ -83,7 +83,7 @@ if ($model->mode == 'SEA FCL') {
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'cargo',
+                'cargo',
 		'packages',
                 array(
                   'name'=> 'gross_weight',
@@ -97,10 +97,9 @@ if ($model->mode == 'SEA FCL') {
                 ),
                 array(
                   'name'=> 'chargeable_weight',
-                    'value' => 	$model->chargeable_weight.' '.$model->chargeable_weight_unit,
+                    'value' => CHtml::encode(isset($model->chargeable_weight)?$model->chargeable_weight.' '.$model->chargeable_weight_unit:"Not set"),
 		
                 ),
-		'document_references',
 	),
 )); ?>
 
@@ -159,7 +158,10 @@ if ($model->mode == 'SEA FCL') {
                   'name'=> 'chargeable_weight',
                     'value' => 	'$data->chargeable_weight." ".$data->weight_unit'
                 ),
-                'quantity',
+                array(
+                  'name'=> 'quantity',
+                    'value' => 	'$data->quantity." ".$data->subtype." ".$data->type'
+                ),
         ),
         'summaryText' => '', 
 )); } 
