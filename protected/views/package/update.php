@@ -8,7 +8,10 @@ $this->breadcrumbs=array(
 	'Package',
 );
 
-
+$this->menu=array(
+	array('label'=>'Delete', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this ?')),
+	//array('label'=>'Manage Job', 'url'=>array('admin')),
+);
 ?>
 
 <?php if ($formName == 'CONTR') { ?>
