@@ -36,7 +36,7 @@
  * @property string $origin
  * @property string $destination
  * @property string $transhipment
- * @property string $carrier_name
+ * @property string $liner_carrier_name 
  * @property string $voyage_no
  * @property string $pickup_date
  * @property string $stuffing_date
@@ -51,6 +51,12 @@
  * @property string $arrival_date
  * @property integer $cfs_id
  * @property string $contr_nos
+ * @property string $booking_ref 
+ * @property string $mbl_mawb_no 
+ * @property string $mbl_mawb_date 
+ * @property string $hbl_hawb_no 
+ * @property string $hbl_hawb_date 
+ * @property string $cha_name
  * @property string $truck_nos
  * @property string $comments
  * @property integer $enquiry_by
@@ -71,7 +77,8 @@ class Job extends sifsActiveRecord
          const TYPE_DOMESTIC = 'DOMESTIC';
          const TYPE_MISC = 'MISC';
          
-         const MODE_SEA = 'SEA';
+         const MODE_SEA_LCL = 'SEA LCL';
+         const MODE_SEA_FCL = 'SEA FCL';
          const MODE_AIR = 'AIR';
          const MODE_COURIER = 'COURIER';
          const MODE_LAND = 'LAND';
@@ -83,9 +90,11 @@ class Job extends sifsActiveRecord
          const TERMS_DDU = 'DDU';
          const TERMS_DDP = 'DDP';
          
+         // unit definitions should not cross 5 chars
          const UNIT_KGS = 'Kg(s)';
          const UNIT_MTS = 'MT(s)';
          const UNIT_CBM = 'CBM';
+         const UNIT_CNTRS = 'CNTRs';
          
          public $shipp_search;
          public $conee_search;
@@ -122,11 +131,11 @@ class Job extends sifsActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('REFNO, client_id, init_date, branch_id, enquiry_by, handled_by', 'required'),
+			array('REFNO, client_id, init_date, branch_id, cargo, enquiry_by, handled_by', 'required'),
 			array('branch_id, quote_id, shipper, consignee, agent, cfs_id, enquiry_by, handled_by, created_by, updated_by', 'numerical', 'integerOnly'=>true),
 			array('assessable_value, duty_value, gross_weight, nett_weight, chargeable_weight', 'numerical'),
-			array('REFNO, Client_REFNO, origin, destination, transhipment, BE_SB_no', 'length', 'max'=>50),
-			array('cargo, packages, carrier_name, bond_comments', 'length', 'max'=>100),
+			array('REFNO, Client_REFNO, origin, destination, transhipment, BE_SB_no, booking_ref, mbl_mawb_no, hbl_hawb_no', 'length', 'max'=>50),
+			array('cargo, packages, bond_comments, liner_carrier_name, cha_name', 'length', 'max'=>100),
 			array('duty_mode', 'length', 'max'=>10),
                         array('isActive','boolean'),
                         array('REFNO','unique'),
@@ -136,11 +145,11 @@ class Job extends sifsActiveRecord
 			array('voyage_no', 'length', 'max'=>25),
 			array('bond_no', 'length', 'max'=>20),
 			array('comments', 'length', 'max'=>500),
-			array('init_date, duty_date, pickup_date, stuffing_date, BE_SB_date, bond_date, onboard_date, transhipment_arrival_date, transhipment_date, arrival_date, created_on, updated_on', 'safe'),
-                    	array('init_date, duty_date, pickup_date, stuffing_date, BE_SB_date, bond_date, onboard_date, transhipment_arrival_date, transhipment_date, arrival_date','date', 'format'=>array('yyyy-MM-dd',), 'allowEmpty'=>true),
+			array('init_date, duty_date, pickup_date, stuffing_date, BE_SB_date, bond_date, onboard_date, transhipment_arrival_date, transhipment_date, arrival_date, mbl_mawb_date, hbl_hawb_date, created_on, updated_on', 'safe'),
+                    	array('init_date, duty_date, pickup_date, stuffing_date, BE_SB_date, bond_date, onboard_date, transhipment_arrival_date, transhipment_date, arrival_date, mbl_mawb_date, hbl_hawb_date','date', 'format'=>array('yyyy-MM-dd',), 'allowEmpty'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, REFNO, Client_REFNO, init_date, branch_id, quote_id, shipper, consignee, agent, cargo, packages, assessable_value, duty_value, duty_date, duty_mode, type, mode, terms, gross_weight, gross_weight_unit, nett_weight, nett_weight_unit, chargeable_weight, chargeable_weight_unit, document_references, origin, destination, transhipment, carrier_name, voyage_no, pickup_date, stuffing_date, BE_SB_no, BE_SB_date, bond_no, bond_date, bond_comments, onboard_date, transhipment_arrival_date, transhipment_date, arrival_date, cfs_id, contr_nos, truck_nos, comments, enquiry_by, handled_by, created_by, created_on, updated_by, updated_on, shipp_search, conee_search, agnt_search, transporter_search, cfs_search, branch_search, client_search', 'safe', 'on'=>'search'),
+			array('id, REFNO, Client_REFNO, init_date, branch_id, quote_id, shipper, consignee, agent, cargo, packages, assessable_value, duty_value, duty_date, duty_mode, type, mode, terms, gross_weight, gross_weight_unit, nett_weight, nett_weight_unit, chargeable_weight, chargeable_weight_unit, document_references, origin, destination, transhipment, voyage_no, pickup_date, stuffing_date, BE_SB_no, BE_SB_date, bond_no, bond_date, bond_comments, onboard_date, transhipment_arrival_date, transhipment_date, arrival_date, cfs_id, contr_nos, mbl_mawb_no, hbl_hawb_no, booking_ref, liner_carrier_name, cha_name, mbl_mawb_date, hbl_hawb_date, truck_nos, comments, enquiry_by, handled_by, created_by, created_on, updated_by, updated_on, shipp_search, conee_search, agnt_search, transporter_search, cfs_search, branch_search, client_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -162,6 +171,7 @@ class Job extends sifsActiveRecord
                     'tasks'=> array(self::HAS_MANY, 'Task', 'job_id'),
                     'vouchers'=>array(self::HAS_MANY, 'Voucher', 'job_id'),
                     'invoices'=>array(self::HAS_MANY, 'Invoice', 'job_id'),
+                    'packages'=>array(self::HAS_MANY, 'Package', 'job_id'),
 		);
 	}
 
@@ -187,7 +197,7 @@ class Job extends sifsActiveRecord
 			'packages' => 'Packages',
 			'assessable_value' => 'Assessable Value',
 			'duty_value' => 'Duty Value',
-			'duty_date' => 'Duty Date',
+			'duty_date' => 'Duty Paid Date',
 			'duty_mode' => 'Duty Mode',
 			'type' => 'Type',
 			'mode' => 'Mode',
@@ -202,7 +212,7 @@ class Job extends sifsActiveRecord
 			'origin' => 'Origin',
 			'destination' => 'Destination',
 			'transhipment' => 'Transhipment',
-			'carrier_name' => 'Carrier Name',
+			'liner_carrier_name' => 'Liner/Carrier Name',
 			'voyage_no' => 'Voyage No',
 			'pickup_date' => 'Pickup Date',
 			'stuffing_date' => 'Stuffing Date',
@@ -210,6 +220,10 @@ class Job extends sifsActiveRecord
 			'BE_SB_date' => 'B.E / S.B Date',
 			'bond_no' => 'Bond No',
 			'bond_date' => 'Bond Date',
+                        'mbl_mawb_no' => 'MBL / MAWB No', 
+                        'hbl_hawb_no' => 'HBL / HAWB No',
+                        'mbl_mawb_date' => 'MBL / MAWB Date', 
+                        'hbl_hawb_date' => 'HBL / HAWB Date',
 			'bond_comments' => 'Bond Comments',
 			'onboard_date' => 'Onboard Date',
 			'transhipment_arrival_date' => 'Transhipment Arrival Date',
@@ -217,6 +231,8 @@ class Job extends sifsActiveRecord
 			'arrival_date' => 'Arrival Date',
 			'cfs_id' => 'Cfs',
 			'contr_nos' => 'Contr Nos',
+                        '$booking_ref' => 'Booking REF',
+                        'cha_name' => 'CHA Name',
 			'truck_nos' => 'Truck Nos',
 			'comments' => 'Comments',
 			'enquiry_by' => 'Enquiry By',
@@ -277,7 +293,7 @@ class Job extends sifsActiveRecord
 		$criteria->compare('origin',$this->origin,true);
 		$criteria->compare('destination',$this->destination,true);
 		$criteria->compare('transhipment',$this->transhipment,true);
-		$criteria->compare('carrier_name',$this->carrier_name,true);
+		$criteria->compare('liner_carrier_name',$this->liner_carrier_name,true);
 		$criteria->compare('voyage_no',$this->voyage_no,true);
 		$criteria->compare('pickup_date',$this->pickup_date,true);
 		$criteria->compare('stuffing_date',$this->stuffing_date,true);
@@ -292,6 +308,14 @@ class Job extends sifsActiveRecord
 		$criteria->compare('arrival_date',$this->arrival_date,true);
 		$criteria->compare('cfs_id',$this->cfs_id);
 		$criteria->compare('contr_nos',$this->contr_nos,true);
+		$criteria->compare('booking_ref',$this->booking_ref,true);                        
+		$criteria->compare('mbl_mawb_no',$this->mbl_mawb_no,true);
+		$criteria->compare('mbl_mawb_date',$this->mbl_mawb_date,true);
+		$criteria->compare('hbl_hawb_no',$this->hbl_hawb_no,true);
+		$criteria->compare('hbl_hawb_date',$this->hbl_hawb_date,true);
+		$criteria->compare('contr_nos',$this->contr_nos,true);
+		$criteria->compare('cha_name',$this->cha_name,true);
+                
 		$criteria->compare('truck_nos',$this->truck_nos,true);
 		$criteria->compare('comments',$this->comments,true);
 		$criteria->compare('enquiry_by',$this->enquiry_by);
@@ -364,7 +388,8 @@ class Job extends sifsActiveRecord
         public function getModeOptions()
         {
             return array(
-                self::MODE_SEA=>'SEA',
+                self::MODE_SEA_LCL=>'SEA LCL',
+                self::MODE_SEA_FCL=>'SEA FCL',                
                 self::MODE_AIR=>'AIR',
                 self::MODE_COURIER=>'COURIER',
                 self::MODE_LAND=>'LAND',
@@ -397,6 +422,7 @@ class Job extends sifsActiveRecord
                 self::UNIT_CBM=>'CBM',
                 self::UNIT_KGS=>'Kilogram(s)',
                 self::UNIT_MTS=>'Metric Tonne(s)',
+                self::UNIT_CNTRS=>'Containers',
 
             );
         }
@@ -424,6 +450,36 @@ class Job extends sifsActiveRecord
 
         }
         
+        /** 
+         * Retrieves the REF No of the latest job
+         * @return string the latest Job REF No as a string
+         */
+        public function getLatestJobREF()
+        {
+            $criteria = new CDbCriteria(); 
+            $criteria->select = 'REFNO';
+            $criteria->condition = 'created_on = (select max(created_on) from job)';
+            $latestJob = Job::model()->find($criteria);
+            if (!empty($latestJob)) 
+                return $latestJob->REFNO; 
+            else 
+                return 0;
+        }
+
+        /** 
+         * Retrieves the REF No of the latest job
+         * @return string the latest Job REF No as a string
+         */
+        public function createJobREF()
+        {
+            $latestJobREFNo = Job::model()->getLatestJobREF();
+            $jobREFFNO = 'CMPYYYY00000';
+            if ($latestJobREFNo!='' || $latestJobREFNo!=0) {
+                $numpart = substr($latestJobREFNo,-4)+1;
+                $jobREFFNO = substr($latestJobREFNo,0,-4).$numpart;
+            }
+            return $jobREFFNO;
+        }
         
         /**
          * Method to do some data massaging before being input to DB
@@ -454,7 +510,10 @@ class Job extends sifsActiveRecord
                 $this->transhipment_date = NULL;
             if ($this->transhipment_date == '')
                 $this->transhipment_date = NULL;
-            
+            if ($this->mbl_mawb_date == '')
+                $this->mbl_mawb_date = NULL;
+            if ($this->hbl_hawb_date == '')
+                $this->hbl_hawb_date = NULL;           
 
             return parent::beforeSave();
         }
