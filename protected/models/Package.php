@@ -26,24 +26,24 @@ class Package extends CActiveRecord
         /** constant definitions
          * 
          */    
-        // weight units
+        // weight units should not cross 5 characters
         const UNIT_MGS = 'mg(s)';    
-        const UNIT_GMS = 'gram(s)';    
+        const UNIT_GMS = 'gm(s)';    
         const UNIT_KGS = 'Kg(s)';
         const UNIT_MTS = 'MT(s)';
         const UNIT_CBM = 'CBM';
-        const UNIT_CNTRS = 'Contrs';
+        const UNIT_CNTRS = 'CNTRs';
         // length units
-        const UNIT_MM = 'mm';
-        const UNIT_CM = 'cm';
-        const UNIT_M = 'Metres';
-        const UNIT_FT = 'foot';
-        const UNIT_IN = 'inches';         
+        const UNIT_MM = 'mm(s)';
+        const UNIT_CM = 'cm(s)';
+        const UNIT_M = 'M(s)';
+        const UNIT_FT = 'ft';
+        const UNIT_IN = 'in';         
         // type of packages
-        const TYPE_CONTR =  'Containers';
-        const TYPE_CARTON =  'Cartons';
-        const TYPE_PKG =  'Packages';
-        const TYPE_PALLET =  'Pallets';
+        const TYPE_CONTR =  'Container(s)';
+        const TYPE_CARTON =  'Carton(s)';
+        const TYPE_PKG =  'Package(s)';
+        const TYPE_PALLET =  'Pallet(s)';
         //contr types
         const SUB_TYPE_20DVCONTR = '20\' Dry Van ';
         const SUB_TYPE_20FTCONTR = '20\' Flat Track ';
@@ -57,6 +57,12 @@ class Package extends CActiveRecord
         //pkg types
         const SUB_TYPE_WOODEN = 'Wooden';
         const SUB_TYPE_CARDBOARD = 'Cardboard';
+        
+        //public variables
+        public $total_gross_weight;
+        public $total_net_weight;
+        public $total_chargeable_weight;
+        public $total_quantity;
         
 	/**
 	 * Returns the static model of the specified AR class.
@@ -189,11 +195,11 @@ class Package extends CActiveRecord
         public function getDimensionUnitsOptions()
         {
             return array(
-                self::UNIT_MM=>'mm',
-                self::UNIT_CM=>'cm',
-                self::UNIT_M=>'metres',
-                self::UNIT_FT=>'foot',
-                self::UNIT_IN=>'inches',
+                self::UNIT_MM=>'mm(s)',
+                self::UNIT_CM=>'cm(s)',
+                self::UNIT_M=>'metre(s)',
+                self::UNIT_FT=>'ft',
+                self::UNIT_IN=>'in',
             );
         }      
         
@@ -205,9 +211,9 @@ class Package extends CActiveRecord
         {
             return array(
 //                self::TYPE_CONTR=>'Containers', //contrs are disabled because they are updated from the code directly.
-                self::TYPE_CARTON=>'Cartons',
-                self::TYPE_PKG=>'Packages',
-                self::TYPE_PALLET=>'Pallets',
+                self::TYPE_CARTON=>'Carton(s)',
+                self::TYPE_PKG=>'Package(s)',
+                self::TYPE_PALLET=>'Pallet(s)',
             );
         }   
         
