@@ -32,7 +32,7 @@ class PackageController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','delete'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -65,6 +65,7 @@ class PackageController extends Controller
 		$model=new Package;
                 if(isset($_GET['jobID'])) {
                     $model->job_id = $_GET['jobID'];
+                    $model->cargo = $model->jobs->cargo;
                 }
                 if(isset($_GET['formName'])) {
                     if($_GET['formName']=='CONTR') {
@@ -72,18 +73,49 @@ class PackageController extends Controller
                     } else {
                         $model->name = "Package";
                     }
-                }      
-                            
+                }               
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Package']))
 		{
 			$model->attributes=$_POST['Package'];
-                        $jobModel = Job::model()->findAll('id = '.$model->job_id);
-                        $jobModel[0]->id; 
-			if($model->save())
-				$this->redirect(array('job/view','id'=>$model->job_id));
+
+                        if($model->save()) {
+                            if ($model->type == Package::TYPE_CONTR) {                            
+                                $criteria = new CDbCriteria;
+                                $criteria->select = 'sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
+                                $criteria->condition = 'job_id = '.$model->job_id;
+                                $criteria->group = 'job_id';
+                                $PackageModel = $model->findAll($criteria);
+
+                                $model->jobs->gross_weight = $PackageModel[0]->total_gross_weight;
+                                $model->jobs->nett_weight = $PackageModel[0]->total_net_weight;
+                                $model->jobs->chargeable_weight = $PackageModel[0]->total_quantity;
+                                $model->jobs->gross_weight_unit = $PackageModel[0]->weight_unit;
+                                $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
+                                $model->jobs->chargeable_weight_unit = Package::UNIT_CNTRS;
+                                $model->jobs->packages = $PackageModel[0]->total_quantity." Container(s)";
+                                $model->jobs->save();
+
+                            } else {
+                                $criteria = new CDbCriteria;
+                                $criteria->select = 'sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, sum(chargeable_weight) as total_chargeable_weight, SUM( quantity ) as total_quantity, weight_unit';
+                                $criteria->condition = 'job_id = '.$model->job_id;
+                                $criteria->group = 'job_id';
+                                $PackageModel = $model->findAll($criteria);
+
+                                $model->jobs->gross_weight = $PackageModel[0]->total_gross_weight;
+                                $model->jobs->nett_weight = $PackageModel[0]->total_net_weight;
+                                $model->jobs->chargeable_weight = $PackageModel[0]->total_chargeable_weight;
+                                $model->jobs->gross_weight_unit = $PackageModel[0]->weight_unit;
+                                $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
+                                $model->jobs->chargeable_weight_unit = $PackageModel[0]->weight_unit;
+                                $model->jobs->packages = $PackageModel[0]->total_quantity." Package(s)";
+                                $model->jobs->save();                                
+                            }
+                            $this->redirect(array('job/view','id'=>$model->job_id));
+                        }
 		}
 
 		$this->render('create',array(
@@ -100,16 +132,53 @@ class PackageController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Package']))
 		{
-			$model->attributes=$_POST['Package'];
+			$model->attributes=$_POST['Package'];                              
+
 			if($model->save())
-				$this->redirect(array('job/view','id'=>$model->job_id));
-		}
+                        {
+                            if ($model->type == Package::TYPE_CONTR) {                            
+                             
+
+                                $criteria = new CDbCriteria;
+                                $criteria->select = 'sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
+                                $criteria->condition = 'job_id = '.$model->job_id;
+                                $criteria->group = 'job_id';
+                                $PackageModel = $model->findAll($criteria);
+                                $model->jobs->gross_weight = $PackageModel[0]->total_gross_weight;
+                                $model->jobs->nett_weight = $PackageModel[0]->total_net_weight;
+                                $model->jobs->chargeable_weight = $PackageModel[0]->total_quantity;
+                                $model->jobs->gross_weight_unit = $PackageModel[0]->weight_unit;
+                                $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
+                                $model->jobs->chargeable_weight_unit = Package::UNIT_CNTRS;
+                                $model->jobs->packages = "".$PackageModel[0]->total_quantity." ".Package::TYPE_CONTR;
+                                $model->jobs->save();   
+
+                            } else {
+                                $criteria = new CDbCriteria;
+                                $criteria->select = 'sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, sum(chargeable_weight) as total_chargeable_weight, SUM( quantity ) as total_quantity, weight_unit';
+                                $criteria->condition = 'job_id = '.$model->job_id;
+                                $criteria->group = 'job_id';
+                                $PackageModel = $model->findAll($criteria);
+
+                                $model->jobs->gross_weight = $PackageModel[0]->total_gross_weight;
+                                $model->jobs->nett_weight = $PackageModel[0]->total_net_weight;
+                                $model->jobs->chargeable_weight = $PackageModel[0]->total_chargeable_weight;
+                                $model->jobs->gross_weight_unit = $PackageModel[0]->weight_unit;
+                                $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
+                                $model->jobs->chargeable_weight_unit = $PackageModel[0]->weight_unit;
+                                $model->jobs->packages = $PackageModel[0]->total_quantity." ".Package::TYPE_PKG;
+                                $model->jobs->save();   
+                            }
+                            $model->jobs->save();                                
+                            $this->redirect(array('job/view','id'=>$model->job_id));
+                        }		
+                        
+                }
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -124,11 +193,50 @@ class PackageController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+                $model=$this->loadModel($id);
+                $job_id = $model->job_id;
+                $jobModel = Job::model()->findByPk($job_id);
+                $packageType = $model->type;
+                
+                $model->delete();
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+                if ($packageType == Package::TYPE_CONTR) {  
+                    $criteria = new CDbCriteria;
+                    $criteria->select = 'sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
+                    $criteria->condition = 'job_id = '.$job_id;
+                    $criteria->group = 'job_id';
+                    $PackageModel = Package::model()->findAll($criteria);
+
+                    $jobModel->gross_weight = $PackageModel[0]->total_gross_weight;
+                    $jobModel->nett_weight = $PackageModel[0]->total_net_weight;
+                    $jobModel->chargeable_weight = $PackageModel[0]->total_quantity;
+                    $jobModel->gross_weight_unit = $PackageModel[0]->weight_unit;
+                    $jobModel->nett_weight_unit = $PackageModel[0]->weight_unit;
+                    $jobModel->chargeable_weight_unit = Package::UNIT_CNTRS;
+                    $jobModel->packages = $PackageModel[0]->total_quantity." ".Package::TYPE_CONTR;
+                    $jobModel->save();
+                } else {
+                    $criteria = new CDbCriteria;
+                    $criteria->select = 'sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, sum(chargeable_weight) as total_chargeable_weight, SUM( quantity ) as total_quantity, weight_unit';
+                    $criteria->condition = 'job_id = '.$job_id;
+                    $criteria->group = 'job_id';
+                    $PackageModel = Package::model()->findAll($criteria);
+
+                    $jobModel->gross_weight = $PackageModel[0]->total_gross_weight;
+                    $jobModel->nett_weight = $PackageModel[0]->total_net_weight;
+                    $jobModel->chargeable_weight = $PackageModel[0]->total_chargeable_weight;
+                    $jobModel->gross_weight_unit = $PackageModel[0]->weight_unit;
+                    $jobModel->nett_weight_unit = $PackageModel[0]->weight_unit;
+                    $jobModel->chargeable_weight_unit = $PackageModel[0]->weight_unit;
+                    $jobModel->packages = $PackageModel[0]->total_quantity." ".Package::TYPE_PKG;
+                    $jobModel->save();  
+                }
+                $this->redirect(array('job/view','id'=>$job_id));
+
+
+//		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+//		if(!isset($_GET['ajax']))
+//			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**

@@ -187,7 +187,8 @@ class JobController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+                // instead of deleting jobs, they are just made inactive for easier recovery later
+		$this->loadModel($id)->isActive = false;
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
