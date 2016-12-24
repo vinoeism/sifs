@@ -9,33 +9,25 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	//array('label'=>'List Job', 'url'=>array('index')),
-	array('label'=>'Create New Job', 'url'=>array('create')),
+	//array('label'=>'Create New Job', 'url'=>array('create')),
         array('label'=>'Update '.$model->REFNO, 'url'=>array('update', 'id'=>$model->id)),
-    
-	array('label'=>'Delete '.$model->REFNO, 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+        array('label'=>'Update Routing details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'ROUTING')),
+        array('label'=>'Update Docs details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'DOCS')),
+        array('label'=>'Add Contr details', 'url'=>array('package/create', 'jobID'=>$model->id, 'formName'=>'CONTR')),            
+        array('label'=>'Add Status', 'url'=>array('modulestatus/create','moduleid'=>$model->id, 'modulename'=>"JOB")),
+        array('label'=>'Add Task', 'url'=>array('task/create','jobID'=>$model->id)),   
+//        array('label'=>'', 'url'=>array('', 'id'=>$model->id, 'formName'=>'DOCS')),
+//	array('label'=>'Delete '.$model->REFNO, 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 if ($model->mode == 'SEA FCL') {
     $this->sidemenu = array(
 //            array('label'=>'Update Cargo details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'CARGO')),    
-            array('label'=>'Update Routing details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'ROUTING')),
-            array('label'=>'Update Docs details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'DOCS')),
-            array('label'=>'', 'url'=>array('', 'id'=>$model->id, 'formName'=>'DOCS')),
-
-            array('label'=>'Add Contr details', 'url'=>array('package/create', 'jobID'=>$model->id, 'formName'=>'CONTR')),            
-            array('label'=>'Add Status', 'url'=>array('modulestatus/create','moduleid'=>$model->id, 'modulename'=>"JOB")),
-            array('label'=>'Add Task', 'url'=>array('task/create','jobID'=>$model->id)),
             array('label'=>'Add Voucher', 'url'=>array('voucher/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)),
             array('label'=>'Add Invoice', 'url'=>array('invoice/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)),
     );
 } else {
     $this->sidemenu = array(
 //	array('label'=>'Update Cargo details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'CARGO')),    
-	array('label'=>'Update Routing details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'ROUTING')),
-	array('label'=>'Update Docs details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'DOCS')),
-        
-        array('label'=>'Add Package details', 'url'=>array('package/create', 'jobID'=>$model->id, 'formName'=>'PKG')),            
-        array('label'=>'Add Status', 'url'=>array('modulestatus/create','moduleid'=>$model->id, 'modulename'=>"JOB")),
-        array('label'=>'Add Task', 'url'=>array('task/create','jobID'=>$model->id)),
         array('label'=>'Add Voucher', 'url'=>array('voucher/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)),
         array('label'=>'Add Invoice', 'url'=>array('invoice/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)),
 );
