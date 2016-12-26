@@ -37,7 +37,7 @@ if (!isset($model->passed_by) || (isset($model->rejected_by))){
 	),
 )); ?>
 <br/>
-<h3>Total voucher amount INR <?php echo $model->total_amount+$model->total_tax_1+$model->total_tax_2-$model->tds-$model->discount ?></h3>
+<h3>Total voucher amount INR <?php echo $model->total_amount+$model->total_tax_1+$model->total_tax_2 ?></h3>
 
 <h2><?php echo $model->parties->party_name; ?> -- Bill details </h2>
 <?php $this->widget('zii.widgets.CDetailView', array(
@@ -139,14 +139,14 @@ if (!isset($model->passed_by) || (isset($model->rejected_by))){
     if (isset($model->tds) && ($model->tds!=0))
         $netamount = $netamount + $model->tds;
     if (isset($model->discount) && ($model->discount!=0))
-        $netamount = $netamount + $model->discount;
-    if ($model->bill_amount > $netamount && $netamount !=0)
+        $netamount = $netamount - $model->discount;
+    if ($model->bill_amount < $netamount && $netamount !=0)
     {
 ?>
 
     <img src="images/alert_icon.gif" alt="Warning!">  Bill amount doesn't match with voucher amount. Click <?php echo CHtml::link('here',array('discount', 'id'=>$model->id)); ?> to treat the difference as discount.
     
-<?php } elseif ($model->bill_amount < $netamount && $netamount !=0) { ?>
+<?php } elseif ($model->bill_amount > $netamount && $netamount !=0) { ?>
 
     <img src="images/alert_icon.gif" alt="Warning!">  Bill amount doesn't match with voucher amount. Edit voucher items (or) correct the bill amount.
 

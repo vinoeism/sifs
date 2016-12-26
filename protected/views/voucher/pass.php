@@ -9,10 +9,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	//array('label'=>'List Voucher', 'url'=>array('index')),
 	array('label'=>'Create Voucher', 'url'=>array('create')),
 	array('label'=>'View Voucher', 'url'=>array('view', 'id'=>$model->id)),
-	//array('label'=>'Manage Voucher', 'url'=>array('admin')),
 );
 ?>
 
