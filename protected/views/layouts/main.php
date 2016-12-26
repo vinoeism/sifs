@@ -44,6 +44,7 @@
                                 array('label'=>'Branch', 'url'=>array('/branch/index', )),
                                 array('label'=>'Party', 'url'=>array('/party/index')),
                                 array('label'=>'Jobs', 'url'=>array('/job/index', )),
+                                array('label'=>'Trips', 'url'=>array('/trip/index',)),
                                 array('label'=>'Expenses', 'url'=>array('/voucher/index', )),
                                 array('label'=>'Income', 'url'=>array('/invoice/index', )),
 				array('label'=>'Contact', 'url'=>array('/site/contact')),
