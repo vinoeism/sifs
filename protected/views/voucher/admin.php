@@ -69,6 +69,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                 ),
 		'towards',            
 		'total_amount',
+                'tds',
+                'total_tax_1',
+                'discount',
 		array(
                     'name'=>'passed_by',
                     'type'=>'raw',
