@@ -132,7 +132,7 @@ class Job extends sifsActiveRecord
 		// will receive user inputs.
 		return array(
 			array('REFNO, client_id, init_date, branch_id, cargo, enquiry_by, handled_by', 'required'),
-			array('branch_id, quote_id, shipper, consignee, agent, cfs_id, enquiry_by, handled_by, created_by, updated_by', 'numerical', 'integerOnly'=>true),
+			array('branch_id, quote_id, shipper, consignee, agent, transporter, cfs_id, enquiry_by, handled_by, created_by, updated_by', 'numerical', 'integerOnly'=>true),
 			array('assessable_value, duty_value, gross_weight, nett_weight, chargeable_weight', 'numerical'),
 			array('REFNO, Client_REFNO, origin, destination, transhipment, BE_SB_no, booking_ref, mbl_mawb_no, hbl_hawb_no', 'length', 'max'=>50),
 			array('cargo, packages, bond_comments, liner_carrier_name, cha_name', 'length', 'max'=>100),
@@ -149,7 +149,7 @@ class Job extends sifsActiveRecord
                     	array('init_date, duty_date, pickup_date, stuffing_date, BE_SB_date, bond_date, onboard_date, transhipment_arrival_date, transhipment_date, arrival_date, mbl_mawb_date, hbl_hawb_date','date', 'format'=>array('yyyy-MM-dd',), 'allowEmpty'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, REFNO, Client_REFNO, init_date, branch_id, quote_id, shipper, consignee, agent, cargo, packages, assessable_value, duty_value, duty_date, duty_mode, type, mode, terms, gross_weight, gross_weight_unit, nett_weight, nett_weight_unit, chargeable_weight, chargeable_weight_unit, document_references, origin, destination, transhipment, voyage_no, pickup_date, stuffing_date, BE_SB_no, BE_SB_date, bond_no, bond_date, bond_comments, onboard_date, transhipment_arrival_date, transhipment_date, arrival_date, cfs_id, contr_nos, mbl_mawb_no, hbl_hawb_no, booking_ref, liner_carrier_name, cha_name, mbl_mawb_date, hbl_hawb_date, truck_nos, comments, enquiry_by, handled_by, created_by, created_on, updated_by, updated_on, shipp_search, conee_search, agnt_search, transporter_search, cfs_search, branch_search, client_search', 'safe', 'on'=>'search'),
+			array('id, REFNO, Client_REFNO, init_date, branch_id, quote_id, shipper, consignee, agent, transporter, cargo, packages, assessable_value, duty_value, duty_date, duty_mode, type, mode, terms, gross_weight, gross_weight_unit, nett_weight, nett_weight_unit, chargeable_weight, chargeable_weight_unit, document_references, origin, destination, transhipment, voyage_no, pickup_date, stuffing_date, BE_SB_no, BE_SB_date, bond_no, bond_date, bond_comments, onboard_date, transhipment_arrival_date, transhipment_date, arrival_date, cfs_id, contr_nos, mbl_mawb_no, hbl_hawb_no, booking_ref, liner_carrier_name, cha_name, mbl_mawb_date, hbl_hawb_date, truck_nos, comments, enquiry_by, handled_by, created_by, created_on, updated_by, updated_on, shipp_search, conee_search, agnt_search, transporter_search, cfs_search, branch_search, client_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -273,6 +273,7 @@ class Job extends sifsActiveRecord
 		$criteria->compare('shipper',$this->shipper);
 		$criteria->compare('consignee',$this->consignee);
 		$criteria->compare('agent',$this->agent);
+                $criteria->compare('transporter', $this->transporter);
                 $criteria->compare('isActive',$this->isActive,true);
 		$criteria->compare('cargo',$this->cargo,true);
 		$criteria->compare('packages',$this->packages,true);
@@ -440,6 +441,28 @@ class Job extends sifsActiveRecord
         }
         
          /** 
+         * Retrieves the Parties for populating the CFS/Transporter fields
+         * @return array an array of all parties
+         */
+        public function getCFSOptions()
+        {
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'is_blacklisted = 0 AND party_type ="'.Party::TYPE_CFS.'"';
+            $partiesArray = CHtml::listData(Party::model()->findAll($criteria),'id','party_name');
+            return $partiesArray;
+        }       
+         /** 
+         * Retrieves the Parties for populating the CFS/Transporter fields
+         * @return array an array of all parties
+         */
+        public function getTransporterOptions()
+        {
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'is_blacklisted = 0 AND party_type ="'.Party::TYPE_TRANSPORTER.'"';
+            $partiesArray = CHtml::listData(Party::model()->findAll($criteria),'id','party_name');
+            return $partiesArray;
+        }  
+        /** 
          * Retrieves the Branches for populating the Branch field
          * @return array an array of all Branches
          */
