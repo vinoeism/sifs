@@ -17,8 +17,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'CFS | Transporter'); ?>
-		<?php echo $form->dropDownList($model,'cfs_id',$model->getPartyOptions(), array('prompt'=>'-- Select CFS --',)); ?>
-		<?php echo $form->dropDownList($model,'transporter',$model->getPartyOptions(), array('prompt'=>'-- Select Transporter --',)); ?>
+		<?php echo $form->dropDownList($model,'cfs_id',$model->getCFSOptions(), array('prompt'=>'-- Select CFS --',)); ?>
+		<?php echo $form->dropDownList($model,'transporter',$model->getTransporterOptions(), array('prompt'=>'-- Select Transporter --',)); ?>
 		<?php echo $form->error($model,'cfs_id'); ?>
             	<?php echo $form->error($model,'transporter'); ?>
         </div>
@@ -141,13 +141,6 @@
             	<?php echo $form->textField($model,'voyage_no',array('size'=>10,'maxlength'=>25)); ?>
 		<?php echo $form->error($model,'liner_carrier_name'); ?>
             	<?php echo $form->error($model,'voyage_no'); ?>
-	</div>
-
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'contr_nos'); ?>
-		<?php echo $form->textArea($model,'contr_nos',array('size'=>60,'maxlength'=>300)); ?>
-		<?php echo $form->error($model,'contr_nos'); ?>
 	</div>
 
 	<div class="row">
