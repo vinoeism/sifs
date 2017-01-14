@@ -23,7 +23,7 @@
  * @property integer $updated_by
  * @property string $updated_on
  */
-class Workorder extends CActiveRecord
+class Workorder extends sifsActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
