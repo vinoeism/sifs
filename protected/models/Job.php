@@ -172,6 +172,7 @@ class Job extends sifsActiveRecord
                     'vouchers'=>array(self::HAS_MANY, 'Voucher', 'job_id'),
                     'invoices'=>array(self::HAS_MANY, 'Invoice', 'job_id'),
                     'packages'=>array(self::HAS_MANY, 'Package', 'job_id'),
+                    'workorders'=>array(self::HAS_MANY, 'Workorder','job_id'),
 		);
 	}
 
