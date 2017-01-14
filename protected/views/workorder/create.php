@@ -7,10 +7,6 @@ $this->breadcrumbs=array(
 	'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List Workorder', 'url'=>array('index')),
-	array('label'=>'Manage Workorder', 'url'=>array('admin')),
-);
 ?>
 
 <h1>Create Workorder</h1>

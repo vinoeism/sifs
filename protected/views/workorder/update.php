@@ -10,9 +10,8 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'List Workorder', 'url'=>array('index')),
-	array('label'=>'Create Workorder', 'url'=>array('create')),
-	array('label'=>'View Workorder', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Workorder', 'url'=>array('admin')),
+	array('label'=>'Edit Packages', 'url'=>array('view')),
+//	array('label'=>'Delete Workorder', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 ?>
 
