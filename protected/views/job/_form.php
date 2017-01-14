@@ -50,6 +50,7 @@
                         'htmlOptions' => array(
                             'size' => '12', // textField size
                             'maxlength' => '12', // textField maxlength
+                            'value'=>CTimestamp::formatDate('Y-m-d'),
                         ),
                     ));
                 ?>
