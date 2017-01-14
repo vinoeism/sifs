@@ -24,6 +24,8 @@ class Party extends sifsActiveRecord
          const TYPE_CUSTOMER = 'CUSTOMER';
          const TYPE_VENDOR = 'VENDOR';
          const TYPE_AGENT = 'AGENT';
+         const TYPE_TRANSPORTER = 'TRANSPORTER';
+         const TYPE_CFS = 'CFS';
     
     
 	/**
@@ -144,6 +146,8 @@ class Party extends sifsActiveRecord
                 self::TYPE_CUSTOMER=>'Customer',
                 self::TYPE_VENDOR=>'Vendor',
                 self::TYPE_AGENT=>'Agent',
+                self::TYPE_TRANSPORTER=>'Transporter',
+                self::TYPE_CFS=>'CFS',
             );
         }        
 
@@ -158,5 +162,32 @@ class Party extends sifsActiveRecord
             $termsOfInvoiceArray = CHtml::listData(Settings::model()->findAll($criteria),'id','setting_value');
 
             return $termsOfInvoiceArray;
-        }         
-}
+        }  
+        /** 
+         * Retrieves the Parties for populating the Transporter fields
+         * @return array an array of all parties
+         */
+        public static function getTransporterNames()
+        {
+            $criteria = new CDbCriteria();            
+            $criteria->condition = 'is_blacklisted = 0 AND party_type ="'.Party::TYPE_CUSTOMER.'"';
+            $transportersArray = CHtml::listData(Party::model()->findAll($criteria),'id','party_name');
+
+            return $transportersArray;
+            
+        }
+        /** 
+         * Retrieves the Parties for populating the CFS fields
+         * @return array an array of all parties
+         */
+        public static function getCFSNames()
+        {
+            $criteria = new CDbCriteria();            
+            $criteria->condition = 'is_blacklisted = 0 AND party_type ="'.Party::TYPE_CFS.'"';
+            $cfsesArray = CHtml::listData(Party::model()->findAll($criteria),'id','party_name');
+
+            return $cfsesArray;
+            
+        }
+        
+ }
