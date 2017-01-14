@@ -1,6 +1,6 @@
 <?php
 
-class WorkorderController extends Controller
+class WorkorderController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -32,7 +32,7 @@ class WorkorderController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','generateTransportWO'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -63,6 +63,9 @@ class WorkorderController extends Controller
 	public function actionCreate()
 	{
 		$model=new Workorder;
+                if(isset($_GET['jobID'])) {
+                    $model->job_id = $_GET['jobID'];
+                }
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -71,7 +74,7 @@ class WorkorderController extends Controller
 		{
 			$model->attributes=$_POST['Workorder'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('job/view','id'=>$model->job_id));
 		}
 
 		$this->render('create',array(
@@ -95,7 +98,7 @@ class WorkorderController extends Controller
 		{
 			$model->attributes=$_POST['Workorder'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('job/view','id'=>$model->job_id));
 		}
 
 		$this->render('update',array(
@@ -116,7 +119,57 @@ class WorkorderController extends Controller
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
+        
+        /**
+	 * Generates a PDF for printing a Work Order
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionGenerateTransportWO($id)
+	{
+                # You can easily override default constructor's params
+                $mPDF1 = Yii::app()->ePdf->mpdf();
 
+                $itemsDataProvider= new CActiveDataProvider('Job',
+                        array(
+                            'criteria'=>array(
+                                'condition'=>'job_id=:jobID AND isActive=1',
+                                'params'=>array(':jobID'=>  $this->loadModel($id)->job_id),
+                            ),
+                            'pagination'=>array(
+                                'pageSize'=>15,
+                            )
+                        )
+                    );
+                $packagesDataProvider= new CActiveDataProvider('Package',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=>  $this->loadModel($id)->job_id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                     
+                # Load a stylesheet
+                $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
+                $mPDF1->WriteHTML($stylesheet, 1);
+
+                $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/screen.css');
+                $mPDF1->WriteHTML($stylesheet, 1);
+                
+                $mPDF1->debug = true;
+                $mPDF1->WriteHTML($this->renderPartial('stub',array(
+                            'model'=>$this->loadModel($id),
+                            'itemsDataProvider' => $itemsDataProvider,
+                            'packagesDataProvider'=> $packagesDataProvider,
+                            ),true));
+
+                $mPDF1->Output();
+                exit;
+            
+	}
 	/**
 	 * Lists all models.
 	 */
