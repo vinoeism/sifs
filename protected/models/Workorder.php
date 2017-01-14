@@ -53,14 +53,33 @@ class Workorder extends sifsActiveRecord
 		return array(
 			array('job_id, trip_id, transporter_id, from_location_id, to_location_id, created_by, updated_by', 'numerical', 'integerOnly'=>true),
 			array('trip_type', 'length', 'max'=>200),
+                        array('transporter_id, wo_date, trip_date_start, from_location, to_location','required'),
 			array('from_location, to_location', 'length', 'max'=>500),
 			array('wo_date, trip_date_start, trip_date_end, in_time, out_time, created_on, updated_on', 'safe'),
+                        array('trip_date_start, trip_date_end', 'isValidTripDate'),
+                        array('trip_date_end', 'isValidTripEndDate'),
+//                        array('trip_date_start', 'compare', 'wo_date' => date("Y-m-d"), 'operator' => '>='),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, wo_date, job_id, trip_id, transporter_id, trip_type, trip_date_start, trip_date_end, in_time, out_time, from_location, from_location_id, to_location, to_location_id, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
 		);
 	}
 
+        public function isValidTripDate($attribute, $params)
+        {
+            if ($this->$attribute < $this->wo_date) {
+                $this->addError($attribute, $attribute . ' cannot be earlier than the WO date');
+            }
+            
+        }
+        
+        public function isValidTripEndDate($attribute, $params)
+        {
+            if ($this->$attribute < $this->trip_date_start) {
+                $this->addError($attribute, $attribute . ' cannot be earlier than the Trip Start date');
+            }
+            
+        }
 	/**
 	 * @return array relational rules.
 	 */
@@ -69,6 +88,8 @@ class Workorder extends sifsActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+                    'jobs' => array(self::BELONGS_TO, 'Job', 'job_id'),
+                    'transporters' => array(self::BELONGS_TO, 'Party', 'transporter_id'),
 		);
 	}
 
@@ -133,4 +154,26 @@ class Workorder extends sifsActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        /** 
+         * Retrieves the Parties for populating the CFS/Transporter fields
+         * @return array an array of all parties
+         */
+        public function getTransporterOptions()
+        {
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'is_blacklisted = 0 AND party_type ="'.Party::TYPE_TRANSPORTER.'"';
+            $partiesArray = CHtml::listData(Party::model()->findAll($criteria),'id','party_name');
+            return $partiesArray;
+        }  
+        /** 
+         * Retrieves the Parties for populating the CFS/Transporter fields
+         * @return array an array of all parties
+         */
+        public function getTripTypes()
+        {
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'setting_key = "triptype" AND setting_subkey = "vehicle"';
+            $partiesArray = CHtml::listData(Settings::model()->findAll($criteria),'id','setting_value');
+            return $partiesArray;
+        } 
 }
