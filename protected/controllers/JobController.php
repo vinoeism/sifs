@@ -1,6 +1,6 @@
 <?php
 
-class JobController extends Controller
+class JobController extends RController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -107,6 +107,17 @@ class JobController extends Controller
                                 )
                             )
                         );
+                $woDataProvider= new CActiveDataProvider('Workorder',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=>  $this->loadModel($id)->id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
                 $this->render('view',array(
 			'model'=>$this->loadModel($id),
                         'voucherDataProvider'=>$voucherDataProvider,
@@ -114,6 +125,7 @@ class JobController extends Controller
                         'statusDataProvider'=>$statusDataProvider,
                         'invoiceDataProvider'=>$invoiceDataProvider,
                         'contrsDataProvider'=>$contrsDataProvider,
+                        'woDataProvider'=>$woDataProvider,
 		));
 	}
 
@@ -179,7 +191,8 @@ class JobController extends Controller
                         'formName'=>$formName,
 		));
 	}
-
+        
+        
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
