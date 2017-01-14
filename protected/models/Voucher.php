@@ -268,7 +268,7 @@ class Voucher extends sifsActiveRecord
         public function getPayeeOptions()
         {
             $criteria = new CDbCriteria;
-            $criteria->condition = 'party_type like \'VENDOR\'';
+            $criteria->condition = 'party_type like \'VENDOR\' or party_type like \'TRANSPORTER\' or party_type like \'CFS\'';
             $criteria->select = array('id', 'party_name');
             return CHtml::listData(Party::model()->findAll($criteria),'id','party_name');
         }        
