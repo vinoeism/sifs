@@ -14,10 +14,10 @@ $this->menu=array(
         array('label'=>'Update Routing details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'ROUTING')),
         array('label'=>'Update Docs details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'DOCS')),
         array('label'=>'Add Status', 'url'=>array('modulestatus/create','moduleid'=>$model->id, 'modulename'=>"JOB")),
-        array('label'=>'Add Task', 'url'=>array('task/create','jobID'=>$model->id)),   
-//        array('label'=>'', 'url'=>array('', 'id'=>$model->id, 'formName'=>'DOCS')),
+        array('label'=>'Add Task', 'url'=>array('task/create','jobID'=>$model->id)), 
 //	array('label'=>'Delete '.$model->REFNO, 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 );
+
 if ($model->mode == 'SEA FCL') {
     $this->sidemenu = array(
 //            array('label'=>'Update Cargo details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'CARGO')),    
@@ -28,11 +28,12 @@ if ($model->mode == 'SEA FCL') {
 } else {
     $this->sidemenu = array(
 //	array('label'=>'Update Cargo details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'CARGO')),    
-        array('label'=>'Add Contr details', 'url'=>array('package/create', 'jobID'=>$model->id, 'formName'=>'PKG')),            
+        array('label'=>'Add Packages', 'url'=>array('package/create', 'jobID'=>$model->id, 'formName'=>'PKG')),            
         array('label'=>'Add Voucher', 'url'=>array('voucher/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)),
         array('label'=>'Add Invoice', 'url'=>array('invoice/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)),
 );
 }
+array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/create','jobID'=>$model->id))); 
 ?>
 
 <h1><?php echo $model->type.' / '.$model->mode; ?></h1>
@@ -121,6 +122,12 @@ if ($model->mode == 'SEA FCL') {
                     'value' => 	'$data->net_weight." ".$data->weight_unit'
                 ),
                 'cargo',
+//                array(
+//                        'name'=>'Arrange Vehicle',
+//                        'type'=>'raw',
+//                        'filter'=>'',
+//                        'value'=>'CHtml::link(CHtml::encode("Existing Trip"), array(\'trip/create\', \'packageID\'=>$data->id, \'formName\'=>\'ADD\' ))." / ".CHtml::link(CHtml::encode("New Trip"), array(\'trip/create\', \'packageID\'=>$data->id, \'formName\'=>\'NEW\' ))',
+//                ),            
         ),
         'summaryText' => '', 
 )); } else {
@@ -154,12 +161,71 @@ if ($model->mode == 'SEA FCL') {
                 array(
                   'name'=> 'quantity',
                     'value' => 	'$data->quantity." ".$data->subtype." ".$data->type'
-                ),
+                ),  
+//                array(
+//                        'name'=>'Vehicle',
+//                        'type'=>'raw',
+//                        'filter'=>'',
+//                        'value'=>'CHtml::link(CHtml::encode("Existing"), array(\'trip/create\', \'packageID\'=>$data->id ))."/".CHtml::link(CHtml::encode("New"), array(\'trip/create\', \'packageID\'=>$data->id ))',
+//                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+//                ),            
+            
+            
         ),
         'summaryText' => '', 
 )); } 
 ?>
+<h3>Work Orders </h3>
 
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'package-grid',
+	'dataProvider'=>$woDataProvider,
+	'columns'=>array(
+                array(
+                        'name'=>'WO ID',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link(CHtml::encode($data->id), array(\'workorder/update\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),
+                array(
+                    'name'=> "WO Date",
+                    'value' => '$data->wo_date',	
+                ),
+                array(
+                    'name'=> "Trip Type",
+                    'value' => 'Settings::model()->findByPk($data->trip_type)->setting_value',	
+                ),		            
+                array(
+                  'name'=> 'From',
+                    'value' => 	'$data->from_location'
+                ),
+                array(
+                  'name'=> 'To',
+                    'value' => 	'$data->to_location'
+                ),
+                array(
+                  'name'=> 'Transporter',
+                    'value' => 	'CHtml::encode(isset($data->transporters)?$data->transporters->party_name:"Not set")',
+                ),  
+                array(
+                        'name'=>'Packages',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link("edit", array(\'workorder/view\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),            
+                array(
+                        'name'=>'',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link("generate PDF", array(\'workorder/generateTransportWO\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),
+            ),
+        'summaryText' => '', 
+)); 
+?>
 <br><h3>Routing details </h3>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -220,6 +286,7 @@ if ($model->mode == 'SEA FCL') {
 )); ?>
 <br/><br/>
 
+<br/><br/>
 <h3>Status History</h3>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
