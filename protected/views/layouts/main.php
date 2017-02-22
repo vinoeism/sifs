@@ -28,10 +28,11 @@
         <div id="profilemenu">
             <?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-                            array('label'=>'settings', 'url'=>array('/settings/index')),
+                            array('label'=>'<img src="'.Yii::app()->request->baseUrl.'/images/setting.png" height=17px/>', 'url'=>array('/settings/index'), 'visible'=>!Yii::app()->user->isGuest),
                             array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                            array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                            array('label'=>'<img src="'.Yii::app()->request->baseUrl.'/images/logout.png" height=17px/>', 'visible'=>!Yii::app()->user->isGuest),
                         ),
+                        'encodeLabel'=>false,
                 )); ?>
         </div>
 	<!-- profile menu -->
