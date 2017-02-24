@@ -44,13 +44,18 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'branch-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
 	'columns'=>array(
 		//'id',
 		'branch_name',
                 'branch_code',
 		'branch_location',
-		'is_registered_office',
+        	array(
+                    'name'=>'is_registered_office',
+                    'type'=>'raw',
+                    'filter'=>'',
+                    'htmlOptions'=>array('style' => 'text-align: center;'),
+                    'value'=>'($data->is_registered_office==1)?CHtml::image(\'images/active.png\',\'Yes\', array(\'height\'=>\'14px\')):CHtml::image(\'images/inactive.png\',\'Yes\', array(\'height\'=>\'14px\'))',   
+                ),            
 		'PAN_no',
 		'ST_registration_no',
 		/*
