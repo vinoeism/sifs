@@ -91,7 +91,7 @@ class Branch extends sifsActiveRecord
 			'branch_name' => 'Branch Name',
 			'branch_location' => 'Branch Location',
                         'branch_code' => 'Branch code',
-			'is_registered_office' => 'Is Regd Office',
+			'is_registered_office' => 'Is Head Office',
 			'PAN_no' => 'PAN No',
 			'ST_registration_no' => 'Sales Tax No',
 			'comments' => 'Comments',
