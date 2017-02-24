@@ -8,8 +8,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Settings', 'url'=>array('index')),
 	array('label'=>'Create Settings', 'url'=>array('create')),
+    	//array('label'=>'Manage Currencies', 'url'=>array('index')),
+        array('label'=>'Manage Branches', 'url'=>array('branch/index')),
         array('label'=>'Manage rights', 'url'=>array('/rights/authitem/permissions'))
 );
 
