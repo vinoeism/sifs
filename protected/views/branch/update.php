@@ -4,18 +4,16 @@
 
 $this->breadcrumbs=array(
 	'Branches'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
+	$model->branch_code=>array('view','id'=>$model->id),
 	'Update',
 );
 
 $this->menu=array(
 	array('label'=>'List Branch', 'url'=>array('index')),
-	array('label'=>'Create Branch', 'url'=>array('create')),
 	array('label'=>'View Branch', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Branch', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Branch <?php echo $model->id; ?></h1>
+<h1>Update <?php echo $model->branch_name; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model,'banksDataProvider' => $banksDataProvider)); ?>

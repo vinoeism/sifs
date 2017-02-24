@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Branches'=>array('index'),
-	$model->id,
+	$model->branch_name,
 );
 
 $this->menu=array(
