@@ -52,8 +52,9 @@ class Bank extends sifsActiveRecord
 			array('bank_name, account_no, ifsc_code', 'required'),
 			array('party_id, branch_id, employee_id, isActive, created_by, updated_by', 'numerical', 'integerOnly'=>true),
 			array('bank_name', 'length', 'max'=>100),
+                        array('ifsc_code, swift_code', 'length', 'max'=>11),
 			array('bank_address, comments', 'length', 'max'=>300),
-			array('account_no, ifsc_code, swift_code', 'length', 'max'=>30),
+			array('account_no', 'length', 'max'=>30),
 			array('status', 'length', 'max'=>20),
 			array('created_on, updated_on', 'safe'),
 			// The following rule is used by search().
@@ -71,7 +72,7 @@ class Bank extends sifsActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
                     'branches'=> array(self::BELONGS_TO, 'Branch', 'bank_id'),
-
+                    'parties'=>array(self::ELONGS_TO, 'Party', 'party_id'),
 		);
 	}
 
