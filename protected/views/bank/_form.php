@@ -35,13 +35,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'ifsc_code'); ?>
-		<?php echo $form->textField($model,'ifsc_code',array('size'=>30,'maxlength'=>30)); ?>
+		<?php echo $form->textField($model,'ifsc_code',array('size'=>13,'maxlength'=>11)); ?>
 		<?php echo $form->error($model,'ifsc_code'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'swift_code'); ?>
-		<?php echo $form->textField($model,'swift_code',array('size'=>30,'maxlength'=>30)); ?>
+		<?php echo $form->textField($model,'swift_code',array('size'=>13,'maxlength'=>11)); ?>
 		<?php echo $form->error($model,'swift_code'); ?>
 	</div>
 
@@ -51,15 +51,15 @@
 		<?php echo $form->error($model,'comments'); ?>
 	</div>
 
-	<div class="row">
+<!--	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 		<?php echo $form->textField($model,'status',array('size'=>20,'maxlength'=>20)); ?>
 		<?php echo $form->error($model,'status'); ?>
-	</div>
+	</div>-->
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'isActive'); ?>
-		<?php echo $form->textField($model,'isActive'); ?>
+		<?php echo $form->checkbox($model,'isActive'); ?>
 		<?php echo $form->error($model,'isActive'); ?>
 	</div>
 
