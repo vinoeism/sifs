@@ -23,8 +23,8 @@ $this->sidemenu=array(
 ?>
 
 <h1><?php echo $model->branch_name; ?></h1>
-<i>Created by</i><b><i> <?php echo $model->created_by; ?></i></b> <i>on</i><b><i> <?php echo $model->created_on; ?></i></b> <br/>
-<i>Last updated by</i><b><i> <?php echo $model->updated_by; ?></i></b> <i> on </i><b><i><?php echo $model->updated_on; ?> </i></b> <br/><br/>
+<img src="images/create.png" height="14px"> <?php echo User::model()->findByPK($model->created_by)->username; ?></i></b> <i> | </i><b><i> <?php echo $model->created_on; ?></i></b>&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="images/update.png" height="14px"> <?php echo User::model()->findByPK($model->updated_by)->username; ?></i></b> <i> | </i><b><i><?php echo $model->updated_on; ?> </i></b> <br/><br/>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -65,32 +65,45 @@ $this->sidemenu=array(
 
 <br/><br/>
 
-<h3>Bank accounts</h3>
+<h3>Bank accounts <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('bank/create', 'module'=> "BRANCH", 'moduleId'=>$model->id)); ?></h3>
 
             
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'bank-grid',
 	'dataProvider'=>$bankDataProvider,
 //	'filter'=>$model,
-	'columns'=>array(
+        'template' => '{items}{pager}',	
+        'columns'=>array(
 		/*'id',
 		'party_id',
 		'branch_id',
 		'employee_id',*/
-		'bank_name',
+		array(
+                        'name'=>'bank_name',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link(CHtml::encode($data->bank_name), array(\'bank/update\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),            
 		'bank_address',
 		'account_no',
 		'ifsc_code',
 		'swift_code',
-		'comments',
-		'status',
-		'isActive',
+		//'comments',
+		//'status',
+            	array(
+                    'name'=>'isActive',
+                    'type'=>'raw',
+                    'filter'=>'',
+                    'htmlOptions'=>array('style' => 'text-align: center;'),
+                    'value'=>'($data->isActive==1)?CHtml::image(\'images/active.png\',\'Yes\', array(\'height\'=>\'14px\')):CHtml::image(\'images/inactive.png\',\'Yes\', array(\'height\'=>\'14px\'))',   
+                ),
 	),
 )); ?>
             
 <br/><br/>
 
-<h3>Ongoing Jobs</h3>
+<h3>Ongoing Jobs <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('job/create')); ?></h3>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'job-grid',
