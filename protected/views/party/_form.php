@@ -29,7 +29,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'short_code'); ?>
-		<?php echo $form->textField($model,'short_code',array('size'=>5,'maxlength'=>5)); ?>
+		<?php echo $form->textField($model,'short_code',array('size'=>6,'maxlength'=>5)); ?>
 		<?php echo $form->error($model,'short_code'); ?>
 	</div>
 
