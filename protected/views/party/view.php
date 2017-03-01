@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Parties'=>array('index'),
-	$model->id,
+	$model->party_name,
 );
 
 $this->menu=array(
@@ -21,7 +21,9 @@ $this->menu=array(
 //);
 ?>
 
-<h1><?php echo $model->party_name; ?></h1>
+<h1><?php echo $model->party_name; ?><?php echo "   ".CHtml::link('<img src="images/update.png" height="18px" />', array('update', 'id'=>$model->id)); ?></h1>
+<img src="images/create.png" height="14px"> <?php echo User::model()->findByPK($model->created_by)->username; ?></i></b> <i> | </i><b><i> <?php echo $model->created_on; ?></i></b>&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="images/update.png" height="14px"> <?php echo User::model()->findByPK($model->updated_by)->username; ?></i></b> <i> | </i><b><i><?php echo $model->updated_on; ?> </i></b> <br/><br/>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -66,35 +68,45 @@ $this->menu=array(
 
 <br/><br/>
 
-<h3>Bank accounts</h3>
+<h3>Bank accounts <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('bank/create', 'module'=> "PARTY", 'moduleId'=>$model->id)); ?></h3>
 
             
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'bank-grid',
 	'dataProvider'=>$bankDataProvider,
 //	'filter'=>$model,
+        'template' => '{items}{pager}',	
 	'columns'=>array(
 		/*'id',
 		'party_id',
 		'branch_id',
 		'employee_id',*/
-		'bank_name',
-		'bank_address',
+		array(
+                        'name'=>'bank_name',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link(CHtml::encode($data->bank_name), array(\'bank/update\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ), 
+                'bank_address',
 		'account_no',
 		'ifsc_code',
 		'swift_code',
-		'comments',
+		// 'comments',
 		//'status',
-                array(
-                    'name' => 'isActive',
-                    'value' => '$data->isActive? "Yes":"No"',
+            	array(
+                    'name'=>'isActive',
+                    'type'=>'raw',
+                    'filter'=>'',
+                    'htmlOptions'=>array('style' => 'text-align: center;'),
+                    'value'=>'($data->isActive==1)?CHtml::image(\'images/active.png\',\'Yes\', array(\'height\'=>\'14px\')):CHtml::image(\'images/inactive.png\',\'Yes\', array(\'height\'=>\'14px\'))',   
                 ),            
 	),
 )); ?>
 
 <br/><br/>
 
-<h3>Ongoing Jobs</h3>
+<h3>Ongoing Jobs <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('job/create')); ?></h3>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'job-grid',
@@ -102,7 +114,13 @@ $this->menu=array(
 	//'filter'=>$model,
 	'columns'=>array(
 		//'id',
-		'REFNO',
+		array(
+                        'name'=>'REFNO',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link(CHtml::encode($data->REFNO), array(\'job/update\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),             
 		//'Client_REFNO',
 		//'init_date',
 		//'branch_id',
@@ -187,14 +205,20 @@ $this->menu=array(
 	'id'=>'receipt-grid',
 	'dataProvider'=>$receiptDataProvider,
 	'columns'=>array(
-//		'id',
-		'receipt_date',
+		array(
+                        'name'=>'id',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link(CHtml::encode($data->id), array(\'receipt/update\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),  		
+                'receipt_date',
 		//'branch_id',
-                array(
-                    'name'=>'party_id',
-                    'filter'=>CHtml::listData(Party::model()->findAll(array('order'=>'party_name')),'id','party_name'),
-                    'value'=>'isset($data->parties)?$data->parties->party_name:"  -  "',
-                ),            
+//                array(
+//                    'name'=>'party_id',
+//                    'filter'=>CHtml::listData(Party::model()->findAll(array('order'=>'party_name')),'id','party_name'),
+//                    'value'=>'isset($data->parties)?$data->parties->party_name:"  -  "',
+//                ),            
 		'mode',
 		'instrument_no',
 		
