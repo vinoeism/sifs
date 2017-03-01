@@ -10,10 +10,10 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	//array('label'=>'List Party', 'url'=>array('index')),
 	//array('label'=>'Create Party', 'url'=>array('create')),
-	array('label'=>'Update Party', 'url'=>array('update', 'id'=>$model->id)),
+	//array('label'=>'Update Party', 'url'=>array('update', 'id'=>$model->id)),
 	//array('label'=>'Delete Party', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	//array('label'=>'Manage Party', 'url'=>array('admin')),
-        array('label'=>'Add Bank', 'url'=>array('bank/create', 'module'=> "PARTY", 'moduleId'=>$model->id))
+        //array('label'=>'Add Bank', 'url'=>array('bank/create', 'module'=> "PARTY", 'moduleId'=>$model->id))
 );
 
 //$this->sidemenu=array(
@@ -199,7 +199,7 @@ $this->menu=array(
 
 
 <br/> <br/>
-<h3>Payments</h3>
+<h3>Payments  <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('receipt/create')); ?></h3>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'receipt-grid',
