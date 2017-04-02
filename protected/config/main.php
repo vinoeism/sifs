@@ -20,6 +20,7 @@ return array(
                 'application.modules.rights.components.*',
                 'application.vendors.phpexcel.PHPExcel',
                 'ext.yiireport.*',
+                'ext.yii-mail.YiiMailMessage',
         ),
 
 	'modules'=>array(
@@ -89,6 +90,18 @@ return array(
 				*/
 			),
 		),
+                'mail' => array(
+                                'class' => 'ext.yii-mail.YiiMail',
+                                'transportType'=>'smtp',
+                                'transportOptions'=>array(
+                                        'host'=>'smtp.gmail.com',
+                                        'username'=>'info@righteous.in',
+                                        'password'=>'righteous',
+                                        'port'=>'465',   
+                                        'encryption'=>'ssl',
+                                ),
+                                'viewPath' => 'application.views.mail',             
+                        ),                                          
                 'ePdf' => array(
                         'class' => 'ext.yii-pdf.EYiiPdf',
                         'params' => array(
