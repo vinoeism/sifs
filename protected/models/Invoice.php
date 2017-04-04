@@ -170,7 +170,7 @@ class Invoice extends sifsActiveRecord
             if (isset($job->cfs_id)) 
                 $parties[$job->cfs_id] = $job->cfses->party_name;
             if (isset($job->transporter)) 
-                $parties[$job->transporter] = $job->tranporters->party_name;
+                $parties[$job->transporter] = $job->transporters->party_name;
             return $parties;
         }
 
