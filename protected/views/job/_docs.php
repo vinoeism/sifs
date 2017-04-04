@@ -82,6 +82,7 @@
                     ));
                 ?>
 		<?php echo $form->error($model,'BE_SB_no'); ?>
+		<?php echo $form->error($model,'BE_SB_date'); ?>
 	</div>
 
 	<div class="row">
@@ -102,6 +103,7 @@
                     ));
                 ?>
 		<?php echo $form->error($model,'bond_no'); ?>
+		<?php echo $form->error($model,'bond_date'); ?>
 	</div>
 
 	<div class="row">
@@ -127,7 +129,8 @@
                         ),
                     ));
                 ?>
-		<?php echo $form->error($model,'bond_no'); ?>
+		<?php echo $form->error($model,'mbl_mawb_no'); ?>
+		<?php echo $form->error($model,'mbl_mawb_date'); ?>
 	</div>
         
         <div class="row">
@@ -136,7 +139,7 @@
                 <?php
                     $this->widget('zii.widgets.jui.CJuiDatePicker', array(
                         'model' => $model,
-                        'attribute' => 'hbl_hawb_no',
+                        'attribute' => 'hbl_hawb_date',
                         'options' => array(
                             'showOn' => 'both', // also opens with a button
                             'dateFormat' => 'yy-mm-dd',
@@ -147,7 +150,8 @@
                         ),
                     ));
                 ?>
-		<?php echo $form->error($model,'bond_no'); ?>
+		<?php echo $form->error($model,'hbl_hawb_no'); ?>
+		<?php echo $form->error($model,'hbl_hawb_date'); ?>
 	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
