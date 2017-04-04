@@ -32,7 +32,7 @@ class Package extends CActiveRecord
         const UNIT_KGS = 'Kg(s)';
         const UNIT_MTS = 'MT(s)';
         const UNIT_CBM = 'CBM';
-        const UNIT_CNTRS = 'CNTRs';
+        const UNIT_CNTRS = 'CNTR(s)';
         // length units
         const UNIT_MM = 'mm(s)';
         const UNIT_CM = 'cm(s)';
@@ -63,7 +63,7 @@ class Package extends CActiveRecord
         public $total_net_weight;
         public $total_chargeable_weight;
         public $total_quantity;
-        
+        public $all_contrs;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
