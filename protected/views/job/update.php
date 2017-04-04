@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Jobs'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
+	$model->REFNO=>array('view','id'=>$model->id),
 	'Update',
 );
 
