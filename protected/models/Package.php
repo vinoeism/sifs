@@ -19,6 +19,7 @@
  * @property integer $quantity
  * @property string $cargo
  * @property integer $job_id
+ * @property integer $wo_id
  * @property integer $quote_id
  */
 class Package extends CActiveRecord
@@ -92,14 +93,14 @@ class Package extends CActiveRecord
 		return array(
 			array('type, cargo', 'required'),
                         array('name', 'required', 'message'=>'Please enter a value for {attribute}.'),
-			array('id, quantity, job_id, quote_id', 'numerical', 'integerOnly'=>true),
+			array('id, quantity, job_id, wo_id, quote_id', 'numerical', 'integerOnly'=>true),
 			array('length, breadth, height, gross_weight, net_weight, chargeable_weight', 'numerical'),
 			array('name, type, subtype', 'length', 'max'=>50),
                         array('cargo','length','max'=>300),
 			array('dimension_unit, weight_unit', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, type, subtype, length, breadth, height, dimension_unit, gross_weight, net_weight, chargeable_weight, weight_unit, quantity, cargo, job_id, quote_id', 'safe', 'on'=>'search'),
+			array('id, name, type, subtype, length, breadth, height, dimension_unit, gross_weight, net_weight, chargeable_weight, weight_unit, quantity, cargo, job_id, wo_id, quote_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -136,6 +137,7 @@ class Package extends CActiveRecord
 			'quantity' => 'Quantity',
 			'cargo' => 'Cargo Description',
 			'job_id' => 'Job',
+                        'wo_id' => 'Work Order',
 			'quote_id' => 'Quote',
 		);
 	}
@@ -166,6 +168,7 @@ class Package extends CActiveRecord
 		$criteria->compare('quantity',$this->quantity);
 		$criteria->compare('cargo',$this->cargo);
 		$criteria->compare('job_id',$this->job_id);
+		$criteria->compare('wo_id',$this->wo_id);
 		$criteria->compare('quote_id',$this->quote_id);
 
 		return new CActiveDataProvider($this, array(
