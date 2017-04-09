@@ -32,7 +32,7 @@ class WorkorderController extends RController
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','generateTransportWO'),
+				'actions'=>array('create','update','generateTransportWO', 'sendMail','editPackages'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -56,6 +56,90 @@ class WorkorderController extends RController
 		));
 	}
 
+        /**
+	 * Displays the packages to be added to a WO
+	 * @param integer $job_id the  JOB ID of the job for which the packages are to be fetched
+	 */
+        public function actionEditPackages($job_id,$wo_id)
+        {
+                $contrsDataProvider= new CActiveDataProvider('Package',
+                    array(
+                        'criteria'=>array(
+                            'condition'=>'job_id=:jobId and id not in (select package_id from WorkorderPackage where workorder_id=:woId)',
+                            'params'=>array(':jobId'=>  $job_id,':woId'=>$wo_id),
+                        ),
+                        'pagination'=>array(
+                            'pageSize'=>15,
+                        )
+                    )
+                );
+                $existingPackagesDataProvider= new CActiveDataProvider('Package',
+                    array(
+                        'criteria'=>array(
+                            'condition'=>'job_id=:jobId and id in (select package_id from WorkorderPackage where workorder_id=:woId)',
+                            'params'=>array(':jobId'=>  $job_id,':woId'=>$wo_id),
+                        ),
+                        'pagination'=>array(
+                            'pageSize'=>15,
+                        )
+                    )
+                );
+                if (isset($_POST['selectedContrs']) || isset($_POST['selectedPackages']) || isset($_POST['removedContrs']) || isset($_POST['removedPackages'])) {
+                    if(isset($_POST['selectedContrs']))
+                    {
+                            $criteria = new CDbCriteria;
+                            $criteria->addInCondition('id' ,$_POST['selectedContrs'] );
+                            $model = Package::model()->findAll($criteria);
+                            foreach ($model as $value) {
+                                $wopkg = new Workorderpackage;
+                                $wopkg->workorder_id = $wo_id;
+                                $wopkg->package_id = $value->id;
+                                $wopkg->save();
+                            }                           
+                    }
+                    if(isset($_POST['selectedPackages']))
+                    {
+                            $criteria = new CDbCriteria;
+                            $criteria->addInCondition('id' ,$_POST['selectedPackages']);
+                            $model = Package::model()->findAll($criteria);
+                            foreach ($model as $value) {
+                                $wopkg = new Workorderpackage;
+                                $wopkg->workorder_id = $wo_id;
+                                $wopkg->package_id = $value->id;
+                                $wopkg->save();
+                            }                           
+                    }                
+                    if(isset($_POST['removedContrs']))
+                    {
+                            $criteria = new CDbCriteria;
+                            $criteria->addInCondition('id' ,$_POST['removedContrs'] );
+                            $model = Package::model()->findAll($criteria);
+                            foreach ($model as $value) {
+                                //update Order`s Status
+                                $value->wo_id = null;
+                                $value->update();
+                            }                           
+                    }
+                    if(isset($_POST['removedPackages']))
+                    {
+                            $criteria = new CDbCriteria;
+                            $criteria->addInCondition('id' ,$_POST['removedPackages']);
+                            $model = Package::model()->findAll($criteria);
+                            foreach ($model as $value) {
+                                //update Order`s Status
+                                $value->wo_id = null;
+                                $value->update();
+                            }                           
+                    }                
+                    $this->redirect(array('job/view','id'=>$job_id));
+                }
+                $this->render('packages',array(
+			'model'=>Job::model()->findByPk($job_id),
+                        'contrsDataProvider'=>$contrsDataProvider,
+                        'existingPackagesDataProvider'=>$existingPackagesDataProvider,
+		));
+
+        }
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -119,7 +203,70 @@ class WorkorderController extends RController
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
+ 
+	/**
+	 * Sends a new WO as mail to righteous
+	 */
         
+        public function actionSendMail($id)
+        {   
+                $message            = new YiiMailMessage;
+                //this points to the file test.php inside the view path
+                //$message->view = "test";
+                $body = "<body>Dear Sir, <br/> Please find attd the Work order for your kind perusal. <br/> <br/> Best Regards,<br/></body>".Yii::app()->name;
+                $message->subject    = 'Workorder '.$id;
+                $message->setBody($body, 'text/html');                
+                $message->addTo('vinothraja@righteous.in');
+                $message->from = 'info@righteous.in';   
+
+                //For attaching the work order - begin
+                $mPDF1 = Yii::app()->ePdf->mpdf();
+
+                $itemsDataProvider= new CActiveDataProvider('Job',
+                        array(
+                            'criteria'=>array(
+                                'condition'=>'job_id=:jobID AND isActive=1',
+                                'params'=>array(':jobID'=>  $this->id),
+                            ),
+                            'pagination'=>array(
+                                'pageSize'=>15,
+                            )
+                        )
+                    );
+                $packagesDataProvider= new CActiveDataProvider('Package',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=>  $this->id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                # Load a stylesheet
+                $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
+                $mPDF1->WriteHTML($stylesheet, 1);
+
+                $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/screen.css');
+                $mPDF1->WriteHTML($stylesheet, 1);
+
+                $mPDF1->debug = true;
+                $mPDF1->WriteHTML($this->renderPartial('stub',array(
+                            'model'=>$this->loadModel($id),
+                            'itemsDataProvider' => $itemsDataProvider,
+                            'packagesDataProvider'=> $packagesDataProvider,
+                            ),true));
+
+                $mPDF1->Output(Yii::app()->basePath."/pdf/wo.pdf", 'F' );
+                $file_path = Yii::app()->basePath."/pdf/wo.pdf";       
+
+                $swiftAttachment = Swift_Attachment::fromPath($file_path);              
+                $message->attach($swiftAttachment);
+                //For attaching the work order - end               
+
+                Yii::app()->mail->send($message);       
+        }        
         /**
 	 * Generates a PDF for printing a Work Order
 	 * @param integer $id the ID of the model to be displayed
@@ -143,8 +290,8 @@ class WorkorderController extends RController
                 $packagesDataProvider= new CActiveDataProvider('Package',
                             array(
                                 'criteria'=>array(
-                                    'condition'=>'job_id=:jobId',
-                                    'params'=>array(':jobId'=>  $this->loadModel($id)->job_id),
+                                    'condition'=>'job_id=:jobId and id in (select package_id from WorkorderPackage where workorder_id=:woId)',
+                                    'params'=>array(':jobId'=>  $this->loadModel($id)->job_id,':woId'=>$id),
                                 ),
                                 'pagination'=>array(
                                     'pageSize'=>15,
