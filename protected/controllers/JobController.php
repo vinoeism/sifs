@@ -32,7 +32,7 @@ class JobController extends RController
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','sendMail'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -128,7 +128,78 @@ class JobController extends RController
                         'woDataProvider'=>$woDataProvider,
 		));
 	}
+ 
+	/**
+	 * Sends a new WO as mail to righteous
+	 */
+        
+        public function actionSendMail($id)
+            {   
+                $message            = new YiiMailMessage;
+                //this points to the file test.php inside the view path
+                $message->view = "test";
+                $params              = null;
+                $message->subject    = 'Workorder ';
+                $message->setBody($params, 'text/html');                
+                $message->addTo('vinothraja@righteous.in');
+                $message->from = 'info@righteous.in';   
+                
+                //For attaching the work order - begin
+                $mPDF1 = Yii::app()->ePdf->mpdf();
 
+                $itemsDataProvider= new CActiveDataProvider('Job',
+                        array(
+                            'criteria'=>array(
+                                'condition'=>'job_id=:jobID AND isActive=1',
+                                'params'=>array(':jobID'=>  $this->id),
+                            ),
+                            'pagination'=>array(
+                                'pageSize'=>15,
+                            )
+                        )
+                    );
+                $packagesDataProvider= new CActiveDataProvider('Package',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=>  $this->id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                     
+                # Load a stylesheet
+                $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
+                $mPDF1->WriteHTML($stylesheet, 1);
+
+                $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/screen.css');
+                $mPDF1->WriteHTML($stylesheet, 1);
+                
+                $mPDF1->debug = true;
+                $mPDF1->WriteHTML($this->renderPartial('stub',array(
+                            'model'=>$this->loadModel($id),
+                            'itemsDataProvider' => $itemsDataProvider,
+                            'packagesDataProvider'=> $packagesDataProvider,
+                            ),true));
+
+                $mPDF1->Output(Yii::app()->basePath."/pdf/tcpdf1.pdf", 'F' );
+                $file_path = Yii::app()->basePath."/pdf/tcpdf1.pdf";       
+
+                
+                
+//                $pdf = new TCPDF(PDF_PAGE_ORIENTATION,PDF_UNIT,PDF_PAGE_FORMAT, true,'UTF-8',false);
+//                $pdf->AddPage();
+//                $pdf->writeHTML($body, true, false, true, false, '');
+//                $pdf->Output ( yii::app()->basePath."\..\pdf\\tcpdf1.pdf", 'F' ); 
+//                $file_path = yii::app()->basePath."\..\pdf\\tcpdf1.pdf";       
+                $swiftAttachment = Swift_Attachment::fromPath($file_path);              
+                $message->attach($swiftAttachment);
+                //For attaching the work order - end               
+                
+                Yii::app()->mail->send($message);       
+            }
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
