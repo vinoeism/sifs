@@ -56,22 +56,22 @@
                         'name'=>'assessable_value',
                         'value'=>$model->jobs->assessable_value,
                     ),	
-                    array(
-                        'name'=>'cargo',
-                        'value'=>$model->jobs->cargo,
-                    ),	
-                    array(
-                        'name'=>'gross_weight',
-                        'value'=>$model->jobs->gross_weight.' '.$model->jobs->gross_weight_unit,
-                    ),	
-                    array(
-                        'name'=>'nett_weight',
-                        'value'=>$model->jobs->nett_weight.' '.$model->jobs->nett_weight_unit,
-                    ),	
-                    array(
-                        'name'=>'packages',
-                        'value'=>$model->jobs->packages,
-                    ),	
+//                    array(
+//                        'name'=>'cargo',
+//                        'value'=>$model->jobs->cargo,
+//                    ),	
+//                    array(
+//                        'name'=>'gross_weight',
+//                        'value'=>$model->jobs->gross_weight.' '.$model->jobs->gross_weight_unit,
+//                    ),	
+//                    array(
+//                        'name'=>'nett_weight',
+//                        'value'=>$model->jobs->nett_weight.' '.$model->jobs->nett_weight_unit,
+//                    ),	
+//                    array(
+//                        'name'=>'packages',
+//                        'value'=>$model->jobs->packages,
+//                    ),	
             ),
         )); ?>
 
