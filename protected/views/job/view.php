@@ -10,11 +10,12 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	//array('label'=>'List Job', 'url'=>array('index')),
 	//array('label'=>'Create New Job', 'url'=>array('create')),
-        array('label'=>'Update '.$model->REFNO, 'url'=>array('update', 'id'=>$model->id)),
+        //array('label'=>'Update '.$model->REFNO, 'url'=>array('update', 'id'=>$model->id)),
         array('label'=>'Update Routing details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'ROUTING')),
         array('label'=>'Update Docs details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'DOCS')),
         array('label'=>'Add Status', 'url'=>array('modulestatus/create','moduleid'=>$model->id, 'modulename'=>"JOB")),
         array('label'=>'Add Task', 'url'=>array('task/create','jobID'=>$model->id)), 
+        array('label'=>'Send Mail', 'url'=>array('job/SendMail','id'=>$model->id)),
 //	array('label'=>'Delete '.$model->REFNO, 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 
@@ -36,10 +37,11 @@ if ($model->mode == 'SEA FCL') {
 array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/create','jobID'=>$model->id))); 
 ?>
 
-<h1><?php echo $model->type.' / '.$model->mode; ?></h1>
+<h1><?php echo $model->type.' / '.$model->mode; ?><?php echo "   ".CHtml::link('<img src="images/update.png" height="18px" />', array('update', 'id'=>$model->id)); ?></h1>
+<img src="images/create.png" height="14px"> <?php echo User::model()->findByPK($model->created_by)->username; ?></i></b> <i> | </i><b><i> <?php echo $model->created_on; ?></i></b>&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="images/update.png" height="14px"> <?php echo User::model()->findByPK($model->updated_by)->username; ?></i></b> <i> | </i><b><i><?php echo $model->updated_on; ?> </i></b> <br/><br/>
 <i><mark>Initiated on <?php echo $model->init_date; ?> at <?php echo $model->branches->branch_name; ?></mark> </i><br/>
-<i>Created by</i><b><i> <?php echo User::model()->findByPK($model->created_by)->username; ?></i></b> <i>on</i><b><i> <?php echo $model->created_on; ?></i></b> <br/>
-<i>Last updated by</i><b><i> <?php echo User::model()->findByPK($model->updated_by)->username; ?></i></b> <i> on </i><b><i><?php echo $model->updated_on; ?> </i></b> <br/><br/>
+
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -161,7 +163,7 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
                 array(
                   'name'=> 'quantity',
                     'value' => 	'$data->quantity." ".$data->subtype." ".$data->type'
-                ),  
+                ),   
 //                array(
 //                        'name'=>'Vehicle',
 //                        'type'=>'raw',
@@ -175,7 +177,7 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
         'summaryText' => '', 
 )); } 
 ?>
-<h3>Work Orders </h3>
+<h3>Work Orders <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('workorder/create','jobID'=>$model->id)); ?> </h3>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'package-grid',
@@ -212,21 +214,30 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
                         'name'=>'Packages',
                         'type'=>'raw',
                         'filter'=>'',
-                        'value'=>'CHtml::link("edit", array(\'workorder/view\', \'id\'=>$data->id))',
-                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                        'value'=>'CHtml::link("edit", array(\'workorder/editPackages\', \'job_id\'=>'.$model->id.',\'wo_id\'=>$data->id))',
+                        'htmlOptions'=>array('style'=>'text-align:center;')
                 ),            
                 array(
                         'name'=>'',
                         'type'=>'raw',
                         'filter'=>'',
-                        'value'=>'CHtml::link("generate PDF", array(\'workorder/generateTransportWO\', \'id\'=>$data->id))',
+                        'value'=>'CHtml::link("<img src=\'images/pdf.png\' height=\'14px\'", array(\'workorder/generateTransportWO\', \'id\'=>$data->id),array(\'target\'=>\'_blank\'))',
+                        'htmlOptions'=>array('style'=>'text-align:center;')
                         //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
                 ),
+                array(
+                        'name'=>'',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link("<img src=\'images/mail.png\' height=\'14px\'", array(\'workorder/sendMail\', \'id\'=>$data->id))',
+                        'htmlOptions'=>array('style'=>'text-align:center;')
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),            
             ),
         'summaryText' => '', 
 )); 
 ?>
-<br><h3>Routing details </h3>
+<br><h3>Routing details <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('update', 'id'=>$model->id, 'formName'=>'ROUTING')); ?></h3>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -311,17 +322,16 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
         'summaryText' => '',     
 )); ?>
 
-<h3>Ongoing tasks</h3>
+<h3>Ongoing tasks <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('task/create', 'jobID'=>$model->id)); ?></h3>
 
 <?php $this->widget('zii.widgets.CListView', array(
             'dataProvider'=>  $tasksDataProvider,
             'itemView'=>'../task/_view',
     )); ?> 
 
-    <br/>Add a task for the job <?php echo CHtml::link('here',array('task/create', 'jobID'=>$model->id)); ?>...
 
     <br/><br/>
-<h3>Vouchers</h3>
+<h3>Vouchers <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('voucher/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)); ?></h3>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'voucher-grid',
@@ -379,10 +389,9 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
 	),
 )); ?>
 
-Add a voucher for the job <?php echo CHtml::link('here',array('voucher/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)); ?>...
 
 <br/><br/>
-<h3>Invoices</h3>
+<h3>Invoices <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('invoice/create', 'jobId'=>$model->id, 'branchId'=>$model->branch_id)); ?></h3>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'invoice-grid',
 	'dataProvider'=>$invoiceDataProvider,
@@ -424,7 +433,5 @@ Add a voucher for the job <?php echo CHtml::link('here',array('voucher/create', 
 
 	),
 )); ?>
-
-Add an invoice for the job <?php echo CHtml::link('here',array('invoice/create', 'jobId'=>$model->id, 'branchId'=>$model->branch_id)); ?>...
 
 

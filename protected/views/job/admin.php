@@ -46,7 +46,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		//'id',
-		'REFNO',
+                array(
+                        'name'=>'REF NO',
+                        'type'=>'raw',
+                        'filter'=>true,
+                        'value'=>'CHtml::link(CHtml::encode($data->REFNO), array(\'job/view\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),
 		//'Client_REFNO',
 		//'init_date',
 		//'branch_id',
@@ -76,7 +82,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                     'value' => 'isset($data->transporters)?$data->transporters->party_name:"  -  "',
                 ),   */         
 		//'agent',
-		'cargo',
+		//'cargo',
 		//'packages',
 		//'assessable_value',
 		//'duty_value',
@@ -105,9 +111,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'voyage_no',
 		//'pickup_date',
 		//'stuffing_date',
-		'BE_SB_no',
-		'BE_SB_date',
-		//'bond_no',
+		//'BE_SB_no',
+		//'BE_SB_date',
+                'mbl_mawb_no',
+                'mbl_mawb_date',
+                //'bond_no',
 		//'bond_date',
 		//'bond_comments',
 		//'onboard_date',
@@ -115,7 +123,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'transhipment_date',
 		//'arrival_date',
 		//'cfs_id',
-		//'contr_nos',
+		'contr_nos',
 		//'truck_nos',
 		//'comments',
 		//'enquiry_by',
@@ -124,8 +132,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'created_on',
 		//'updated_by',
 		//'updated_on',
-		array(
-			'class'=>'CButtonColumn',
-		),
+
 	),
 )); ?>
