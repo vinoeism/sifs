@@ -84,7 +84,7 @@ class PackageController extends RController
                         if($model->save()) {
                             if ($model->type == Package::TYPE_CONTR) {                            
                                 $criteria = new CDbCriteria;
-                                $criteria->select = 'sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
+                                $criteria->select = 'group_concat(name ORDER BY name ASC SEPARATOR \', \') as all_contrs, sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
                                 $criteria->condition = 'job_id = '.$model->job_id;
                                 $criteria->group = 'job_id';
                                 $PackageModel = $model->findAll($criteria);
@@ -96,6 +96,7 @@ class PackageController extends RController
                                 $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
                                 $model->jobs->chargeable_weight_unit = Package::UNIT_CNTRS;
                                 $model->jobs->packages = "".$PackageModel[0]->total_quantity." ".Package::TYPE_CONTR;
+                                $model->jobs->contr_nos = $PackageModel[0]->all_contrs;
                                 $model->jobs->save();
 
                             } else {
@@ -145,7 +146,7 @@ class PackageController extends RController
                              
 
                                 $criteria = new CDbCriteria;
-                                $criteria->select = 'sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
+                                $criteria->select = 'group_concat(name ORDER BY name ASC SEPARATOR \', \') as all_contrs, sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
                                 $criteria->condition = 'job_id = '.$model->job_id;
                                 $criteria->group = 'job_id';
                                 $PackageModel = $model->findAll($criteria);
@@ -156,6 +157,7 @@ class PackageController extends RController
                                 $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
                                 $model->jobs->chargeable_weight_unit = Package::UNIT_CNTRS;
                                 $model->jobs->packages = "".$PackageModel[0]->total_quantity." ".Package::TYPE_CONTR;
+                                $model->jobs->contr_nos = $PackageModel[0]->all_contrs;
                                 $model->jobs->save();   
 
                             } else {
