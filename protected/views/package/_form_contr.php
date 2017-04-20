@@ -19,13 +19,14 @@
 	<div class="row">
 		<?php echo CHtml::activeLabel($model,'Contr no', array('required' => true)); ?>
                 <?php
-                $this->widget( 'CMaskedTextField', [
+                $options = array(
                     'model'       => $model,
                     'attribute'   => 'name',
                     'mask'        => 'AAAAnnnnnnn',
-                    'charMap'     => [ 'A' => '[A-Z]', 'n' => '[0-9]', ],
-                    'htmlOptions' => [ 'class' => 'form-control' ]
-                ] ); ?>
+                    'charMap'     => array( 'A' => '[A-Z]', 'n' => '[0-9]', ),
+                    'htmlOptions' => array( 'class' => 'form-control' )
+                );
+                $this->widget( 'CMaskedTextField', $options ); ?>
                 <?php echo $form->dropDownList($model,'subtype',$model->getContrOptions()); ?>                                                                        
 		<?php echo $form->error($model,'name'); ?>
 		<?php echo $form->error($model,'subtype'); ?>                        
