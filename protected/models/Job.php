@@ -173,6 +173,7 @@ class Job extends sifsActiveRecord
                     'invoices'=>array(self::HAS_MANY, 'Invoice', 'job_id'),
                     'packages'=>array(self::HAS_MANY, 'Package', 'job_id'),
                     'workorders'=>array(self::HAS_MANY, 'Workorder','job_id'),
+                    'events'=>array(self::HAS_MANY, 'Jobevent', 'job_id')
 		);
 	}
 
@@ -366,6 +367,9 @@ class Job extends sifsActiveRecord
                                     '*',
                                 ),
                         ),
+                        'pagination'=> array(
+                            'pageSize' => 50,
+                        )
 		));
 	}
         
@@ -451,7 +455,19 @@ class Job extends sifsActiveRecord
             $criteria->condition = 'is_blacklisted = 0 AND party_type ="'.Party::TYPE_CFS.'"';
             $partiesArray = CHtml::listData(Party::model()->findAll($criteria),'id','party_name');
             return $partiesArray;
-        }       
+        }   
+        
+        /** 
+         * Retrieves the Parties for populating the Shipper/Conee/Agent fields
+         * @return array an array of all parties
+         */
+        public function getUserOptions()
+        {
+            $criteria = new CDbCriteria();
+            $usersArray = CHtml::listData(User::model()->findAll($criteria),'id','username');
+            return $usersArray;
+        }
+        
          /** 
          * Retrieves the Parties for populating the CFS/Transporter fields
          * @return array an array of all parties
