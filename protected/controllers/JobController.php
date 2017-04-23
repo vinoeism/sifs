@@ -51,11 +51,12 @@ class JobController extends RController
 	 */
 	public function actionView($id)
 	{
+            
                 $voucherDataProvider= new CActiveDataProvider('Voucher',
                             array(
                                 'criteria'=>array(
                                     'condition'=>'job_id=:jobId',
-                                    'params'=>array(':jobId'=>  $this->loadModel($id)->id),
+                                    'params'=>array(':jobId'=>  $id),
                                 ),
                                 'pagination'=>array(
                                     'pageSize'=>15,
@@ -66,7 +67,7 @@ class JobController extends RController
                             array(
                                 'criteria'=>array(
                                     'condition'=>'job_id=:jobId',
-                                    'params'=>array(':jobId'=>  $this->loadModel($id)->id),
+                                    'params'=>array(':jobId'=>  $id),
                                 ),
                                 'pagination'=>array(
                                     'pageSize'=>15,
@@ -78,7 +79,7 @@ class JobController extends RController
                             array(
                                 'criteria'=>array(
                                     'condition'=>'job_id=:jobId',
-                                    'params'=>array(':jobId'=>  $this->loadModel($id)->id),
+                                    'params'=>array(':jobId'=>  $id),
                                 ),
                                 'pagination'=>array(
                                     'pageSize'=>15,
@@ -89,7 +90,7 @@ class JobController extends RController
                             array(
                                 'criteria'=>array(
                                     'condition'=>'job_id=:jobId and is_active=1',
-                                    'params'=>array(':jobId'=>  $this->loadModel($id)->id),
+                                    'params'=>array(':jobId'=>  $id),
                                 ),
                                 'pagination'=>array(
                                     'pageSize'=>15,
@@ -100,7 +101,7 @@ class JobController extends RController
                             array(
                                 'criteria'=>array(
                                     'condition'=>'job_id=:jobId',
-                                    'params'=>array(':jobId'=>  $this->loadModel($id)->id),
+                                    'params'=>array(':jobId'=>  $id),
                                 ),
                                 'pagination'=>array(
                                     'pageSize'=>15,
@@ -111,13 +112,47 @@ class JobController extends RController
                             array(
                                 'criteria'=>array(
                                     'condition'=>'job_id=:jobId',
-                                    'params'=>array(':jobId'=>  $this->loadModel($id)->id),
+                                    'params'=>array(':jobId'=> $id),
                                 ),
                                 'pagination'=>array(
                                     'pageSize'=>15,
                                 )
                             )
                         );
+                //checking the latest event in the job
+                $jobEventDataProvider = new CActiveDataProvider('Jobevent',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=> $id),
+                                    'order' => 'event_date DESC',
+
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )                              
+                            )
+                        );
+                if ($jobEventDataProvider->totalItemCount == 0 ) {    //for handling the first event
+                    $criteria = new CDbCriteria;
+                    $criteria->condition = 'type = "'.$this->loadModel($id)->type.'" and subtype1 = "'.$this->loadModel($id)->mode.'" and order_no = 1';
+                    $criteria->select = 'id';
+                    $eventDataProvider = Event::model()->find($criteria);
+                } else { //for handling all the other events
+                    
+                    $criteria = new CDbCriteria;
+                    $criteria->condition = 'order_no = (SELECT 1+order_no FROM event where id = (
+                                                    SELECT event_id 
+                                                    FROM `jobevent` 
+                                                    WHERE event_date = (select max(event_date) from jobevent where job_id='.$id.')))';
+                    $criteria->select = 'id';
+                    $eventDataProvider = Event::model()->find($criteria);
+                      
+                    if ($eventDataProvider== null || $eventDataProvider->id == 0) { //for handling the last event
+                        $eventDataProvider = null;
+                    }
+                }
+                
                 $this->render('view',array(
 			'model'=>$this->loadModel($id),
                         'voucherDataProvider'=>$voucherDataProvider,
@@ -126,6 +161,8 @@ class JobController extends RController
                         'invoiceDataProvider'=>$invoiceDataProvider,
                         'contrsDataProvider'=>$contrsDataProvider,
                         'woDataProvider'=>$woDataProvider,
+                        'eventDataProvider'=>$eventDataProvider,
+                        'jobEventDataProvider'=>$jobEventDataProvider,                    
 		));
 	}
  
@@ -272,8 +309,10 @@ class JobController extends RController
 	public function actionDelete($id)
 	{
                 // instead of deleting jobs, they are just made inactive for easier recovery later
-		$this->loadModel($id)->isActive = false;
-
+		$job = $this->loadModel($id);
+                $job->isActive = false;
+                $job->save();
+                
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));

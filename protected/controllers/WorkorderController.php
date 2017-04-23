@@ -290,7 +290,7 @@ class WorkorderController extends RController
                 $packagesDataProvider= new CActiveDataProvider('Package',
                             array(
                                 'criteria'=>array(
-                                    'condition'=>'job_id=:jobId and id in (select package_id from WorkorderPackage where workorder_id=:woId)',
+                                    'condition'=>'job_id=:jobId and id in (select package_id from workorderpackage where workorder_id=:woId)',
                                     'params'=>array(':jobId'=>  $this->loadModel($id)->job_id,':woId'=>$id),
                                 ),
                                 'pagination'=>array(
