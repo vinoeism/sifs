@@ -82,13 +82,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'enquiry_by'); ?>
-		<?php echo $form->textField($model,'enquiry_by'); ?>
+		<?php echo $form->dropDownList($model,'enquiry_by',$model->getUserOptions()); ?>
 		<?php echo $form->error($model,'enquiry_by'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'handled_by'); ?>
-		<?php echo $form->textField($model,'handled_by'); ?>
+		<?php echo $form->dropDownList($model,'handled_by',$model->getUserOptions()); ?>
 		<?php echo $form->error($model,'handled_by'); ?>
 	</div>
 

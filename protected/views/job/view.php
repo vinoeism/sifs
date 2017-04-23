@@ -177,6 +177,40 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
         'summaryText' => '', 
 )); } 
 ?>
+
+<h3>Events <?php echo $eventDataProvider == null?"":CHtml::link('<img src="images/add.png" height="14px" />', array('jobevent/create','jobID'=>$model->id, 'eventID'=>$eventDataProvider->id)); ?> </h3>
+
+
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'package-grid',
+	'dataProvider'=>$jobEventDataProvider,
+	'columns'=>array(
+                array(
+                        'name'=>'Event',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link(CHtml::encode($data->events->name), array(\'jobevent/update\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),
+                array(
+                    'name'=> "Description",
+                    'value' => '$data->events->description',	
+                ),
+                array(
+                    'name'=> "Event Date",
+                    'value' => '$data->event_date',	
+                ),
+                 array(
+                    'name'=> "Comments",
+                    'value' => '$data->comments',	
+                ),
+            ),
+        'summaryText' => '', 
+    )); 
+?>
+
+
+
 <h3>Work Orders <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('workorder/create','jobID'=>$model->id)); ?> </h3>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
