@@ -10,10 +10,16 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Create Settings', 'url'=>array('create')),
     	//array('label'=>'Manage Currencies', 'url'=>array('index')),
-        array('label'=>'Manage Branches', 'url'=>array('branch/index')),
+        array('label'=>'Manage Branches', 'url'=>array('branch/admin')),
+        array('label'=>'Manage Job Events', 'url'=>array('event/admin')),
         array('label'=>'Manage rights', 'url'=>array('/rights/authitem/permissions'))
 );
-
+$this->sidemenu = array(
+//            array('label'=>'Update Cargo details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'CARGO')),    
+            array('label'=>'Add Job Expense', 'url'=>array('create', 'jobID'=>$model->id, 'formName'=>'CONTR')),            
+            array('label'=>'Add Branch Expense', 'url'=>array('voucher/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)),
+            array('label'=>'Add Job Item', 'url'=>array('invoice/create', 'jobID'=>$model->id, 'branchID'=>$model->branch_id)),
+    );
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
