@@ -377,7 +377,7 @@ class Job extends sifsActiveRecord
          * Retrieves the various shipment types
          * @return array an array of possible shipment types
          */
-        public function getTypeOptions()
+        public static function getTypeOptions()
         {
             return array(
                 self::TYPE_IMPORT=>'Import',
@@ -391,7 +391,7 @@ class Job extends sifsActiveRecord
          * Retrieves the various shipment modes
          * @return array an array of possible shipment modes
          */
-        public function getModeOptions()
+        public static function getModeOptions()
         {
             return array(
                 self::MODE_SEA_LCL=>'SEA LCL',
