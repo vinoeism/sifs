@@ -111,7 +111,13 @@ $this->sidemenu=array(
 	//'filter'=>$model,
 	'columns'=>array(
 		//'id',
-		'REFNO',
+                array(
+                        'name'=>'REFNO',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link(CHtml::encode($data->REFNO), array(\'job/view\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),            
 		//'Client_REFNO',
 		//'init_date',
 		//'branch_id',
