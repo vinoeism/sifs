@@ -10,11 +10,14 @@
  * @property string $voucher_type
  * @property integer $bill_id
  * @property integer $job_id
+ * @property integer $wo_id
  * @property integer $employee_id
  * @property integer $vehicle_id
  * @property integer $asset_id
  * @property string $total_tax_1
  * @property string $total_tax_2
+ * @property string $total_tax_3
+ * @property string $total_tax_4
  * @property string $total_amount
  * @property string $towards
  * @property string $comments
@@ -85,16 +88,16 @@ class Voucher extends sifsActiveRecord
 		// will receive user inputs.
 		return array(
 			array('voucher_date, branch_id, voucher_type, pay_to', 'required'),
-			array('branch_id, bill_id, job_id, employee_id, vehicle_id, asset_id, pay_to, passed_by, approved_by, rejected_by, hold_by, created_by, updated_by', 'numerical', 'integerOnly'=>true),
+			array('branch_id, bill_id, job_id, wo_id, employee_id, vehicle_id, asset_id, pay_to, passed_by, approved_by, rejected_by, hold_by, created_by, updated_by', 'numerical', 'integerOnly'=>true),
 			array('voucher_type', 'length', 'max'=>20),
                         array('bill_no','length','max'=>30),
-			array('total_tax_1, total_tax_2, bill_amount, total_amount, priority, tds, discount', 'length', 'max'=>13),
+                        array('total_tax_1, total_tax_2, total_tax_3, total_tax_4, bill_amount, total_amount, priority, tds, discount', 'length', 'max'=>13),
 			array('towards', 'length', 'max'=>100),
 			array('comments, passed_comments, approval_comments, rejection_comments, hold_comments', 'length', 'max'=>300),
 			array('due_on, passed_on, approved_on, rejected_on, hold_on, bill_date, created_on, updated_on', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, voucher_date, branch_id, voucher_type, bill_id, job_id, employee_id, vehicle_id, asset_id, total_tax_1, total_tax_2, total_amount, towards, comments, pay_to, bill_no, bill_amount, bill_date, due_on, passed_by, passed_on, passed_comments, approved_by, approved_on, approval_comments, rejected_by, rejected_on, rejection_comments, hold_by, hold_on, hold_comments, priority, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
+			array('id, voucher_date, branch_id, voucher_type, bill_id, job_id, wo_id, employee_id, vehicle_id, asset_id, total_tax_1, total_tax_2, total_amount, towards, comments, pay_to, bill_no, bill_amount, bill_date, due_on, passed_by, passed_on, passed_comments, approved_by, approved_on, approval_comments, rejected_by, rejected_on, rejection_comments, hold_by, hold_on, hold_comments, priority, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -135,6 +138,8 @@ class Voucher extends sifsActiveRecord
 			'asset_id' => 'Asset',
 			'total_tax_1' => 'Tax 1',
 			'total_tax_2' => 'Tax 2',
+			'total_tax_3' => 'Tax 3',
+			'total_tax_4' => 'Tax 4',
 			'total_amount' => 'Pre-tax Amount',
 			'towards' => 'Towards',
 			'comments' => 'Comments',
@@ -186,6 +191,8 @@ class Voucher extends sifsActiveRecord
 		$criteria->compare('asset_id',$this->asset_id);
 		$criteria->compare('total_tax_1',$this->total_tax_1,true);
 		$criteria->compare('total_tax_2',$this->total_tax_2,true);
+		$criteria->compare('total_tax_3',$this->total_tax_3,true);
+		$criteria->compare('total_tax_4',$this->total_tax_4,true);
 		$criteria->compare('total_amount',$this->total_amount,true);
 		$criteria->compare('towards',$this->towards,true);
 		$criteria->compare('comments',$this->comments,true);
