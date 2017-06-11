@@ -58,6 +58,18 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'tax_3'); ?>
+		<?php echo $form->dropDownList($model,'tax_3',$model->getTaxes($model),array('prompt'=>'-- Select Tax --',)); ?>
+		<?php echo $form->error($model,'tax_3'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'tax_4'); ?>
+		<?php echo $form->dropDownList($model,'tax_4',$model->getTaxes($model),array('prompt'=>'-- Select Tax --',)); ?>
+		<?php echo $form->error($model,'tax_4'); ?>
+	</div>
+        
+        <div class="row">
 		<?php echo $form->labelEx($model,'comments'); ?>
 		<?php echo $form->textArea($model,'comments',array('size'=>60,'maxlength'=>150)); ?>
 		<?php echo $form->error($model,'comments'); ?>
