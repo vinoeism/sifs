@@ -18,7 +18,11 @@
  * @property string $tax_1_amount
  * @property integer $tax_2
  * @property string $tax_2_amount
- * @property integer $isActive
+ * @property integer $tax_3
+ * @property string $tax_3_amount
+ * @property integer $tax_4
+ * @property string $tax_4_amount
+ *  * @property integer $isActive
  * @property integer $pass_id
  * @property integer $approve_id
  * @property integer $created_by
@@ -59,11 +63,11 @@ class Moduledescription extends sifsActiveRecord
 			array('description', 'length', 'max'=>100),
 			array('comments', 'length', 'max'=>150),
 			array('currency', 'length', 'max'=>3),
-			array('exchange_rate, rate, quantity, amount, tax_1_amount, tax_2_amount', 'length', 'max'=>10),
+			array('exchange_rate, rate, quantity, amount, tax_1_amount, tax_2_amount, tax_3_amount, tax_4_amount', 'length', 'max'=>10),
 			array('created_on, updated_on', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, invoice_id, voucher_id, description, comments, currency, exchange_rate, rate, quantity, amount, tax_1, tax_1_amount, tax_2, tax_2_amount, isActive, pass_id, approve_id, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
+			array('id, invoice_id, voucher_id, description, comments, currency, exchange_rate, rate, quantity, amount, tax_1, tax_1_amount, tax_2, tax_2_amount, tax_3_amount, tax_4_amount, isActive, pass_id, approve_id, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,6 +104,10 @@ class Moduledescription extends sifsActiveRecord
 			'tax_1_amount' => 'Tax 1 Amount',
 			'tax_2' => 'Tax 2',
 			'tax_2_amount' => 'Tax 2 Amount',
+			'tax_3' => 'Tax 3',
+			'tax_3_amount' => 'Tax 3 Amount',
+			'tax_4' => 'Tax 4',
+			'tax_4_amount' => 'Tax 4 Amount',
 			'isActive' => 'Is Active',
 			'pass_id' => 'Pass',
 			'approve_id' => 'Approve',
@@ -135,6 +143,10 @@ class Moduledescription extends sifsActiveRecord
 		$criteria->compare('tax_1_amount',$this->tax_1_amount,true);
 		$criteria->compare('tax_2',$this->tax_2);
 		$criteria->compare('tax_2_amount',$this->tax_2_amount,true);
+		$criteria->compare('tax_2',$this->tax_3);
+		$criteria->compare('tax_2_amount',$this->tax_3_amount,true);
+		$criteria->compare('tax_2',$this->tax_4);
+		$criteria->compare('tax_2_amount',$this->tax_4_amount,true);
 		$criteria->compare('isActive',$this->isActive);
 		$criteria->compare('pass_id',$this->pass_id);
 		$criteria->compare('approve_id',$this->approve_id);
