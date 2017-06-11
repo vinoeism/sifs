@@ -13,6 +13,8 @@
  * @property integer $invoice_terms
  * @property string $total_tax_1
  * @property string $total_tax_2
+ * @property string $total_tax_3
+ * @property string $total_tax_4
  * @property string $total_amount
  * @property integer $created_by
  * @property string $created_on
@@ -59,12 +61,12 @@ class Invoice extends sifsActiveRecord
 			array('REFNO', 'length', 'max'=>50),
                         array('REFNO', 'unique'),
 			array('invoice_terms', 'length', 'max'=>1000),
-			array('total_tax_1, total_tax_2, total_amount', 'length', 'max'=>10),
+			array('total_tax_3, total_tax_4, total_tax_1, total_tax_2, total_amount', 'length', 'max'=>10),
 			array('approval_comments', 'length', 'max'=>300),
 			array('created_on, updated_on, approved_on, due_on, status_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, REFNO, branch_id, job_id, invoice_date, party_id, invoice_terms, total_tax_1, total_tax_2, total_amount, created_by, created_on, updated_by, updated_on, approved_by, approved_on, approval_comments, due_on, status, status_date, is_active', 'safe', 'on'=>'search'),
+			array('id, REFNO, branch_id, job_id, invoice_date, party_id, invoice_terms, total_tax_1, total_tax_2, total_tax_3, total_tax_4, total_amount, created_by, created_on, updated_by, updated_on, approved_by, approved_on, approval_comments, due_on, status, status_date, is_active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -98,6 +100,8 @@ class Invoice extends sifsActiveRecord
 			'invoice_terms' => 'Invoice Terms',
 			'total_tax_1' => 'Total Tax 1',
 			'total_tax_2' => 'Total Tax 2',
+			'total_tax_3' => 'Total Tax 3',
+			'total_tax_4' => 'Total Tax 4',
 			'total_amount' => 'Total Amount',
 			'created_by' => 'Created By',
 			'created_on' => 'Created On',
@@ -133,6 +137,8 @@ class Invoice extends sifsActiveRecord
 		$criteria->compare('invoice_terms',$this->invoice_terms,true);
 		$criteria->compare('total_tax_1',$this->total_tax_1,true);
 		$criteria->compare('total_tax_2',$this->total_tax_2,true);
+		$criteria->compare('total_tax_3',$this->total_tax_3,true);
+		$criteria->compare('total_tax_4',$this->total_tax_4,true);
 		$criteria->compare('total_amount',$this->total_amount,true);
 		$criteria->compare('created_by',$this->created_by);
 		$criteria->compare('created_on',$this->created_on,true);
