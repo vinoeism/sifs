@@ -15,6 +15,7 @@ class WorkorderController extends RController
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
+                        'rights',
 			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -65,7 +66,7 @@ class WorkorderController extends RController
                 $contrsDataProvider= new CActiveDataProvider('Package',
                     array(
                         'criteria'=>array(
-                            'condition'=>'job_id=:jobId and id not in (select package_id from WorkorderPackage where workorder_id=:woId)',
+                            'condition'=>'job_id=:jobId and id not in (select package_id from workorderpackage where workorder_id=:woId)',
                             'params'=>array(':jobId'=>  $job_id,':woId'=>$wo_id),
                         ),
                         'pagination'=>array(
@@ -76,7 +77,7 @@ class WorkorderController extends RController
                 $existingPackagesDataProvider= new CActiveDataProvider('Package',
                     array(
                         'criteria'=>array(
-                            'condition'=>'job_id=:jobId and id in (select package_id from WorkorderPackage where workorder_id=:woId)',
+                            'condition'=>'job_id=:jobId and id in (select package_id from workorderpackage where workorder_id=:woId)',
                             'params'=>array(':jobId'=>  $job_id,':woId'=>$wo_id),
                         ),
                         'pagination'=>array(
@@ -298,6 +299,17 @@ class WorkorderController extends RController
                                 )
                             )
                         );
+                $paymentsDataProvider= new CActiveDataProvider('Payment',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'id in (select payment_id from voucherpayment where voucher_id in ( select id from voucher where wo_id=:woId ))',
+                                    'params'=>array(':woId'=>$id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
                      
                 # Load a stylesheet
                 $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
@@ -311,6 +323,7 @@ class WorkorderController extends RController
                             'model'=>$this->loadModel($id),
                             'itemsDataProvider' => $itemsDataProvider,
                             'packagesDataProvider'=> $packagesDataProvider,
+                            'paymentsDataProvider'=> $paymentsDataProvider,
                             ),true));
 
                 $mPDF1->Output();
