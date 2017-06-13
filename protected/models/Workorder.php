@@ -9,6 +9,8 @@
  * @property integer $job_id
  * @property integer $trip_id
  * @property integer $transporter_id
+ * @property string $vehicle_type
+ * @property string $vehicle_instructions 
  * @property string $trip_type
  * @property string $trip_date_start
  * @property string $trip_date_end
@@ -52,7 +54,7 @@ class Workorder extends sifsActiveRecord
 		// will receive user inputs.
 		return array(
 			array('job_id, trip_id, transporter_id, from_location_id, to_location_id, created_by, updated_by', 'numerical', 'integerOnly'=>true),
-			array('trip_type', 'length', 'max'=>200),
+			array('trip_type, vehicle_type, vehicle_instructions', 'length', 'max'=>200),
                         array('transporter_id, wo_date, trip_date_start, from_location, to_location','required'),
 			array('from_location, to_location', 'length', 'max'=>500),
 			array('wo_date, trip_date_start, trip_date_end, in_time, out_time, created_on, updated_on', 'safe'),
@@ -61,7 +63,7 @@ class Workorder extends sifsActiveRecord
 //                        array('trip_date_start', 'compare', 'wo_date' => date("Y-m-d"), 'operator' => '>='),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, wo_date, job_id, trip_id, transporter_id, trip_type, trip_date_start, trip_date_end, in_time, out_time, from_location, from_location_id, to_location, to_location_id, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
+			array('id, wo_date, job_id, trip_id, transporter_id, trip_type, vehicle_type, trip_date_start, trip_date_end, in_time, out_time, from_location, from_location_id, to_location, to_location_id, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -104,9 +106,11 @@ class Workorder extends sifsActiveRecord
 			'job_id' => 'Job',
 			'trip_id' => 'Trip',
 			'transporter_id' => 'Transporter',
+                        'vehicle_type' => 'Vehicle Type',
+                        'vehicle_instructions' => 'Special Instructions',
 			'trip_type' => 'Trip Type',
-			'trip_date_start' => 'Trip Date Start',
-			'trip_date_end' => 'Trip Date End',
+			'trip_date_start' => 'Reporting date',
+			'trip_date_end' => 'Relieving date',
 			'in_time' => 'In Time',
 			'out_time' => 'Out Time',
 			'from_location' => 'From Location',
@@ -137,7 +141,9 @@ class Workorder extends sifsActiveRecord
 		$criteria->compare('trip_id',$this->trip_id);
 		$criteria->compare('transporter_id',$this->transporter_id);
 		$criteria->compare('trip_type',$this->trip_type,true);
-		$criteria->compare('trip_date_start',$this->trip_date_start,true);
+		$criteria->compare('vehicle_type',$this->vehicle_type,true);
+		$criteria->compare('vehicle_instructions',$this->vehicle_instructions,true);
+                $criteria->compare('trip_date_start',$this->trip_date_start,true);
 		$criteria->compare('trip_date_end',$this->trip_date_end,true);
 		$criteria->compare('in_time',$this->in_time,true);
 		$criteria->compare('out_time',$this->out_time,true);
@@ -166,14 +172,26 @@ class Workorder extends sifsActiveRecord
             return $partiesArray;
         }  
         /** 
-         * Retrieves the Parties for populating the CFS/Transporter fields
-         * @return array an array of all parties
+         * Retrieves the Parties for populating the Trip Type field
+         * @return array an array of all trip types
          */
         public function getTripTypes()
         {
             $criteria = new CDbCriteria();
             $criteria->condition = 'setting_key = "triptype" AND setting_subkey = "vehicle"';
-            $partiesArray = CHtml::listData(Settings::model()->findAll($criteria),'id','setting_value');
-            return $partiesArray;
+            $tripsArray = CHtml::listData(Settings::model()->findAll($criteria),'id','setting_value');
+            return $tripsArray;
         } 
+        /** 
+         * Retrieves the Vehicle types for populating the Vehicle Type field
+         * @return array an array of all vehicle types
+         */
+        public function getVehicleTypes()
+        {
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'setting_key = "vehicletype"';
+            $vehiclesArray = CHtml::listData(Settings::model()->findAll($criteria),'id','setting_value');
+            return $vehiclesArray;
+        } 
+        
 }
