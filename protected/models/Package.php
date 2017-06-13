@@ -92,7 +92,6 @@ class Package extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('type, cargo', 'required'),
-                        array('name', 'required', 'message'=>'Please enter a value for {attribute}.'),
 			array('id, quantity, job_id, wo_id, quote_id', 'numerical', 'integerOnly'=>true),
 			array('length, breadth, height, gross_weight, net_weight, chargeable_weight', 'numerical'),
 			array('name, type, subtype', 'length', 'max'=>50),
