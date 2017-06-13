@@ -80,7 +80,9 @@ class PackageController extends RController
 		if(isset($_POST['Package']))
 		{
 			$model->attributes=$_POST['Package'];
-
+                        if ($model->type == Package::TYPE_CONTR && empty($model->name)) {
+                            $model->name = "Contr#";
+                        }
                         if($model->save()) {
                             if ($model->type == Package::TYPE_CONTR) {                            
                                 $criteria = new CDbCriteria;
@@ -139,12 +141,12 @@ class PackageController extends RController
 		if(isset($_POST['Package']))
 		{
 			$model->attributes=$_POST['Package'];                              
-
+                        if ($model->type == Package::TYPE_CONTR && empty($model->name)) {
+                            $model->name = "Contr#";
+                        }
 			if($model->save())
                         {
                             if ($model->type == Package::TYPE_CONTR) {                            
-                             
-
                                 $criteria = new CDbCriteria;
                                 $criteria->select = 'group_concat(name ORDER BY name ASC SEPARATOR \', \') as all_contrs, sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
                                 $criteria->condition = 'job_id = '.$model->job_id;
