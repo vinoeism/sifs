@@ -200,9 +200,9 @@ $this->menu=array(
 ?>    
     
 	<div class="row buttons">
-                <?php echo CHtml::button('Back', array('submit'=>array('job/view','id'=>$model->id))); ?>
 		<?php echo CHtml::submitButton('Edit'); ?>
-	</div>
+                <?php echo CHtml::button('Cancel', array('submit'=>array('job/view','id'=>$model->id))); ?>
+        </div>
     
     <?php $this->endWidget(); ?>
 
