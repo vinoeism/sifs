@@ -17,13 +17,13 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo CHtml::activeLabel($model,'Contr no', array('required' => true)); ?>
+		<?php echo CHtml::activeLabel($model,'contr_no'); ?>
                 <?php
                 $options = array(
                     'model'       => $model,
                     'attribute'   => 'name',
                     'mask'        => 'AAAAnnnnnnn',
-                    'charMap'     => array( 'A' => '[A-Z]', 'n' => '[0-9]', ),
+                    'charMap'     => array( 'A' => '[A-Z, a-z]', 'n' => '[0-9]', ),
                     'htmlOptions' => array( 'class' => 'form-control' )
                 );
                 $this->widget( 'CMaskedTextField', $options ); ?>
