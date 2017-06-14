@@ -40,7 +40,19 @@
 		<?php echo $form->dropDownList($model,'transporter_id', $model->getTransporterOptions(), array('prompt'=>'-- Select Transporter --',)); ?>
 		<?php echo $form->error($model,'transporter_id'); ?>
 	</div>
+	
+        <div class="row">
+		<?php echo $form->labelEx($model,'vehicle_type'); ?>
+		<?php echo $form->dropDownList($model,'vehicle_type', $model->getVehicleTypes(), array('prompt'=>'-- Select Vehicle Type --',)); ?>
+		<?php echo $form->error($model,'vehicle_type'); ?>
+	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'vehicle_instructions'); ?>
+		<?php echo $form->textArea($model,'vehicle_instructions',array('size'=>200,'maxlength'=>200)); ?>
+		<?php echo $form->error($model,'vehicle_instructions'); ?>
+	</div>        
+        
 	<div class="row">
 		<?php echo $form->labelEx($model,'trip_type'); ?>
 		<?php echo $form->dropDownList($model,'trip_type', $model->getTripTypes(), array('prompt'=>'-- Select Trip Type --',)); ?>
