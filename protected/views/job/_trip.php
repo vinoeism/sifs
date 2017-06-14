@@ -18,7 +18,9 @@
         <div class="row">
 		<?php echo $form->labelEx($model,'branch_id'); ?>
 		<?php echo $form->dropDownList($model,'branch_id',$branchesDataProvider); ?>
+		<?php echo $form->dropDownList($model,'mode',$model->getModeOptions()); ?>
 		<?php echo $form->textField($model,'REFNO',array('size'=>25,'maxlength'=>50)); ?>            
+                <?php echo $form->error($model,'mode'); ?>
 		<?php echo $form->error($model,'REFNO'); ?>
 		<?php echo $form->error($model,'branch_id'); ?>
 	</div>

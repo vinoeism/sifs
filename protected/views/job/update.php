@@ -8,11 +8,6 @@ $this->breadcrumbs=array(
 	'Update',
 );
 
-$this->menu=array(
-	array('label'=>'List Job', 'url'=>array('index')),
-	array('label'=>'Create Job', 'url'=>array('create')),
-	array('label'=>'View Job', 'url'=>array('view', 'id'=>$model->id)),
-);
 ?>
 
 <h1>Update <?php echo $model->REFNO; ?></h1>
@@ -25,6 +20,10 @@ $this->menu=array(
     } else if ($formName == 'CARGO') { 
         echo $this->renderPartial('_cargo', array('model'=>$model,'branchesDataProvider'=>$branchesDataProvider));
     } else {
-        echo $this->renderPartial('_form', array('model'=>$model,'branchesDataProvider'=>$branchesDataProvider)); 
-    } 
+        if ($model->type == 'DOMESTIC') 
+            echo $this->renderPartial('_trip', array('model'=>$model,'branchesDataProvider'=>$branchesDataProvider)); 
+        else
+            echo $this->renderPartial('_form', array('model'=>$model,'branchesDataProvider'=>$branchesDataProvider));      
+    }         
+
 ?>
