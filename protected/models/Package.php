@@ -33,7 +33,7 @@ class Package extends CActiveRecord
         const UNIT_KGS = 'Kg(s)';
         const UNIT_MTS = 'MT(s)';
         const UNIT_CBM = 'CBM';
-        const UNIT_CNTRS = 'CNTR(s)';
+        const UNIT_CNTRS = 'CNTRs'; // can't be more than 5 chars long. Or Pkg addition won't update Job page
         // length units
         const UNIT_MM = 'mm(s)';
         const UNIT_CM = 'cm(s)';
