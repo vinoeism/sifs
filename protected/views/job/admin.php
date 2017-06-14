@@ -7,14 +7,21 @@ $this->breadcrumbs=array(
 	'Manage',
 );
 
-$this->menu=array(
+$this->menu =array(
+    	array('label'=>'Import', 'url'=>array('admin', 'type'=>'IMPORT')),
+    	array('label'=>'Export', 'url'=>array('admin', 'type'=>'EXPORT')),
+    	array('label'=>'Logistics', 'url'=>array('admin', 'type'=>'DOMESTIC')),
+
+);
+$this->sidemenu=array(
 	array('label'=>'New Import AIR', 'url'=>array('create', 'type'=>'IMPORT', 'mode'=>'AIR')),
 	array('label'=>'New Import LCL', 'url'=>array('create', 'type'=>'IMPORT', 'mode'=>'SEA LCL')),
 	array('label'=>'New Import FCL', 'url'=>array('create', 'type'=>'IMPORT', 'mode'=>'SEA FCL')),
 	array('label'=>'New Export AIR', 'url'=>array('create', 'type'=>'EXPORT', 'mode'=>'AIR')),
 	array('label'=>'New Export LCL', 'url'=>array('create', 'type'=>'EXPORT', 'mode'=>'SEA LCL')),
 	array('label'=>'New Export FCL', 'url'=>array('create', 'type'=>'EXPORT', 'mode'=>'SEA FCL')),
-	array('label'=>'New TRIP', 'url'=>array('create', 'type'=>'DOMESTIC', 'mode'=>'LAND')),
+	array('label'=>'New TRIP Part Load', 'url'=>array('create', 'type'=>'DOMESTIC', 'mode'=>'SEA LCL')),
+	array('label'=>'New TRIP Contr Load', 'url'=>array('create', 'type'=>'DOMESTIC', 'mode'=>'SEA FCL')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
