@@ -116,10 +116,12 @@ class WorkorderController extends RController
                             $criteria->addInCondition('id' ,$_POST['removedContrs'] );
                             $model = Package::model()->findAll($criteria);
                             foreach ($model as $value) {
-                                //update Order`s Status
-                                $value->wo_id = null;
-                                $value->update();
-                            }                           
+                                $woCriteria = new CDbCriteria;
+                                $woCriteria->condition = 'workorder_id=:woID and package_id=:pkgID';
+                                $woCriteria->params = array(':woID'=> $wo_id, ':pkgID'=> $value->id);
+                                $wopkg = Workorderpackage::model()->find($woCriteria);
+                                $wopkg->delete();
+                            }     
                     }
                     if(isset($_POST['removedPackages']))
                     {
@@ -127,12 +129,14 @@ class WorkorderController extends RController
                             $criteria->addInCondition('id' ,$_POST['removedPackages']);
                             $model = Package::model()->findAll($criteria);
                             foreach ($model as $value) {
-                                //update Order`s Status
-                                $value->wo_id = null;
-                                $value->update();
+                                $woCriteria = new CDbCriteria;
+                                $woCriteria->condition = 'workorder_id=:woID and package_id=:pkgID';
+                                $woCriteria->params = array(':woID'=> $wo_id, ':pkgID'=> $value->id);
+                                $wopkg = Workorderpackage::model()->find($woCriteria);
+                                $wopkg->delete();
                             }                           
                     }                
-                    $this->redirect(array('job/view','id'=>$job_id));
+                    //$this->redirect(array('job/view','id'=>$job_id));
                 }
                 $this->render('packages',array(
 			'model'=>Job::model()->findByPk($job_id),
