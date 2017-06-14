@@ -189,7 +189,7 @@ class Workorder extends sifsActiveRecord
         public function getVehicleTypes()
         {
             $criteria = new CDbCriteria();
-            $criteria->condition = 'setting_key = "vehicletype"';
+            $criteria->condition = 'setting_key = "vehicle" AND setting_subkey = "type"';
             $vehiclesArray = CHtml::listData(Settings::model()->findAll($criteria),'id','setting_value');
             return $vehiclesArray;
         } 
