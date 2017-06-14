@@ -8,8 +8,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	//array('label'=>'List Job', 'url'=>array('index')),
-	array('label'=>'Create Job', 'url'=>array('create')),
+	array('label'=>'New Import AIR', 'url'=>array('create', 'type'=>'IMPORT', 'mode'=>'AIR')),
+	array('label'=>'New Import LCL', 'url'=>array('create', 'type'=>'IMPORT', 'mode'=>'SEA LCL')),
+	array('label'=>'New Import FCL', 'url'=>array('create', 'type'=>'IMPORT', 'mode'=>'SEA FCL')),
+	array('label'=>'New Export AIR', 'url'=>array('create', 'type'=>'EXPORT', 'mode'=>'AIR')),
+	array('label'=>'New Export LCL', 'url'=>array('create', 'type'=>'EXPORT', 'mode'=>'SEA LCL')),
+	array('label'=>'New Export FCL', 'url'=>array('create', 'type'=>'EXPORT', 'mode'=>'SEA FCL')),
+	array('label'=>'New TRIP', 'url'=>array('create', 'type'=>'DOMESTIC', 'mode'=>'LAND')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
