@@ -67,7 +67,12 @@ class SettingsController extends RController
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+                if(isset($_GET['type'])) {
+                    $model->setting_key = $_GET['type'];
+                }
+                if(isset($_GET['subtype'])) {
+                    $model->setting_subkey = $_GET['subtype'];
+                }
 		if(isset($_POST['Settings']))
 		{
 			$model->attributes=$_POST['Settings'];
