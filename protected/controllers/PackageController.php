@@ -83,8 +83,10 @@ class PackageController extends RController
                         if ($model->type == Package::TYPE_CONTR && empty($model->name)) {
                             $model->name = "Contr#";
                         }
-                        if($model->save()) {
-                            if ($model->type == Package::TYPE_CONTR) {                            
+                        $packageType = $model->type;
+			if($model->save())
+                        {
+                            if ($packageType == Package::TYPE_CONTR) {                            
                                 $criteria = new CDbCriteria;
                                 $criteria->select = 'group_concat(name ORDER BY name ASC SEPARATOR \', \') as all_contrs, sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
                                 $criteria->condition = 'job_id = '.$model->job_id;
@@ -115,7 +117,8 @@ class PackageController extends RController
                                 $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
                                 $model->jobs->chargeable_weight_unit = $PackageModel[0]->weight_unit;
                                 $model->jobs->packages = $PackageModel[0]->total_quantity." ".Package::TYPE_PKG;
-                                $model->jobs->save();                                
+                                $model->jobs->contr_nos = 'NA';
+                                $model->jobs->save();   
                             }
                             $this->redirect(array('job/view','id'=>$model->job_id));
                         }
@@ -140,13 +143,14 @@ class PackageController extends RController
 
 		if(isset($_POST['Package']))
 		{
-			$model->attributes=$_POST['Package'];                              
+			$model->attributes=$_POST['Package'];     
                         if ($model->type == Package::TYPE_CONTR && empty($model->name)) {
-                            $model->name = "Contr#";
+                            $model->name = "Contr#123";
                         }
+                        $packageType = $model->type;
 			if($model->save())
                         {
-                            if ($model->type == Package::TYPE_CONTR) {                            
+                            if ($packageType == Package::TYPE_CONTR) {                            
                                 $criteria = new CDbCriteria;
                                 $criteria->select = 'group_concat(name ORDER BY name ASC SEPARATOR \', \') as all_contrs, sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
                                 $criteria->condition = 'job_id = '.$model->job_id;
@@ -176,6 +180,7 @@ class PackageController extends RController
                                 $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
                                 $model->jobs->chargeable_weight_unit = $PackageModel[0]->weight_unit;
                                 $model->jobs->packages = $PackageModel[0]->total_quantity." ".Package::TYPE_PKG;
+                                $model->jobs->contr_nos = 'NA';
                                 $model->jobs->save();   
                             }
                             $model->jobs->save();                                
@@ -206,34 +211,35 @@ class PackageController extends RController
 
                 if ($packageType == Package::TYPE_CONTR) {  
                     $criteria = new CDbCriteria;
-                    $criteria->select = 'sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
-                    $criteria->condition = 'job_id = '.$job_id;
+                    $criteria->select = 'group_concat(name ORDER BY name ASC SEPARATOR \', \') as all_contrs, sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, count(name) as total_quantity, weight_unit';
+                    $criteria->condition = 'job_id = '.$model->job_id;
                     $criteria->group = 'job_id';
-                    $PackageModel = Package::model()->findAll($criteria);
-
-                    $jobModel->gross_weight = $PackageModel[0]->total_gross_weight;
-                    $jobModel->nett_weight = $PackageModel[0]->total_net_weight;
-                    $jobModel->chargeable_weight = $PackageModel[0]->total_quantity;
-                    $jobModel->gross_weight_unit = $PackageModel[0]->weight_unit;
-                    $jobModel->nett_weight_unit = $PackageModel[0]->weight_unit;
-                    $jobModel->chargeable_weight_unit = Package::UNIT_CNTRS;
-                    $jobModel->packages = $PackageModel[0]->total_quantity." ".Package::TYPE_CONTR;
-                    $jobModel->save();
+                    $PackageModel = $model->findAll($criteria);
+                    $model->jobs->gross_weight = $PackageModel[0]->total_gross_weight;
+                    $model->jobs->nett_weight = $PackageModel[0]->total_net_weight;
+                    $model->jobs->chargeable_weight = $PackageModel[0]->total_quantity;
+                    $model->jobs->gross_weight_unit = $PackageModel[0]->weight_unit;
+                    $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
+                    $model->jobs->chargeable_weight_unit = Package::UNIT_CNTRS;
+                    $model->jobs->packages = "".$PackageModel[0]->total_quantity." ".Package::TYPE_CONTR;
+                    $model->jobs->contr_nos = $PackageModel[0]->all_contrs;
+                    $model->jobs->save(); 
                 } else {
                     $criteria = new CDbCriteria;
                     $criteria->select = 'sum(gross_weight) as total_gross_weight, sum(net_weight) as total_net_weight, sum(chargeable_weight) as total_chargeable_weight, SUM( quantity ) as total_quantity, weight_unit';
-                    $criteria->condition = 'job_id = '.$job_id;
+                    $criteria->condition = 'job_id = '.$model->job_id;
                     $criteria->group = 'job_id';
-                    $PackageModel = Package::model()->findAll($criteria);
+                    $PackageModel = $model->findAll($criteria);
 
-                    $jobModel->gross_weight = $PackageModel[0]->total_gross_weight;
-                    $jobModel->nett_weight = $PackageModel[0]->total_net_weight;
-                    $jobModel->chargeable_weight = $PackageModel[0]->total_chargeable_weight;
-                    $jobModel->gross_weight_unit = $PackageModel[0]->weight_unit;
-                    $jobModel->nett_weight_unit = $PackageModel[0]->weight_unit;
-                    $jobModel->chargeable_weight_unit = $PackageModel[0]->weight_unit;
-                    $jobModel->packages = $PackageModel[0]->total_quantity." ".Package::TYPE_PKG;
-                    $jobModel->save();  
+                    $model->jobs->gross_weight = $PackageModel[0]->total_gross_weight;
+                    $model->jobs->nett_weight = $PackageModel[0]->total_net_weight;
+                    $model->jobs->chargeable_weight = $PackageModel[0]->total_chargeable_weight;
+                    $model->jobs->gross_weight_unit = $PackageModel[0]->weight_unit;
+                    $model->jobs->nett_weight_unit = $PackageModel[0]->weight_unit;
+                    $model->jobs->chargeable_weight_unit = $PackageModel[0]->weight_unit;
+                    $model->jobs->packages = $PackageModel[0]->total_quantity." ".Package::TYPE_PKG;
+                    $model->jobs->contr_nos = 'NA';
+                    $model->jobs->save();   
                 }
                 $this->redirect(array('job/view','id'=>$job_id));
 
