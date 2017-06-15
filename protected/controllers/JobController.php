@@ -32,7 +32,7 @@ class JobController extends RController
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','sendMail'),
+				'actions'=>array('create','update','sendMail','admin','trip'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -165,7 +165,128 @@ class JobController extends RController
                         'jobEventDataProvider'=>$jobEventDataProvider,                    
 		));
 	}
- 
+
+        /**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionTrip($id)
+	{
+            
+                $voucherDataProvider= new CActiveDataProvider('Voucher',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=>  $id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );     
+                $tasksDataProvider = new CActiveDataProvider('Task',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=>  $id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                     
+                $statusDataProvider = new CActiveDataProvider('Modulestatus',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=>  $id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                $invoiceDataProvider = new CActiveDataProvider('Invoice',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId and is_active=1',
+                                    'params'=>array(':jobId'=>  $id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                $contrsDataProvider= new CActiveDataProvider('Package',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=>  $id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                $woDataProvider= new CActiveDataProvider('Workorder',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=> $id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                //checking the latest event in the job
+                $jobEventDataProvider = new CActiveDataProvider('Jobevent',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=> $id),
+                                    'order' => 'event_date DESC',
+
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )                              
+                            )
+                        );
+                if ($jobEventDataProvider->totalItemCount == 0 ) {    //for handling the first event
+                    $criteria = new CDbCriteria;
+                    $criteria->condition = 'type = "'.$this->loadModel($id)->type.'" and subtype1 = "'.$this->loadModel($id)->mode.'" and order_no = 1';
+                    $criteria->select = 'id';
+                    $eventDataProvider = Event::model()->find($criteria);
+                } else { //for handling all the other events
+                    
+                    $criteria = new CDbCriteria;
+                    $criteria->condition = 'order_no = (SELECT 1+order_no FROM event where id = (
+                                                    SELECT event_id 
+                                                    FROM `jobevent` 
+                                                    WHERE event_date = (select max(event_date) from jobevent where job_id='.$id.')))';
+                    $criteria->select = 'id';
+                    $eventDataProvider = Event::model()->find($criteria);
+                      
+                    if ($eventDataProvider== null || $eventDataProvider->id == 0) { //for handling the last event
+                        $eventDataProvider = null;
+                    }
+                }
+                
+                $this->render('trip',array(
+			'model'=>$this->loadModel($id),
+                        'voucherDataProvider'=>$voucherDataProvider,
+                        'tasksDataProvider'=>$tasksDataProvider,
+                        'statusDataProvider'=>$statusDataProvider,
+                        'invoiceDataProvider'=>$invoiceDataProvider,
+                        'contrsDataProvider'=>$contrsDataProvider,
+                        'woDataProvider'=>$woDataProvider,
+                        'eventDataProvider'=>$eventDataProvider,
+                        'jobEventDataProvider'=>$jobEventDataProvider,                    
+		));
+	}
+        
 	/**
 	 * Sends a new WO as mail to righteous
 	 */
@@ -250,8 +371,13 @@ class JobController extends RController
                 $branchesDataProvider = CHtml::listData(Yii::app()->session['branches'],'id','branch_name');
                 $model->REFNO = Job::model()->createJobREF();
                 $model->init_date = date('Y-m-d');
-
-		if(isset($_POST['Job']))
+                if(isset($_GET['type'])) {
+                    $model->type = $_GET['type'];
+                }
+                if(isset($_GET['mode'])) {
+                    $model->mode = $_GET['mode'];
+                }
+                if(isset($_POST['Job']))
 		{
 			$model->attributes=$_POST['Job'];
                         $model->quote_id=1; // dummy values till the quote module is ready
@@ -262,7 +388,11 @@ class JobController extends RController
                                 $statusModel->status = 'Created';
                                 $statusModel->comments = 'Created';
                                 $statusModel->save();
-				$this->redirect(array('view','id'=>$model->id));
+                                if ($model->type == 'DOMESTIC') {
+                                    $this->redirect(array('trip','id'=>$model->id));
+                                } else {
+                                    $this->redirect(array('view','id'=>$model->id));
+                                }
                         }
                         
 		}
@@ -289,9 +419,14 @@ class JobController extends RController
 		if(isset($_POST['Job']))
 		{
 			$model->attributes=$_POST['Job'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
+			if($model->save()) {
+                                if ($model->type == 'DOMESTIC') {
+                                    $this->redirect(array('trip','id'=>$model->id));
+                                } else {
+                                    $this->redirect(array('view','id'=>$model->id));
+                                }	
+                        }
+                }
                 $formName = isset($_GET['formName'])?$_GET['formName']:'';
 		$this->render('update',array(
 			'model'=>$model,
@@ -339,6 +474,9 @@ class JobController extends RController
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Job']))
 			$model->attributes=$_GET['Job'];
+		if(isset($_GET['type']))
+			$model->type=$_GET['type'];
+
                 $accessibileBranches = array();
                 foreach(Yii::app()->session['branches'] as $branch)
                     $accessibileBranches[] = $branch->id;
