@@ -15,7 +15,6 @@ $this->menu=array(
         array('label'=>'Update Docs details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'DOCS')),
         array('label'=>'Add Status', 'url'=>array('modulestatus/create','moduleid'=>$model->id, 'modulename'=>"JOB")),
         array('label'=>'Add Task', 'url'=>array('task/create','jobID'=>$model->id)), 
-        array('label'=>'Send Mail', 'url'=>array('job/SendMail','id'=>$model->id)),
 //	array('label'=>'Delete '.$model->REFNO, 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 
@@ -68,7 +67,7 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
 //                ), 
                 array(
                     'name' => 'transporter',
-                    'value' => CHtml::encode(isset($model->transporters)?$model->transporters->party_name:"Not set"),
+                    'value' => CHtml::encode(isset($model->transporters)?$model->transporters->party_name:"Own Vehicle"),
                 ),            
                 array(
                     'name' => 'enquiry_by',

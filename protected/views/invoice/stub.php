@@ -1,23 +1,23 @@
 <?php echo CHtml::image(dirname(Yii::app()->getBaseUrl(true)).DIRECTORY_SEPARATOR.'sifs/images'.DIRECTORY_SEPARATOR.'sifs_top.jpg', 'DORE'); ?>
 <br><br>
 
-<h1>Tax Invoice </h1>
 
 <div style="width:100%; overflow:hidden;">
+
+    
     <div style="width: 300px; float: left;">
          <h4>Invoice no. <?php echo $model->REFNO; ?> - dtd. <?php echo $model->invoice_date; ?></h4>
-        <?php echo 'Terms: '.Settings::model()->findByPk($model->invoice_terms)->setting_value.' | Due on '.$model->due_on ?><br><br><br><br>
-        <h5>
-            <?php foreach ($model->parties->addresses as $Address) { 
-                if ($Address->type == "BILLING") {
-                ?>
-                    <?php echo $model->parties->party_name; ?><br/>
+        <?php echo 'Terms: '.Settings::model()->findByPk($model->invoice_terms)->setting_value.' | Due on '.$model->due_on ?><br><br/>
+        
+            <?php foreach ($model->parties->addresses as $Address) { ?>
+                    <strong> <?php echo $Address->type." ADDRESS"; ?><br/> </strong>
+                    <strong><?php echo $model->parties->party_name; ?><br/> </strong>
                     <?php echo $Address->line_1; ?><br/>
                     <?php echo $Address->line_2; ?><br/>
                     <?php echo $Address->district.', '; ?><br/>
-                    <?php echo $Address->state.', '.$Address->country.' '.$Address->pincode; ?>
-            <?php } } ?>
-        </h5>
+                    <?php echo $Address->state.', '.$Address->country.' '.$Address->pincode; ?> <br/> <br/>
+            <?php  } ?>
+        
     </div>
     <div style="width: 300px; float: right;">    
         <?php $this->widget('zii.widgets.CDetailView', array(
@@ -32,7 +32,7 @@
                         'value'=>$model->jobs->Client_REFNO,
                     ),	
                     array(
-                        'name'=>'BE/SB no',
+                        'name'=>'B_E/S_B no',
                         'value'=>$model->jobs->BE_SB_no.' dt. '.$model->jobs->BE_SB_date,
                     ),	
                     array(
@@ -189,6 +189,6 @@
     <?php echo $model->branches->addresses->district.', '; ?>
     <?php echo $model->branches->addresses->state.', '.$model->branches->addresses->country.' '.$model->branches->addresses->pincode; ?>
     <?php echo '| PAN  '.$model->branches->PAN_no; ?>
-    <?php echo '| SERV TAX REGN  '.$model->branches->ST_registration_no; ?>
+    <?php echo '| GSTN  '.$model->branches->ST_registration_no; ?>
 </p>
 

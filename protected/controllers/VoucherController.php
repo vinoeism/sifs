@@ -146,7 +146,11 @@ class VoucherController extends RController
                     $criteria->select = 'setting_value';
                     $expensesDataProvider = CHtml::listData(Settings::model()->findAll($criteria),'setting_value','setting_value');
                 }
-
+                if(isset($_GET['woID'])) {
+                    $model->wo_id = $_GET['woID'];
+                    $model->pay_to = Workorder::model()->findbyPk($model->wo_id)->transporter_id;
+                }
+                $model->voucher_type = Voucher::TYPE_CHEQUE;
                 $branchesArray = CHtml::listData(Yii::app()->session['branches'],'id','branch_name');
 
 		// Uncomment the following line if AJAX validation is needed
@@ -159,9 +163,16 @@ class VoucherController extends RController
                             $model->job_id = $_GET['jobID'];
                         if(!isset($model->tds) || ($model->tds == null))
                             $model->tds=0.0;
+                        if(!isset($model->bill_amount) || ($model->bill_amount == null))
+                            $model->bill_amount=0.0;
                                 
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save()) {
+                            if (isset($model->wo_id)) 
+                                $this->redirect(array('job/view','id'=>$model->job_id));
+                            else
+                                $this->redirect(array('view','id'=>$model->id));
+                            
+                        }
 		}
 
 		$this->render('create',array(

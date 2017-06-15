@@ -1,4 +1,4 @@
-<?php echo CHtml::image(dirname(Yii::app()->getBaseUrl(true)).DIRECTORY_SEPARATOR.'sifs/images'.DIRECTORY_SEPARATOR.'sifs_top.jpg', 'DORE'); ?>
+<?php echo CHtml::image(dirname(Yii::app()->basePath).DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'sifs_top.jpg', 'DORE'); ?>
 <br><br>
 
 <div style="width:100%; overflow:hidden;">
@@ -18,9 +18,12 @@
             <?php } } ?>
         </h5>
         <br>
-        We request you to kindly place the vehicle at <b> <?php echo $model->from_location." on ".$model->trip_date_start; ?> </b>
+        We request you to kindly place the vehicle(s) at <b> <?php echo $model->from_location." on ".$model->trip_date_start; ?> </b>
         <br>Delivery at <b> <?php echo $model->to_location; ?> </b>
-        <br><br>
+        <br>
+        Vehicle(s) Type - <?php echo Settings::model()->findByPk($model->vehicle_type)->setting_value;$model->vehicle_type;?><br/>
+        Special Instructions - <?php echo $model->vehicle_instructions; ?><br/>
+        <br>
         Cargo details as under
         <br><br>
     </div>
@@ -144,7 +147,67 @@
     
 </div>
 <br/><br/>
-
+Payments made as under
+<br><br>
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'payment-grid',
+	'dataProvider'=>$paymentsDataProvider,
+	'columns'=>array(
+		array(
+                        'name'=>'id',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link(CHtml::encode($data->id), array(\'view\', \'id\'=>$data->id))',
+                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+                ),
+                'payment_date',
+//                array(
+//                    'name'=>'party_id',
+//                    'value' => 'isset($data->party_id)?$data->parties->party_name:"  -  "',
+//                ),
+//		'employee_id',
+		//'payment_type',
+                array(
+                    'name'=>'Mode',
+                    'filter'=>array('CASH'=>'Cash','CHEQUE'=>'Cheque', 'TRANSFER'=>'Bank Transfer'),
+                    'value' => '$data->mode',
+                    
+                ),
+		
+		'instrument_no',
+		'instrument_date',
+		'instrument_bank',
+		array(
+                    'name'=>'Currency',
+                    'value' => '$data->currency',
+                    
+                ),
+//		'exchange_rate',
+//		'amount',            
+		array(
+                    'name'=>'Total Amount',
+                    'value' => '$data->total_amount',
+                    
+                ),		
+		/*
+                'transaction_no',
+		'currency',
+		'exchange_rate',
+		'tds',
+		'amount',
+		'total_amount',
+		'status',
+		'remaining_amount',
+		'is_adhoc',
+		'created_by',
+		'created_on',
+		'updated_by',
+		'updated_on',
+		*/
+	),
+        'summaryText' => '', 
+)); ?>
+<br>
 <div style="width:100%; overflow:hidden;">
         <h5>Terms & Conditions </h5>
         <i style="font-size: 9;">
