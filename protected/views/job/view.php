@@ -15,7 +15,7 @@ $this->menu=array(
         array('label'=>'Update Docs details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'DOCS')),
         array('label'=>'Add Status', 'url'=>array('modulestatus/create','moduleid'=>$model->id, 'modulename'=>"JOB")),
         array('label'=>'Add Task', 'url'=>array('task/create','jobID'=>$model->id)), 
-        array('label'=>'Send Mail', 'url'=>array('job/SendMail','id'=>$model->id)),
+//        array('label'=>'Send Mail', 'url'=>array('job/SendMail','id'=>$model->id)),
 //	array('label'=>'Delete '.$model->REFNO, 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 );
 
@@ -70,9 +70,14 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
                     'name' => 'transporter',
                     'value' => CHtml::encode(isset($model->transporters)?$model->transporters->party_name:"Not set"),
                 ),            
-
-		'enquiry_by',
-		'handled_by',
+                array(
+                    'name' => 'enquiry_by',
+                    'value' => CHtml::encode(isset($model->enquiry_by)?User::model()->findbyPk($model->enquiry_by)->username:"Not set"),
+                ), 
+                array(
+                    'name' => 'handled_by',
+                    'value' => CHtml::encode(isset($model->handled_by)?User::model()->findbyPk($model->handled_by)->username:"Not set"),
+                ), 
 	),
 )); ?>
 <br><h3>Cargo details </h3>
@@ -229,8 +234,12 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
                     'value' => '$data->wo_date',	
                 ),
                 array(
+                    'name'=> "Vehicle Type",
+                    'value' => 'isset($data->vehicle_type)?Settings::model()->findByPk($data->vehicle_type)->setting_value:"NA"',	
+                ),
+                array(
                     'name'=> "Trip Type",
-                    'value' => 'Settings::model()->findByPk($data->trip_type)->setting_value',	
+                    'value' => 'isset($data->trip_type)?Settings::model()->findByPk($data->trip_type)->setting_value:"NA"',	
                 ),		            
                 array(
                   'name'=> 'From',
@@ -252,6 +261,13 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
                         'htmlOptions'=>array('style'=>'text-align:center;')
                 ),            
                 array(
+                        'name'=>'Voucher',
+                        'type'=>'raw',
+                        'filter'=>'',
+                        'value'=>'CHtml::link("create", array(\'voucher/create\', \'branchID\'=>'.$model->branch_id.', \'jobID\'=>'.$model->id.',\'woID\'=>$data->id))',
+                        'htmlOptions'=>array('style'=>'text-align:center;')
+                ), 
+            array(
                         'name'=>'',
                         'type'=>'raw',
                         'filter'=>'',
@@ -384,8 +400,10 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
 		'voucher_type',
 		'towards',            
 		'total_tax_1',
-                //'total_tax_2',            
-		'total_amount',
+                'total_tax_2',            
+                'total_tax_3',            
+                'total_tax_4',            
+                'total_amount',
 		array(
                     'name'=>'passed_by',
                     'type'=>'raw',
@@ -451,6 +469,8 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
                 //'invoice_terms',
 		'total_tax_1',
 		'total_tax_2',
+		'total_tax_3',
+		'total_tax_4',
 		'total_amount',
 		/*'created_by',
 		'created_on',
