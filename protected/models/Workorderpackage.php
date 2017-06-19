@@ -98,4 +98,27 @@ class Workorderpackage extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-}
+        /** 
+         * Retrieves the Parties for populating the Trip Type field
+         * @return array an array of all trip types
+         */
+        public function getTripTypes()
+        {
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'setting_key = "triptype" AND setting_subkey = "vehicle"';
+            $tripsArray = CHtml::listData(Settings::model()->findAll($criteria),'id','setting_value');
+            return $tripsArray;
+        } 
+        /** 
+         * Retrieves the Vehicle types for populating the Vehicle Type field
+         * @return array an array of all vehicle types
+         */
+        public function getVehicleTypes()
+        {
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'setting_key = "vehicle" AND setting_subkey = "type"';
+            $vehiclesArray = CHtml::listData(Settings::model()->findAll($criteria),'id','setting_value');
+            return $vehiclesArray;
+        } 
+        
+ }
