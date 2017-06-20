@@ -66,7 +66,13 @@
                 <?php echo $form->error($model,'shipper'); ?>
         </div>
 
-<div class="row">
+	<div class="row">
+		<?php echo $form->labelEx($model,'transporter'); ?>
+		<?php echo $form->dropDownList($model,'shipper',$model->getTransporterOptions(), array('prompt'=>'-- Select Transporter --',)); ?>
+                <?php echo $form->error($model,'transporter'); ?>
+        </div>
+
+        <div class="row">
 		<?php echo $form->labelEx($model,'cargo'); ?>
 		<?php echo $form->textArea($model,'cargo',array('size'=>60,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'cargo'); ?>

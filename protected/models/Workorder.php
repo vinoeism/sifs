@@ -92,6 +92,8 @@ class Workorder extends sifsActiveRecord
 		return array(
                     'jobs' => array(self::BELONGS_TO, 'Job', 'job_id'),
                     'transporters' => array(self::BELONGS_TO, 'Party', 'transporter_id'),
+                    //'packages'=>array(self::MANY_MANY,'Package','workorderpackage(workorder_id,package_id)'),   
+                    'workorderpackages'=>array(self::HAS_MANY,'Workorderpackage','workorder_id'),
 		);
 	}
 

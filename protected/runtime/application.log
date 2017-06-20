@@ -8082,3 +8082,1810 @@ Stack trace:
 REQUEST_URI=/sifs/index.php?r=job/trip_view&id=13
 HTTP_REFERER=http://localhost/sifs/index.php?r=job/update&id=13
 ---
+2017/06/19 12:06:08 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php(38): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#11 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('view')
+#13 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorder/view')
+#14 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#15 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#16 {main}
+REQUEST_URI=/sifs/index.php?r=workorder/view
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorder/update&id=5
+---
+2017/06/19 15:05:41 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'workorder_id' in 'where clause'. The SQL statement executed was: SELECT COUNT(*) FROM `package` `t` WHERE job_id=:jobId and id not in (select package_id from workorderpackage where workorder_id=:woId).
+in /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php (61)
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php (145)
+in /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php (38)
+2017/06/19 15:05:41 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'workorder_id' in 'where clause'. The SQL statement executed was: SELECT COUNT(*) FROM `package` `t` WHERE job_id=:jobId and id not in (select package_id from workorderpackage where workorder_id=:woId)' in /Library/WebServer/Documents/yii/framework/db/CDbCommand.php:541
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/CDbCommand.php(432): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(1546): CDbCommand->queryScalar()
+#2 /Library/WebServer/Documents/yii/framework/web/CActiveDataProvider.php(179): CActiveRecord->count(Object(CDbCriteria))
+#3 /Library/WebServer/Documents/yii/framework/web/CDataProvider.php(224): CActiveDataProvider->calculateTotalItemCount()
+#4 /Library/WebServer/Documents/yii/framework/web/CActiveDataProvider.php(129): CDataProvider->getTotalItemCount()
+#5 /Library/WebServer/Documents/yii/framework/web/CDataProvider.php(168): CActiveDataProvider->fetchData()
+#6 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(107): CDataProvider->getData()
+#7 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(314): CBaseListView->init()
+#8 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(147): CGridView->init()
+#9 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(172): CBaseController->createWidget('zii.widgets.gri...', Array)
+#10 /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php(61): CBaseController->widget('zii.widgets.gri...', Array)
+#11 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#12 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#13 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#14 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('packages', Array, true)
+#15 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php(145): CController->render('packages', Array)
+#16 [internal function]: WorkorderController->actionEditPackages('7', '5')
+#17 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(WorkorderController), Array)
+#18 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(WorkorderController), Object(ReflectionMethod), Array)
+#19 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#20 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#21 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#22 /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php(38): CFilter->filter(Object(CFilterChain))
+#23 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#24 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#25 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#26 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#27 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#28 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#29 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#30 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#31 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('editPackages')
+#32 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorder/editP...')
+#33 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#34 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#35 {main}
+REQUEST_URI=/sifs/index.php?r=workorder/editPackages&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/view&id=7
+---
+2017/06/19 15:27:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "workorderpackage/update".' in /Library/WebServer/Documents/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorderpackag...')
+#1 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#3 {main}
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&id=4
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorder/editPackages&job_id=7&wo_id=1
+---
+2017/06/19 15:31:07 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /Library/WebServer/Documents/yii/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorderpackag...')
+#9 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#11 {main}
+REQUEST_URI=/sifs/index.php?r=workorderpackage/admin
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorderpackage
+---
+2017/06/19 16:16:49 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:16:49 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:16:49 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:16:49 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:16:49 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:16:49 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:16:49 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:23:22 [error] [php] Undefined variable: model (/Library/WebServer/Documents/yii/framework/base/CComponent.php(606) : eval()'d code:1)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridColumn.php(144): CDataColumn->renderDataCellContent()
+#1 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(589): CDataColumn->renderDataCell()
+#2 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(545): CGridView->renderTableRow()
+#3 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(455): CGridView->renderTableBody()
+#4 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(160): CGridView->renderItems()
+#5 unknown(0): CGridView->renderSection()
+#6 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(143): preg_replace_callback()
+#7 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(128): CGridView->renderContent()
+#8 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(173): CGridView->run()
+#9 /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php(61): WorkorderController->widget()
+#10 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require()
+#11 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): WorkorderController->renderInternal()
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(869): WorkorderController->renderFile()
+#13 /Library/WebServer/Documents/yii/framework/web/CController.php(782): WorkorderController->renderPartial()
+#14 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php(145): WorkorderController->render()
+#15 unknown(0): WorkorderController->actionEditPackages()
+#16 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#17 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#18 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#19 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): WorkorderController->runAction()
+#20 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#21 /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php(38): RightsFilter->filter()
+#22 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): WorkorderController->filterRights()
+#23 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#24 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#25 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#26 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): WorkorderController->filterAccessControl()
+#27 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#28 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#29 /Library/WebServer/Documents/yii/framework/web/CController.php(265): WorkorderController->runActionWithFilters()
+#30 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): WorkorderController->run()
+#31 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#32 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#33 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=workorder/editPackages&job_id=7&wo_id=5
+in /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php (61)
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php (145)
+in /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php (38)
+2017/06/19 16:23:38 [error] [php] Undefined variable: model (/Library/WebServer/Documents/yii/framework/base/CComponent.php(606) : eval()'d code:1)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridColumn.php(144): CDataColumn->renderDataCellContent()
+#1 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(589): CDataColumn->renderDataCell()
+#2 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(545): CGridView->renderTableRow()
+#3 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(455): CGridView->renderTableBody()
+#4 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(160): CGridView->renderItems()
+#5 unknown(0): CGridView->renderSection()
+#6 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(143): preg_replace_callback()
+#7 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(128): CGridView->renderContent()
+#8 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(173): CGridView->run()
+#9 /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php(61): WorkorderController->widget()
+#10 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require()
+#11 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): WorkorderController->renderInternal()
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(869): WorkorderController->renderFile()
+#13 /Library/WebServer/Documents/yii/framework/web/CController.php(782): WorkorderController->renderPartial()
+#14 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php(145): WorkorderController->render()
+#15 unknown(0): WorkorderController->actionEditPackages()
+#16 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#17 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#18 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#19 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): WorkorderController->runAction()
+#20 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#21 /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php(38): RightsFilter->filter()
+#22 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): WorkorderController->filterRights()
+#23 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#24 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#25 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#26 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): WorkorderController->filterAccessControl()
+#27 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#28 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#29 /Library/WebServer/Documents/yii/framework/web/CController.php(265): WorkorderController->runActionWithFilters()
+#30 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): WorkorderController->run()
+#31 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#32 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#33 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=workorder/editPackages&job_id=7&wo_id=5
+in /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php (61)
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php (145)
+in /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php (38)
+2017/06/19 16:24:14 [error] [php] Undefined variable: model (/Library/WebServer/Documents/yii/framework/base/CComponent.php(606) : eval()'d code:1)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridColumn.php(144): CDataColumn->renderDataCellContent()
+#1 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(589): CDataColumn->renderDataCell()
+#2 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(545): CGridView->renderTableRow()
+#3 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(455): CGridView->renderTableBody()
+#4 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(160): CGridView->renderItems()
+#5 unknown(0): CGridView->renderSection()
+#6 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(143): preg_replace_callback()
+#7 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(128): CGridView->renderContent()
+#8 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(173): CGridView->run()
+#9 /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php(61): WorkorderController->widget()
+#10 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require()
+#11 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): WorkorderController->renderInternal()
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(869): WorkorderController->renderFile()
+#13 /Library/WebServer/Documents/yii/framework/web/CController.php(782): WorkorderController->renderPartial()
+#14 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php(145): WorkorderController->render()
+#15 unknown(0): WorkorderController->actionEditPackages()
+#16 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#17 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#18 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#19 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): WorkorderController->runAction()
+#20 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#21 /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php(38): RightsFilter->filter()
+#22 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): WorkorderController->filterRights()
+#23 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#24 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#25 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#26 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): WorkorderController->filterAccessControl()
+#27 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#28 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#29 /Library/WebServer/Documents/yii/framework/web/CController.php(265): WorkorderController->runActionWithFilters()
+#30 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): WorkorderController->run()
+#31 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#32 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#33 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=workorder/editPackages&job_id=7&wo_id=5
+in /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php (61)
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php (145)
+in /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php (38)
+2017/06/19 16:30:52 [error] [exception.CException] exception 'CException' with message 'Property "Job.job_id" is not defined.' in /Library/WebServer/Documents/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(143): CComponent->__get('job_id')
+#1 /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php(43): CActiveRecord->__get('job_id')
+#2 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#3 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('packages', Array, true)
+#6 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php(145): CController->render('packages', Array)
+#7 [internal function]: WorkorderController->actionEditPackages('7', '5')
+#8 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(WorkorderController), Array)
+#9 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(WorkorderController), Object(ReflectionMethod), Array)
+#10 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#12 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#13 /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php(38): CFilter->filter(Object(CFilterChain))
+#14 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#15 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#16 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#17 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#18 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#19 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#21 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('editPackages')
+#23 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorder/editP...')
+#24 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#25 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#26 {main}
+REQUEST_URI=/sifs/index.php?r=workorder/editPackages&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/view&id=7
+---
+2017/06/19 16:32:23 [error] [exception.CException] exception 'CException' with message 'Property "Job.job_id" is not defined.' in /Library/WebServer/Documents/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(143): CComponent->__get('job_id')
+#1 /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php(43): CActiveRecord->__get('job_id')
+#2 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#3 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('packages', Array, true)
+#6 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php(145): CController->render('packages', Array)
+#7 [internal function]: WorkorderController->actionEditPackages('7', '5')
+#8 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(WorkorderController), Array)
+#9 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(WorkorderController), Object(ReflectionMethod), Array)
+#10 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#12 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#13 /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php(38): CFilter->filter(Object(CFilterChain))
+#14 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#15 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#16 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#17 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#18 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#19 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#21 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('editPackages')
+#23 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorder/editP...')
+#24 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#25 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#26 {main}
+REQUEST_URI=/sifs/index.php?r=workorder/editPackages&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/view&id=7
+---
+2017/06/19 16:37:45 [error] [exception.CException] exception 'CException' with message 'Property "Job.job_id" is not defined.' in /Library/WebServer/Documents/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(143): CComponent->__get('job_id')
+#1 /Library/WebServer/Documents/sifs/protected/views/workorder/packages.php(43): CActiveRecord->__get('job_id')
+#2 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#3 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('packages', Array, true)
+#6 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php(145): CController->render('packages', Array)
+#7 [internal function]: WorkorderController->actionEditPackages('7', '5')
+#8 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(WorkorderController), Array)
+#9 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(WorkorderController), Object(ReflectionMethod), Array)
+#10 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#12 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#13 /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php(38): CFilter->filter(Object(CFilterChain))
+#14 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#15 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#16 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#17 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#18 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#19 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#21 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#22 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('editPackages')
+#23 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorder/editP...')
+#24 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#25 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#26 {main}
+REQUEST_URI=/sifs/index.php?r=workorder/editPackages&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/view&id=7
+---
+2017/06/19 16:45:45 [error] [exception.CException] exception 'CException' with message 'WorkorderpackageController cannot find the requested view "workdorder/packages".' in /Library/WebServer/Documents/yii/framework/web/CController.php:878
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('workdorder/pack...', Array, true)
+#1 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php(105): CController->render('workdorder/pack...', Array)
+#2 [internal function]: WorkorderpackageController->actionUpdate('4', '7', '5')
+#3 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(WorkorderpackageController), Array)
+#4 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(WorkorderpackageController), Object(ReflectionMethod), Array)
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#7 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#9 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#10 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#14 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorderpackag...')
+#15 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#17 {main}
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&id=4&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorder/editPackages&job_id=7&wo_id=5
+---
+2017/06/19 16:46:06 [error] [exception.CException] exception 'CException' with message 'WorkorderpackageController cannot find the requested view "workorder/packages".' in /Library/WebServer/Documents/yii/framework/web/CController.php:878
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('workorder/packa...', Array, true)
+#1 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php(105): CController->render('workorder/packa...', Array)
+#2 [internal function]: WorkorderpackageController->actionUpdate('4', '7', '5')
+#3 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(WorkorderpackageController), Array)
+#4 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(WorkorderpackageController), Object(ReflectionMethod), Array)
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#7 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#9 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#10 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#14 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorderpackag...')
+#15 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#17 {main}
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&id=4&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorder/editPackages&job_id=7&wo_id=5
+---
+2017/06/19 16:47:47 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:47:47 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:47:47 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:47:47 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:47:47 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:47:47 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:47:47 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:47:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "packages".' in /Library/WebServer/Documents/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(270): CController->missingAction('packages')
+#1 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('packages')
+#2 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorder/packa...')
+#3 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#4 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#5 {main}
+REQUEST_URI=/sifs/index.php?r=workorder/packages&id=4&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorderpackage/update&id=4&job_id=7&wo_id=5
+---
+2017/06/19 16:48:33 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:33 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:33 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:33 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:33 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:33 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:33 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:42 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:42 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:42 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:42 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:42 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:42 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:48:42 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:50:07 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:50:07 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:50:07 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:50:07 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:50:07 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:50:07 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:50:07 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:56:39 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:56:39 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:56:39 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:56:39 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:56:39 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:56:39 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:56:39 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (96)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 16:57:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The requested page does not exist.' in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php:157
+Stack trace:
+#0 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php(89): WorkorderpackageController->loadModel('19')
+#1 [internal function]: WorkorderpackageController->actionUpdate('19', '7', '5')
+#2 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(WorkorderpackageController), Array)
+#3 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(WorkorderpackageController), Object(ReflectionMethod), Array)
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#6 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#8 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#9 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#10 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#11 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#12 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#13 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorderpackag...')
+#14 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#15 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#16 {main}
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&id=19&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorder/editpackages&id=4&job_id=7&wo_id=5
+---
+2017/06/19 17:14:18 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorderpackag...')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&id=18&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorder/editpackages&id=4&job_id=7&wo_id=5
+---
+2017/06/19 17:14:21 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorderpackag...')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&id=4&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorder/editpackages&id=4&job_id=7&wo_id=5
+---
+2017/06/19 17:14:58 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorderpackag...')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&id=4&job_id=7&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorder/editpackages&id=4&job_id=7&wo_id=5
+---
+2017/06/19 17:15:32 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:32 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:32 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:32 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:32 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:32 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:32 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:40 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:40 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:40 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:40 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:40 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:40 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:15:40 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:16:54 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:16:54 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:16:54 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:16:54 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:16:54 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:16:54 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:16:54 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:18:39 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:18:39 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:18:39 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:18:39 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:18:39 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:18:39 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:18:39 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:06 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:06 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:06 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:06 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:06 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:06 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:06 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:25 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:25 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:25 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:25 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:25 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:25 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:25 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:40 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:40 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:40 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:40 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:40 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:40 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:19:40 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:20:06 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:20:06 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:20:06 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:20:06 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:20:06 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:20:06 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:20:06 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:24:41 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:24:41 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:24:41 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:24:41 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:24:41 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:24:41 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:24:41 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:01 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:01 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:01 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:01 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:01 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:01 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:01 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:53 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:53 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:53 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:53 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:53 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:53 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:25:53 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:30:11 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:30:11 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:30:11 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:30:11 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:30:11 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:30:11 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:30:11 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:48:37 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:48:37 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:48:37 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:48:37 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:48:37 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:48:37 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 17:48:37 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 18:55:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "trip/create".' in /Library/WebServer/Documents/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#1 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#2 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#3 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/view&id=14
+---
+2017/06/19 19:00:45 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /Library/WebServer/Documents/yii/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/admin')
+#9 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#11 {main}
+REQUEST_URI=/sifs/index.php?r=trip/admin
+HTTP_REFERER=http://localhost/sifs/index.php?r=trip/index
+---
+2017/06/19 19:31:59 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 19:33:35 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 19:33:36 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 19:34:24 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 19:34:30 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=1
+---
+2017/06/19 19:34:38 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create
+---
+2017/06/19 19:34:38 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=1
+---
+2017/06/19 19:42:00 [error] [php] Undefined variable: data (/Library/WebServer/Documents/sifs/protected/views/job/admin.php:65)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(869): JobController->renderFile()
+#1 /Library/WebServer/Documents/yii/framework/web/CController.php(782): JobController->renderPartial()
+#2 /Library/WebServer/Documents/sifs/protected/controllers/JobController.php(488): JobController->render()
+#3 /Library/WebServer/Documents/sifs/protected/controllers/JobController.php(465): JobController->actionAdmin()
+#4 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(49): JobController->actionIndex()
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#6 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#7 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#9 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#10 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#11 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(265): JobController->runActionWithFilters()
+#13 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): JobController->run()
+#14 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#15 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=job/index
+in /Library/WebServer/Documents/sifs/protected/views/job/admin.php (65)
+in /Library/WebServer/Documents/sifs/protected/controllers/JobController.php (488)
+in /Library/WebServer/Documents/sifs/protected/controllers/JobController.php (465)
+2017/06/19 19:49:01 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 19:50:02 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 19:50:19 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 19:50:22 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 19:51:19 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 19:51:35 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 19:51:38 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 21:53:20 [error] [php] Undefined variable: jobID (/Library/WebServer/Documents/sifs/protected/controllers/TripController.php:66)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): TripController->runAction()
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#2 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#3 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): TripController->filterAccessControl()
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(265): TripController->runActionWithFilters()
+#7 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): TripController->run()
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+in /Library/WebServer/Documents/sifs/protected/controllers/TripController.php (66)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 21:57:56 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 21:59:28 [error] [exception.CException] exception 'CException' with message 'Property "Job.transporter_id" is not defined.' in /Library/WebServer/Documents/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(143): CComponent->__get('transporter_id')
+#1 /Library/WebServer/Documents/sifs/protected/controllers/TripController.php(67): CActiveRecord->__get('transporter_id')
+#2 [internal function]: TripController->actionCreate('14')
+#3 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(TripController), Array)
+#4 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(TripController), Object(ReflectionMethod), Array)
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#6 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#7 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#8 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#9 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#10 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#14 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#15 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#16 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#17 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14&transporterId=
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 22:16:53 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /Library/WebServer/Documents/yii/framework/web/auth/CAccessControlFilter.php:179
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/auth/CAccessControlFilter.php(142): CAccessControlFilter->accessDenied(Object(RWebUser), 'You are not aut...')
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(38): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#3 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('admin')
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/admin')
+#9 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#10 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#11 {main}
+REQUEST_URI=/sifs/index.php?r=trip/admin
+HTTP_REFERER=http://localhost/sifs/index.php?r=trip/view&id=3
+---
+2017/06/19 22:34:29 [error] [php] Undefined variable: driversArray (/Library/WebServer/Documents/sifs/protected/models/Trip.php:195)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): TripController->renderInternal()
+#1 /Library/WebServer/Documents/yii/framework/web/CController.php(869): TripController->renderFile()
+#2 /Library/WebServer/Documents/sifs/protected/views/trip/create.php(20): TripController->renderPartial()
+#3 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require()
+#4 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): TripController->renderInternal()
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(869): TripController->renderFile()
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(782): TripController->renderPartial()
+#7 /Library/WebServer/Documents/sifs/protected/controllers/TripController.php(81): TripController->render()
+#8 unknown(0): TripController->actionCreate()
+#9 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#10 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#11 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#12 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): TripController->runAction()
+#13 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#14 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#15 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): TripController->filterAccessControl()
+#16 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#17 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#18 /Library/WebServer/Documents/yii/framework/web/CController.php(265): TripController->runActionWithFilters()
+#19 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): TripController->run()
+#20 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#21 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#22 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14
+in /Library/WebServer/Documents/sifs/protected/models/Trip.php (195)
+in /Library/WebServer/Documents/sifs/protected/views/trip/_ownform.php (27)
+in /Library/WebServer/Documents/sifs/protected/views/trip/create.php (20)
+2017/06/19 22:37:11 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'where clause'. The SQL statement executed was: SELECT * FROM `settings` `t` WHERE status = "active".
+in /Library/WebServer/Documents/sifs/protected/models/Trip.php (205)
+in /Library/WebServer/Documents/sifs/protected/views/trip/_ownform.php (21)
+in /Library/WebServer/Documents/sifs/protected/views/trip/create.php (20)
+2017/06/19 22:37:11 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'where clause'. The SQL statement executed was: SELECT * FROM `settings` `t` WHERE status = "active"' in /Library/WebServer/Documents/yii/framework/db/CDbCommand.php:541
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/CDbCommand.php(395): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(1297): CDbCommand->queryAll()
+#2 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(1416): CActiveRecord->query(Object(CDbCriteria), true)
+#3 /Library/WebServer/Documents/sifs/protected/models/Trip.php(205): CActiveRecord->findAll(Object(CDbCriteria))
+#4 /Library/WebServer/Documents/sifs/protected/views/trip/_ownform.php(21): Trip->getVehicles()
+#5 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#6 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#8 /Library/WebServer/Documents/sifs/protected/views/trip/create.php(20): CController->renderPartial('_ownform', Array)
+#9 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#10 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#11 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('create', Array, true)
+#13 /Library/WebServer/Documents/sifs/protected/controllers/TripController.php(81): CController->render('create', Array)
+#14 [internal function]: TripController->actionCreate('14')
+#15 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(TripController), Array)
+#16 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(TripController), Object(ReflectionMethod), Array)
+#17 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#18 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#19 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#20 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#21 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#22 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#23 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#24 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#25 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#26 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#27 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#28 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#29 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 22:37:35 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'where clause'. The SQL statement executed was: SELECT * FROM `vehicle` `t` WHERE status = "active".
+in /Library/WebServer/Documents/sifs/protected/models/Trip.php (205)
+in /Library/WebServer/Documents/sifs/protected/views/trip/_ownform.php (21)
+in /Library/WebServer/Documents/sifs/protected/views/trip/create.php (20)
+2017/06/19 22:37:35 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'where clause'. The SQL statement executed was: SELECT * FROM `vehicle` `t` WHERE status = "active"' in /Library/WebServer/Documents/yii/framework/db/CDbCommand.php:541
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/CDbCommand.php(395): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(1297): CDbCommand->queryAll()
+#2 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(1416): CActiveRecord->query(Object(CDbCriteria), true)
+#3 /Library/WebServer/Documents/sifs/protected/models/Trip.php(205): CActiveRecord->findAll(Object(CDbCriteria))
+#4 /Library/WebServer/Documents/sifs/protected/views/trip/_ownform.php(21): Trip->getVehicles()
+#5 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#6 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#8 /Library/WebServer/Documents/sifs/protected/views/trip/create.php(20): CController->renderPartial('_ownform', Array)
+#9 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#10 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#11 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('create', Array, true)
+#13 /Library/WebServer/Documents/sifs/protected/controllers/TripController.php(81): CController->render('create', Array)
+#14 [internal function]: TripController->actionCreate('14')
+#15 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(TripController), Array)
+#16 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(TripController), Object(ReflectionMethod), Array)
+#17 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#18 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#19 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#20 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#21 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#22 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#23 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#24 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#25 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#26 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#27 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#28 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#29 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/trip&id=14
+---
+2017/06/19 22:47:32 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:47:32 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:47:32 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:47:32 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:47:32 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:47:32 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:47:32 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:48:54 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:48:54 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:48:54 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:48:54 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:48:54 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:48:54 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:48:54 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:49:11 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:49:11 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:49:11 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:49:11 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:49:11 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:49:11 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:49:11 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:50:31 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:50:31 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:50:31 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:50:31 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:50:31 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:50:31 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:50:31 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:51:33 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:51:33 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:51:33 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:51:33 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:51:33 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:51:33 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:51:33 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:51:33 [error] [php] Undefined index: from_location (/Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php:100)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): WorkorderpackageController->runAction()
+#3 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): WorkorderpackageController->filterAccessControl()
+#6 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /Library/WebServer/Documents/yii/framework/web/CController.php(265): WorkorderpackageController->runActionWithFilters()
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): WorkorderpackageController->run()
+#10 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&package_id=13&job_id=7&wo_id=5
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (100)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:29 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:29 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:29 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:29 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:29 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:29 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:29 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:54 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:54 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:54 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:54 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:54 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:54 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:52:54 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:07 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (101)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:07 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (101)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:07 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (101)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:07 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (101)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:07 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (101)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:07 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (101)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:07 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (101)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:28 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (102)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:28 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (102)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:28 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (102)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:28 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (102)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:28 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (102)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:28 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (102)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:53:28 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (102)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:57:13 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:57:13 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:57:13 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:57:13 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:57:13 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:57:13 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:57:13 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 22:57:20 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorderpackag...')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&id=3
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorderpackage/view&id=3
+---
+2017/06/19 23:01:19 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:19 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:19 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:19 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:19 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:19 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:19 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:48 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:48 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:48 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:48 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:48 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:48 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:01:48 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:28 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:28 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:28 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:28 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:28 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:28 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:28 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:53 [warning] [application] Failed to set unsafe attribute "vehicle_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:53 [warning] [application] Failed to set unsafe attribute "vehicle_instructions" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:53 [warning] [application] Failed to set unsafe attribute "trip_type" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:53 [warning] [application] Failed to set unsafe attribute "trip_date_start" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:53 [warning] [application] Failed to set unsafe attribute "trip_date_end" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:53 [warning] [application] Failed to set unsafe attribute "from_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:03:53 [warning] [application] Failed to set unsafe attribute "to_location" of "Workorderpackage".
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (99)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:07:46 [error] [php] require_once(Text/Diff.php): failed to open stream: No such file or directory (/Library/WebServer/Documents/yii/framework/gii/components/TextDiff.php:6)
+Stack trace:
+#0 unknown(0): autoload()
+#1 /Library/WebServer/Documents/yii/framework/gii/CCodeGenerator.php(109): spl_autoload_call()
+#2 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(49): ModelGenerator->actionDiff()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(286): ModelGenerator->runAction()
+#5 /Library/WebServer/Documents/yii/framework/web/CController.php(265): ModelGenerator->runActionWithFilters()
+#6 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): ModelGenerator->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#8 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#9 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=gii/model/diff&id=0
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:10:07 [error] [php] Undefined variable: job_id (/Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php:101)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): WorkorderpackageController->runAction()
+#3 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): WorkorderpackageController->filterAccessControl()
+#6 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /Library/WebServer/Documents/yii/framework/web/CController.php(265): WorkorderpackageController->runActionWithFilters()
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): WorkorderpackageController->run()
+#10 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&package_id=13&wo_id=5
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderpackageController.php (101)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/19 23:11:32 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /Library/WebServer/Documents/yii/framework/web/CController.php:336
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#4 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorderpackag...')
+#10 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#11 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#12 {main}
+REQUEST_URI=/sifs/index.php?r=workorderpackage/update&package_id=13&wo_id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=workorderpackage/update&package_id=13&wo_id=5
+---
+2017/06/19 23:47:41 [error] [php] Undefined variable: tripDataProvider (/Library/WebServer/Documents/sifs/protected/views/job/trip.php:218)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/CController.php(869): JobController->renderFile()
+#1 /Library/WebServer/Documents/yii/framework/web/CController.php(782): JobController->renderPartial()
+#2 /Library/WebServer/Documents/sifs/protected/controllers/JobController.php(287): JobController->render()
+#3 unknown(0): JobController->actionTrip()
+#4 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#8 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#9 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#10 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#11 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#13 /Library/WebServer/Documents/yii/framework/web/CController.php(265): JobController->runActionWithFilters()
+#14 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): JobController->run()
+#15 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#16 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#17 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=job/trip&id=14
+in /Library/WebServer/Documents/sifs/protected/views/job/trip.php (218)
+in /Library/WebServer/Documents/sifs/protected/controllers/JobController.php (287)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/20 21:16:20 [error] [system.db.CDbCommand] CDbCommand::fetchAll() failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'packages.package_id' in 'where clause'. The SQL statement executed was: SELECT `packages`.`id` AS `t1_c0`, `packages`.`name` AS `t1_c1`, `packages`.`type` AS `t1_c2`, `packages`.`subtype` AS `t1_c3`, `packages`.`length` AS `t1_c4`, `packages`.`breadth` AS `t1_c5`, `packages`.`height` AS `t1_c6`, `packages`.`dimension_unit` AS `t1_c7`, `packages`.`gross_weight` AS `t1_c8`, `packages`.`net_weight` AS `t1_c9`, `packages`.`chargeable_weight` AS `t1_c10`, `packages`.`weight_unit` AS `t1_c11`, `packages`.`quantity` AS `t1_c12`, `packages`.`cargo` AS `t1_c13`, `packages`.`job_id` AS `t1_c14`, `packages`.`wo_id` AS `t1_c15`, `packages`.`quote_id` AS `t1_c16`, `packages`.`created_by` AS `t1_c17`, `packages`.`created_on` AS `t1_c18`, `packages`.`updated_by` AS `t1_c19`, `packages`.`updated_on` AS `t1_c20` FROM `package` `packages`  WHERE (`packages`.`package_id`=:ypl0).
+in /Library/WebServer/Documents/sifs/protected/views/workorder/stub.php (2)
+in /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php (351)
+in /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php (38)
+2017/06/20 21:16:20 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'packages.package_id' in 'where clause'. The SQL statement executed was: SELECT `packages`.`id` AS `t1_c0`, `packages`.`name` AS `t1_c1`, `packages`.`type` AS `t1_c2`, `packages`.`subtype` AS `t1_c3`, `packages`.`length` AS `t1_c4`, `packages`.`breadth` AS `t1_c5`, `packages`.`height` AS `t1_c6`, `packages`.`dimension_unit` AS `t1_c7`, `packages`.`gross_weight` AS `t1_c8`, `packages`.`net_weight` AS `t1_c9`, `packages`.`chargeable_weight` AS `t1_c10`, `packages`.`weight_unit` AS `t1_c11`, `packages`.`quantity` AS `t1_c12`, `packages`.`cargo` AS `t1_c13`, `packages`.`job_id` AS `t1_c14`, `packages`.`wo_id` AS `t1_c15`, `packages`.`quote_id` AS `t1_c16`, `packages`.`created_by` AS `t1_c17`, `packages`.`created_on` AS `t1_c18`, `packages`.`updated_by` AS `t1_c19`, `packages`.`updated_on` AS `t1_c20` FROM `package` `packages`  WHERE (`packages`.`package_id`=:ypl0)' in /Library/WebServer/Documents/yii/framework/db/CDbCommand.php:541
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/CDbCommand.php(395): CDbCommand->queryInternal('fetchAll', Array, Array)
+#1 /Library/WebServer/Documents/yii/framework/db/ar/CActiveFinder.php(761): CDbCommand->queryAll()
+#2 /Library/WebServer/Documents/yii/framework/db/ar/CActiveFinder.php(489): CJoinElement->runQuery(Object(CJoinQuery))
+#3 /Library/WebServer/Documents/yii/framework/db/ar/CActiveFinder.php(163): CJoinElement->lazyFind(Object(Workorderpackage))
+#4 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(272): CActiveFinder->lazyFind(Object(Workorderpackage))
+#5 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(141): CActiveRecord->getRelated('packages')
+#6 /Library/WebServer/Documents/sifs/protected/views/workorder/stub.php(2): CActiveRecord->__get('packages')
+#7 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#8 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#9 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#10 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php(351): CController->renderPartial('stub', Array, true)
+#11 [internal function]: WorkorderController->actionGenerateTransportWO('5')
+#12 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(WorkorderController), Array)
+#13 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(WorkorderController), Object(ReflectionMethod), Array)
+#14 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#15 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#16 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#17 /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php(38): CFilter->filter(Object(CFilterChain))
+#18 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#19 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#20 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#21 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#22 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#23 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#24 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#25 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#26 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('generateTranspo...')
+#27 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorder/gener...')
+#28 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#29 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#30 {main}
+REQUEST_URI=/sifs/index.php?r=workorder/generateTransportWO&id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/view&id=7
+---
+2017/06/20 21:36:56 [error] [exception.CException] exception 'CException' with message 'Property "Package.gross_wt" is not defined.' in /Library/WebServer/Documents/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(143): CComponent->__get('gross_wt')
+#1 /Library/WebServer/Documents/yii/framework/base/CComponent.php(606) : eval()'d code(1): CActiveRecord->__get('gross_wt')
+#2 /Library/WebServer/Documents/yii/framework/base/CComponent.php(606): eval()
+#3 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CDataColumn.php(131): CComponent->evaluateExpression('Package::model(...', Array)
+#4 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridColumn.php(144): CDataColumn->renderDataCellContent(0, Object(Workorderpackage))
+#5 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(589): CGridColumn->renderDataCell(0)
+#6 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(545): CGridView->renderTableRow(0)
+#7 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(455): CGridView->renderTableBody()
+#8 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(160): CGridView->renderItems()
+#9 [internal function]: CBaseListView->renderSection(Array)
+#10 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(143): preg_replace_callback('/{(\\w+)}/', Array, '{summary}\n{item...')
+#11 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(128): CBaseListView->renderContent()
+#12 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(173): CBaseListView->run()
+#13 /Library/WebServer/Documents/sifs/protected/views/workorder/stub.php(111): CBaseController->widget('zii.widgets.gri...', Array)
+#14 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#15 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#16 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#17 /Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php(362): CController->renderPartial('stub', Array, true)
+#18 [internal function]: WorkorderController->actionGenerateTransportWO('5')
+#19 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(WorkorderController), Array)
+#20 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(WorkorderController), Object(ReflectionMethod), Array)
+#21 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#22 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#23 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#24 /Library/WebServer/Documents/sifs/protected/modules/rights/components/RController.php(38): CFilter->filter(Object(CFilterChain))
+#25 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): RController->filterRights(Object(CFilterChain))
+#26 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#27 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#28 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#29 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#30 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#31 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#32 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#33 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('generateTranspo...')
+#34 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('workorder/gener...')
+#35 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#36 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#37 {main}
+REQUEST_URI=/sifs/index.php?r=workorder/generateTransportWO&id=5
+HTTP_REFERER=http://localhost/sifs/index.php?r=job/view&id=7
+---

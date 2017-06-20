@@ -11,6 +11,7 @@ $this->menu=array(
 	//array('label'=>'List Job', 'url'=>array('index')),
 	//array('label'=>'Create New Job', 'url'=>array('create')),
         //array('label'=>'Update '.$model->REFNO, 'url'=>array('update', 'id'=>$model->id)),
+        array('label'=>'Add Trip', 'url'=>array('trip/create','jobID'=>$model->id)),
         array('label'=>'Update Routing details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'ROUTING')),
         array('label'=>'Update Docs details', 'url'=>array('update', 'id'=>$model->id, 'formName'=>'DOCS')),
         array('label'=>'Add Status', 'url'=>array('modulestatus/create','moduleid'=>$model->id, 'modulename'=>"JOB")),
@@ -214,6 +215,36 @@ array_push($this->menu, array('label'=>'Add WorkOrder', 'url'=>array('workorder/
     )); 
 ?>
 
+<h3>Trips <?php echo $tripDataProvider == null?"":CHtml::link('<img src="images/add.png" height="14px" />', array('trip/create','jobID'=>$model->id)); ?> </h3>
+
+
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'package-grid',
+	'dataProvider'=>$tripDataProvider,
+	'columns'=>array(
+//                array(
+//                        'name'=>'Event',
+//                        'type'=>'raw',
+//                        'filter'=>'',
+//                        'value'=>'CHtml::link(CHtml::encode($data->events->name), array(\'jobevent/update\', \'id\'=>$data->id))',
+//                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
+//                ),
+//                array(
+//                    'name'=> "Description",
+//                    'value' => '$data->events->description',	
+//                ),
+//                array(
+//                    'name'=> "Event Date",
+//                    'value' => '$data->event_date',	
+//                ),
+//                 array(
+//                    'name'=> "Comments",
+//                    'value' => '$data->comments',	
+//                ),
+            ),
+        'summaryText' => '', 
+    )); 
+?>
 
 
 <h3>Work Orders <?php echo CHtml::link('<img src="images/add.png" height="14px" />', array('workorder/create','jobID'=>$model->id)); ?> </h3>

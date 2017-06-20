@@ -240,6 +240,17 @@ class JobController extends RController
                                 )
                             )
                         );
+                $tripDataProvider= new CActiveDataProvider('Trip',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id=:jobId',
+                                    'params'=>array(':jobId'=> $id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );                
                 //checking the latest event in the job
                 $jobEventDataProvider = new CActiveDataProvider('Jobevent',
                             array(
@@ -284,6 +295,7 @@ class JobController extends RController
                         'woDataProvider'=>$woDataProvider,
                         'eventDataProvider'=>$eventDataProvider,
                         'jobEventDataProvider'=>$jobEventDataProvider,                    
+                        'tripDataProvider'=>$tripDataProvider,                    
 		));
 	}
         

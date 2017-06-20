@@ -1,6 +1,5 @@
 <?php echo CHtml::image(dirname(Yii::app()->basePath).DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'sifs_top.jpg', 'DORE'); ?>
 <br><br>
-
 <div style="width:100%; overflow:hidden;">
     <div style="width: 300px; float: left;">
          <h1>Work Order no. <?php echo $model->id; ?></h1>
@@ -85,27 +84,39 @@
     <?php if ($model->jobs->mode == 'SEA FCL') {
     $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'package-grid',
-	'dataProvider'=>$packagesDataProvider,
+	'dataProvider'=>$wopkgsDataProvider,
 	'columns'=>array(
                 array(
                     'name'=>'Contr no',
-                    'value'=>'$data->name',
+                    'value'=>'Package::model()->findbyPk($data->package_id)->name',
                 ),
                 array(
                     'name'=> "Contr Type",
-                    'value' => '$data->subtype',	
+                    'value' => 'Package::model()->findbyPk($data->package_id)->subtype',	
                 ),		            
                 array(
                   'name'=> 'Gross Wt',
-                    'value' => 	'$data->gross_weight." ".$data->weight_unit'
+                    'value' => 	'Package::model()->findbyPk($data->package_id)->gross_weight." ".Package::model()->findbyPk($data->package_id)->weight_unit'
                 ),
                 array(
                   'name'=> 'Nett Wt',
-                    'value' => 	'$data->net_weight." ".$data->weight_unit'
+                    'value' => 	'Package::model()->findbyPk($data->package_id)->net_weight." ".Package::model()->findbyPk($data->package_id)->weight_unit'
                 ),
                 array(
                   'name'=> 'Cargo Desc',
-                    'value' => 	'$data->cargo'
+                    'value' => 	'Package::model()->findbyPk($data->package_id)->cargo'
+                ),
+                array(
+                  'name'=> 'From / To',
+                    'value' => 	'$data->from_location." / ".$data->to_location'
+                ),            
+                array(
+                  'name'=> 'Vehicle Type',
+                    'value' => 	'Settings::model()->findbyPk($data->vehicle_type)->setting_value'
+                ),
+                array(
+                  'name'=> 'Special Inst',
+                    'value' => 	'$data->vehicle_instructions'
                 ),
             ),
         'summaryText' => '', 

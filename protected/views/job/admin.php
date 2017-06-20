@@ -62,7 +62,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
                         'name'=>'REF NO',
                         'type'=>'raw',
                         'filter'=>true,
-                        'value'=>'CHtml::link(CHtml::encode($data->REFNO), array(\'job/view\', \'id\'=>$data->id))',
+                        'value'=>'($data->type == \'DOMESTIC\')?CHtml::link(CHtml::encode($data->REFNO), array(\'job/trip\', \'id\'=>$data->id)):CHtml::link(CHtml::encode($data->REFNO), array(\'job/view\', \'id\'=>$data->id))',
                         //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
                 ),
 		//'Client_REFNO',

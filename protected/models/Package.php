@@ -111,7 +111,8 @@ class Package extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-                    'jobs'=>array(self::BELONGS_TO,'Job','job_id'),                    
+                    'jobs'=>array(self::BELONGS_TO,'Job','job_id'),   
+                    //'workorders'=>array(self::MANY_MANY,'Workorder','workorderpackage(package_id,workorder_id)'),
 		);
 	}
 

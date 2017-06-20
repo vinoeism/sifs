@@ -91,10 +91,19 @@ class WorkorderController extends RController
                             $criteria = new CDbCriteria;
                             $criteria->addInCondition('id' ,$_POST['selectedContrs'] );
                             $model = Package::model()->findAll($criteria);
+                            $woModel = Workorder::model()->findbyPk($wo_id);
                             foreach ($model as $value) {
                                 $wopkg = new Workorderpackage;
                                 $wopkg->workorder_id = $wo_id;
                                 $wopkg->package_id = $value->id;
+                                $wopkg->from_location = $woModel->from_location;
+                                $wopkg->to_location = $woModel->to_location;
+                                $wopkg->vehicle_type = $woModel->vehicle_type;
+                                $wopkg->vehicle_instructions = $woModel->vehicle_instructions;
+                                $wopkg->trip_type = $woModel->trip_type;
+                                $wopkg->trip_date_start = $woModel->trip_date_start;
+                                $wopkg->trip_date_end = $woModel->trip_date_end;
+                                        
                                 $wopkg->save();
                             }                           
                     }
@@ -103,10 +112,19 @@ class WorkorderController extends RController
                             $criteria = new CDbCriteria;
                             $criteria->addInCondition('id' ,$_POST['selectedPackages']);
                             $model = Package::model()->findAll($criteria);
+                            $woModel = Workorder::model()->findbyPk($wo_id);
                             foreach ($model as $value) {
                                 $wopkg = new Workorderpackage;
                                 $wopkg->workorder_id = $wo_id;
                                 $wopkg->package_id = $value->id;
+                                $wopkg->from_location = $woModel->from_location;
+                                $wopkg->to_location = $woModel->to_location;
+                                $wopkg->vehicle_type = $woModel->vehicle_type;
+                                $wopkg->vehicle_instructions = $woModel->vehicle_instructions;
+                                $wopkg->trip_type = $woModel->trip_type;
+                                $wopkg->trip_date_start = $woModel->trip_date_start;
+                                $wopkg->trip_date_end = $woModel->trip_date_end;
+                                        
                                 $wopkg->save();
                             }                           
                     }                
@@ -142,6 +160,7 @@ class WorkorderController extends RController
 			'model'=>Job::model()->findByPk($job_id),
                         'contrsDataProvider'=>$contrsDataProvider,
                         'existingPackagesDataProvider'=>$existingPackagesDataProvider,
+                        'wo_id'=>$wo_id,
 		));
 
         }
@@ -314,7 +333,18 @@ class WorkorderController extends RController
                                 )
                             )
                         );
-                     
+                $wopkgsDataProvider = new CActiveDataProvider('WorkorderPackage');
+                $wopkgsDataProvider->setData(Workorder::model()->findbyPk($id)->workorderpackages);   
+//                $wopkgsDataProvider = new CActiveDataProvider('WorkorderPackage',
+//                            array(
+//                                'criteria'=>array(
+//                                    
+//                                ),
+//                                'pagination'=>array(
+//                                    'pagesize'=>15,
+//                                )
+//                            )
+//                        );
                 # Load a stylesheet
                 $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
                 $mPDF1->WriteHTML($stylesheet, 1);
@@ -328,6 +358,7 @@ class WorkorderController extends RController
                             'itemsDataProvider' => $itemsDataProvider,
                             'packagesDataProvider'=> $packagesDataProvider,
                             'paymentsDataProvider'=> $paymentsDataProvider,
+                            'wopkgsDataProvider'=>$wopkgsDataProvider,
                             ),true));
 
                 $mPDF1->Output();
