@@ -333,7 +333,7 @@ class WorkorderController extends RController
                                 )
                             )
                         );
-                $wopkgsDataProvider = new CActiveDataProvider('WorkorderPackage');
+                $wopkgsDataProvider = new CActiveDataProvider('Workorderpackage');
                 $wopkgsDataProvider->setData(Workorder::model()->findbyPk($id)->workorderpackages);   
 //                $wopkgsDataProvider = new CActiveDataProvider('WorkorderPackage',
 //                            array(

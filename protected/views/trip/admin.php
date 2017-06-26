@@ -8,8 +8,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Trip', 'url'=>array('index')),
+	array('label'=>'Own Vehicles', 'url'=>array('admin','vehicle_id'=>'')),
+	array('label'=>'Rental Vehicles', 'url'=>array('admin','vehicle_regn_no'=>'')),
+);
+
+$this->sidemenu=array(
 	array('label'=>'Create Trip', 'url'=>array('create')),
+	array('label'=>'Manage Trip', 'url'=>array('admin')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

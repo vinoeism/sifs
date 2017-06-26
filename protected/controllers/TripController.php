@@ -32,7 +32,7 @@ class TripController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin'),
+				'actions'=>array('create','update','admin','createFromJob','addJobs','generateTripsheet'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -55,12 +55,36 @@ class TripController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
-
-	/**
+/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate($jobID)
+	public function actionCreate()
+	{
+		$model=new Trip;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Trip']))
+		{
+			$model->attributes=$_POST['Trip'];
+			if($model->save()) {
+				$this->redirect(array('view','id'=>$model->id));                            
+                        }
+
+		}
+
+		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
+        
+	/**
+	 * Creates a new model and associates with a job.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCreateFromJob($jobID)
 	{
 		$model=new Trip;
                 $model->job_id = $jobID;
@@ -72,8 +96,14 @@ class TripController extends Controller
 		if(isset($_POST['Trip']))
 		{
 			$model->attributes=$_POST['Trip'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->save()) {
+                            $tripjob = new Tripjob;
+                            $tripjob->job_id = $jobID;
+                            $tripjob->trip_id = $model->id;
+                            $tripjob->save();
+				$this->redirect(array('job/view','id'=>$jobID));                            
+                        }
+
 		}
 
 		$this->render('create',array(
@@ -106,6 +136,72 @@ class TripController extends Controller
 	}
 
 	/**
+	 * Updates a Tripjob model - associates multiple jobs to a trip.
+	 * If update is successful, the browser will be redirected to the job 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionAddJobs($id)
+	{
+		$model=$this->loadModel($id);
+                $addJobsDataProvider = new CActiveDataProvider('Job',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'type="DOMESTIC" and isActive=1 and id not in (select job_id from tripjob where trip_id = :tripID)',
+                                    'params'=>array(':tripID'=>  $id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                $removeJobsDataProvider = new CActiveDataProvider('Job',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'type="DOMESTIC" and isActive=1 and id in (select job_id from tripjob where trip_id = :tripID)',
+                                    'params'=>array(':tripID'=>  $id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+                if(isset($_POST['addJobs']) || isset($_POST['removeJobs']))
+                {
+                    if(isset($_POST['addJobs']))
+                    {
+                        foreach ($_POST['addJobs'] as $jobID) {
+                            $tripjob = new Tripjob;
+                            $tripjob->job_id = $jobID;
+                            $tripjob->trip_id = $id;
+                            
+                            $tripjob->save();
+                        }                           
+                    } 
+                    if(isset($_POST['removeJobs']))
+                    {
+                        foreach ($_POST['removeJobs'] as $jobID) {
+                            $tripjobCriteria = new CDbCriteria;
+                            $tripjobCriteria->condition = 'trip_id=:tripID and job_id=:jobID';
+                            $tripjobCriteria->params = array(':tripID'=> $id, ':jobID'=> $jobID);
+                            $tripjob = Tripjob::model()->find($tripjobCriteria);
+                            
+                            $tripjob->delete();
+                        }                           
+                    }
+                    $this->redirect(array('view','id'=>$id));
+                }
+		$this->render('addJobs',array(
+			'model'=>$model,
+                        'addJobsDataProvider'=>$addJobsDataProvider,
+                        'removeJobsDataProvider'=>$removeJobsDataProvider,
+		));
+	}        
+        
+        
+        
+	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
@@ -124,10 +220,11 @@ class TripController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Trip');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+//		$dataProvider=new CActiveDataProvider('Trip');
+//		$this->render('index',array(
+//			'dataProvider'=>$dataProvider,
+//		));
+                $this->actionAdmin();
 	}
 
 	/**
@@ -145,6 +242,81 @@ class TripController extends Controller
 		));
 	}
 
+        /**
+	 * Generates a PDF for printing a Work Order
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionGenerateTripsheet($id)
+	{
+                # You can easily override default constructor's params
+                $mPDF1 = Yii::app()->ePdf->mpdf();
+
+                $itemsDataProvider= new CActiveDataProvider('Job',
+                        array(
+                            'criteria'=>array(
+                                'condition'=>'job_id=:jobID AND isActive=1',
+                                'params'=>array(':jobID'=>  $this->loadModel($id)->job_id),
+                            ),
+                            'pagination'=>array(
+                                'pageSize'=>15,
+                            )
+                        )
+                    );
+                $packagesDataProvider= new CActiveDataProvider('Package',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'job_id in (select job_id from tripjob where trip_id=:tripID)',
+                                    'params'=>array(':tripID'=>$id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                $paymentsDataProvider= new CActiveDataProvider('Payment',
+                            array(
+                                'criteria'=>array(
+                                    'condition'=>'id in (select payment_id from voucherpayment where voucher_id in ( select id from voucher where wo_id=:woId ))',
+                                    'params'=>array(':woId'=>$id),
+                                ),
+                                'pagination'=>array(
+                                    'pageSize'=>15,
+                                )
+                            )
+                        );
+                $wopkgsDataProvider = new CActiveDataProvider('Workorderpackage');
+                $wopkgsDataProvider->setData(Workorder::model()->findbyPk($id)->workorderpackages);   
+//                $wopkgsDataProvider = new CActiveDataProvider('WorkorderPackage',
+//                            array(
+//                                'criteria'=>array(
+//                                    
+//                                ),
+//                                'pagination'=>array(
+//                                    'pagesize'=>15,
+//                                )
+//                            )
+//                        );
+                # Load a stylesheet
+                $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
+                $mPDF1->WriteHTML($stylesheet, 1);
+
+                $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/screen.css');
+                $mPDF1->WriteHTML($stylesheet, 1);
+                
+                $mPDF1->debug = true;
+                $mPDF1->WriteHTML($this->renderPartial('stub',array(
+                            'model'=>$this->loadModel($id),
+                            'itemsDataProvider' => $itemsDataProvider,
+                            'packagesDataProvider'=> $packagesDataProvider,
+                            'paymentsDataProvider'=> $paymentsDataProvider,
+                            'wopkgsDataProvider'=>$wopkgsDataProvider,
+                            ),true));
+
+                $mPDF1->Output();
+                exit;
+            
+	}        
+        
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

@@ -173,7 +173,8 @@ class Job extends sifsActiveRecord
                     'invoices'=>array(self::HAS_MANY, 'Invoice', 'job_id'),
                     'packages'=>array(self::HAS_MANY, 'Package', 'job_id'),
                     'workorders'=>array(self::HAS_MANY, 'Workorder','job_id'),
-                    'events'=>array(self::HAS_MANY, 'Jobevent', 'job_id')
+                    'events'=>array(self::HAS_MANY, 'Jobevent', 'job_id'),
+                    'trips'=>array(self::MANY_MANY, 'Trip', 'tripjob(job_id,trip_id)'),
 		);
 	}
 

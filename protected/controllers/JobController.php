@@ -51,7 +51,8 @@ class JobController extends RController
 	 */
 	public function actionView($id)
 	{
-            
+            if ($this->loadModel($id)->type == 'DOMESTIC') 
+                $this->redirect(array('trip','id'=>$id));
                 $voucherDataProvider= new CActiveDataProvider('Voucher',
                             array(
                                 'criteria'=>array(
@@ -240,17 +241,8 @@ class JobController extends RController
                                 )
                             )
                         );
-                $tripDataProvider= new CActiveDataProvider('Trip',
-                            array(
-                                'criteria'=>array(
-                                    'condition'=>'job_id=:jobId',
-                                    'params'=>array(':jobId'=> $id),
-                                ),
-                                'pagination'=>array(
-                                    'pageSize'=>15,
-                                )
-                            )
-                        );                
+                $tripDataProvider= new CActiveDataProvider('Trip');
+                $tripDataProvider->setData($this->loadModel($id)->trips);
                 //checking the latest event in the job
                 $jobEventDataProvider = new CActiveDataProvider('Jobevent',
                             array(
@@ -400,11 +392,7 @@ class JobController extends RController
                                 $statusModel->status = 'Created';
                                 $statusModel->comments = 'Created';
                                 $statusModel->save();
-                                if ($model->type == 'DOMESTIC') {
-                                    $this->redirect(array('trip','id'=>$model->id));
-                                } else {
-                                    $this->redirect(array('view','id'=>$model->id));
-                                }
+                                $this->redirect(array('view','id'=>$model->id));
                         }
                         
 		}

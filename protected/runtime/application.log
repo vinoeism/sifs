@@ -9889,3 +9889,188 @@ Stack trace:
 REQUEST_URI=/sifs/index.php?r=workorder/generateTransportWO&id=5
 HTTP_REFERER=http://localhost/sifs/index.php?r=job/view&id=7
 ---
+2017/06/21 22:45:22 [error] [php] Undefined variable: model (/Library/WebServer/Documents/sifs/protected/controllers/JobController.php:244)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#3 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#6 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /Library/WebServer/Documents/yii/framework/web/CController.php(265): JobController->runActionWithFilters()
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): JobController->run()
+#10 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=job/trip&id=14
+in /Library/WebServer/Documents/sifs/protected/controllers/JobController.php (244)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/21 22:47:03 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect date value: '' for column 'trip_date_end' at row 1. The SQL statement executed was: INSERT INTO `trip` (`job_id`, `transporter_id`, `vehicle_id`, `employee_id`, `trip_type`, `trip_date_start`, `trip_date_end`, `in_time`, `out_time`, `start_odo`, `end_odo`, `from_location`, `to_location`, `booked_by`, `booked_on`, `created_by`, `updated_by`, `created_on`, `updated_on`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9, :yp10, :yp11, :yp12, :yp13, :yp14, :yp15, :yp16, NOW(), NOW()).
+in /Library/WebServer/Documents/sifs/protected/controllers/TripController.php (75)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/21 22:47:03 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect date value: '' for column 'trip_date_end' at row 1. The SQL statement executed was: INSERT INTO `trip` (`job_id`, `transporter_id`, `vehicle_id`, `employee_id`, `trip_type`, `trip_date_start`, `trip_date_end`, `in_time`, `out_time`, `start_odo`, `end_odo`, `from_location`, `to_location`, `booked_by`, `booked_on`, `created_by`, `updated_by`, `created_on`, `updated_on`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9, :yp10, :yp11, :yp12, :yp13, :yp14, :yp15, :yp16, NOW(), NOW())' in /Library/WebServer/Documents/yii/framework/db/CDbCommand.php:357
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(1023): CDbCommand->execute()
+#1 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(795): CActiveRecord->insert(NULL)
+#2 /Library/WebServer/Documents/sifs/protected/controllers/TripController.php(75): CActiveRecord->save()
+#3 [internal function]: TripController->actionCreate('14')
+#4 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(TripController), Array)
+#5 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(TripController), Object(ReflectionMethod), Array)
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#9 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#13 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#15 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#16 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#17 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#18 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14
+HTTP_REFERER=http://localhost/sifs/index.php?r=trip/create&jobID=14
+---
+2017/06/21 22:50:13 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: '' for column 'in_time' at row 1. The SQL statement executed was: INSERT INTO `trip` (`job_id`, `transporter_id`, `vehicle_id`, `employee_id`, `trip_type`, `trip_date_start`, `trip_date_end`, `in_time`, `out_time`, `start_odo`, `end_odo`, `from_location`, `to_location`, `booked_by`, `booked_on`, `created_by`, `updated_by`, `created_on`, `updated_on`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9, :yp10, :yp11, :yp12, :yp13, :yp14, :yp15, :yp16, NOW(), NOW()).
+in /Library/WebServer/Documents/sifs/protected/controllers/TripController.php (75)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/21 22:50:13 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: '' for column 'in_time' at row 1. The SQL statement executed was: INSERT INTO `trip` (`job_id`, `transporter_id`, `vehicle_id`, `employee_id`, `trip_type`, `trip_date_start`, `trip_date_end`, `in_time`, `out_time`, `start_odo`, `end_odo`, `from_location`, `to_location`, `booked_by`, `booked_on`, `created_by`, `updated_by`, `created_on`, `updated_on`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9, :yp10, :yp11, :yp12, :yp13, :yp14, :yp15, :yp16, NOW(), NOW())' in /Library/WebServer/Documents/yii/framework/db/CDbCommand.php:357
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(1023): CDbCommand->execute()
+#1 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(795): CActiveRecord->insert(NULL)
+#2 /Library/WebServer/Documents/sifs/protected/controllers/TripController.php(75): CActiveRecord->save()
+#3 [internal function]: TripController->actionCreate('14')
+#4 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(TripController), Array)
+#5 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(TripController), Object(ReflectionMethod), Array)
+#6 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#9 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#10 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#11 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#13 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#14 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#15 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/create')
+#16 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#17 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#18 {main}
+REQUEST_URI=/sifs/index.php?r=trip/create&jobID=14
+HTTP_REFERER=http://localhost/sifs/index.php?r=trip/create&jobID=14
+---
+2017/06/21 22:55:14 [error] [php] Undefined variable: model (/Library/WebServer/Documents/sifs/protected/controllers/JobController.php:55)
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): JobController->runAction()
+#3 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CAccessControlFilter->filter()
+#5 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): JobController->filterAccessControl()
+#6 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter()
+#7 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#8 /Library/WebServer/Documents/yii/framework/web/CController.php(265): JobController->runActionWithFilters()
+#9 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): JobController->run()
+#10 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#12 /Library/WebServer/Documents/sifs/index.php(30): CWebApplication->run()
+REQUEST_URI=/sifs/index.php?r=job/view&id=14
+in /Library/WebServer/Documents/sifs/protected/controllers/JobController.php (55)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/21 23:24:15 [error] [exception.CException] exception 'CException' with message 'TripController cannot find the requested view "_form".' in /Library/WebServer/Documents/yii/framework/web/CController.php:878
+Stack trace:
+#0 /Library/WebServer/Documents/sifs/protected/views/trip/update.php(21): CController->renderPartial('_form', Array)
+#1 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#2 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('update', Array, true)
+#5 /Library/WebServer/Documents/sifs/protected/controllers/TripController.php(111): CController->render('update', Array)
+#6 [internal function]: TripController->actionUpdate('4')
+#7 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(TripController), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(TripController), Object(ReflectionMethod), Array)
+#9 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#16 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#18 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/update')
+#19 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#20 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#21 {main}
+REQUEST_URI=/sifs/index.php?r=trip/update&id=4
+HTTP_REFERER=http://localhost/sifs/index.php?r=trip/admin&vehicle_id=
+---
+2017/06/23 17:06:40 [error] [exception.CException] exception 'CException' with message 'TripController cannot find the requested view "_form".' in /Library/WebServer/Documents/yii/framework/web/CController.php:878
+Stack trace:
+#0 /Library/WebServer/Documents/sifs/protected/views/trip/update.php(21): CController->renderPartial('_form', Array)
+#1 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#2 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#3 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#4 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('update', Array, true)
+#5 /Library/WebServer/Documents/sifs/protected/controllers/TripController.php(135): CController->render('update', Array)
+#6 [internal function]: TripController->actionUpdate('4')
+#7 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(TripController), Array)
+#8 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(TripController), Object(ReflectionMethod), Array)
+#9 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#10 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#11 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#12 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#13 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#14 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#15 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#16 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#17 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('update')
+#18 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/update')
+#19 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#20 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#21 {main}
+REQUEST_URI=/sifs/index.php?r=trip/update&id=4
+HTTP_REFERER=http://localhost/sifs/index.php?r=trip/index
+---
+2017/06/23 17:40:40 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT COUNT(*) FROM `job` `t` WHERE type="DOMESTIC" and isActive=1 and id not in (select job_id from tripjob where trip_id = :tripID.
+in /Library/WebServer/Documents/sifs/protected/views/trip/addJobs.php (50)
+in /Library/WebServer/Documents/sifs/protected/controllers/TripController.php (171)
+in /Library/WebServer/Documents/sifs/index.php (30)
+2017/06/23 17:40:40 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT COUNT(*) FROM `job` `t` WHERE type="DOMESTIC" and isActive=1 and id not in (select job_id from tripjob where trip_id = :tripID' in /Library/WebServer/Documents/yii/framework/db/CDbCommand.php:541
+Stack trace:
+#0 /Library/WebServer/Documents/yii/framework/db/CDbCommand.php(432): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /Library/WebServer/Documents/yii/framework/db/ar/CActiveRecord.php(1546): CDbCommand->queryScalar()
+#2 /Library/WebServer/Documents/yii/framework/web/CActiveDataProvider.php(179): CActiveRecord->count(Object(CDbCriteria))
+#3 /Library/WebServer/Documents/yii/framework/web/CDataProvider.php(224): CActiveDataProvider->calculateTotalItemCount()
+#4 /Library/WebServer/Documents/yii/framework/web/CActiveDataProvider.php(129): CDataProvider->getTotalItemCount()
+#5 /Library/WebServer/Documents/yii/framework/web/CDataProvider.php(168): CActiveDataProvider->fetchData()
+#6 /Library/WebServer/Documents/yii/framework/zii/widgets/CBaseListView.php(107): CDataProvider->getData()
+#7 /Library/WebServer/Documents/yii/framework/zii/widgets/grid/CGridView.php(314): CBaseListView->init()
+#8 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(147): CGridView->init()
+#9 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(172): CBaseController->createWidget('zii.widgets.gri...', Array)
+#10 /Library/WebServer/Documents/sifs/protected/views/trip/addJobs.php(50): CBaseController->widget('zii.widgets.gri...', Array)
+#11 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(126): require('/Library/WebSer...')
+#12 /Library/WebServer/Documents/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/Library/WebSer...', Array, true)
+#13 /Library/WebServer/Documents/yii/framework/web/CController.php(869): CBaseController->renderFile('/Library/WebSer...', Array, true)
+#14 /Library/WebServer/Documents/yii/framework/web/CController.php(782): CController->renderPartial('addJobs', Array, true)
+#15 /Library/WebServer/Documents/sifs/protected/controllers/TripController.php(171): CController->render('addJobs', Array)
+#16 [internal function]: TripController->actionAddJobs('4')
+#17 /Library/WebServer/Documents/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(TripController), Array)
+#18 /Library/WebServer/Documents/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(TripController), Object(ReflectionMethod), Array)
+#19 /Library/WebServer/Documents/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#20 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#21 /Library/WebServer/Documents/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#22 /Library/WebServer/Documents/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#23 /Library/WebServer/Documents/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#24 /Library/WebServer/Documents/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#25 /Library/WebServer/Documents/yii/framework/web/CController.php(291): CFilterChain->run()
+#26 /Library/WebServer/Documents/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#27 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(282): CController->run('addjobs')
+#28 /Library/WebServer/Documents/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('trip/addjobs')
+#29 /Library/WebServer/Documents/yii/framework/base/CApplication.php(169): CWebApplication->processRequest()
+#30 /Library/WebServer/Documents/sifs/index.php(30): CApplication->run()
+#31 {main}
+REQUEST_URI=/sifs/index.php?r=trip/addjobs&id=4
+HTTP_REFERER=http://localhost/sifs/index.php?r=trip/addjobs&id=4
+---

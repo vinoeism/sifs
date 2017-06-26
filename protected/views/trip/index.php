@@ -5,8 +5,12 @@
 $this->breadcrumbs=array(
 	'Trips',
 );
-
 $this->menu=array(
+	array('label'=>'Own Vehicles', 'url'=>array('create')),
+	array('label'=>'Rental Vehicles', 'url'=>array('admin')),
+);
+
+$this->sidemenu=array(
 	array('label'=>'Create Trip', 'url'=>array('create')),
 	array('label'=>'Manage Trip', 'url'=>array('admin')),
 );

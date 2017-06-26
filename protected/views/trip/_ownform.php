@@ -86,7 +86,7 @@
 		<?php echo $form->error($model,'driver_phone'); ?>
 	</div>-->
 
-	<div class="row">
+<!--	<div class="row">
 		<?php echo $form->labelEx($model,'in_time'); ?>
 		<?php echo $form->textField($model,'in_time'); ?>
 		<?php echo $form->error($model,'in_time'); ?>
@@ -96,7 +96,7 @@
 		<?php echo $form->labelEx($model,'out_time'); ?>
 		<?php echo $form->textField($model,'out_time'); ?>
 		<?php echo $form->error($model,'out_time'); ?>
-	</div>
+	</div>-->
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'start_odo'); ?>

@@ -65,12 +65,29 @@ class Trip extends sifsActiveRecord
 			array('trip_type, from_location, to_location', 'length', 'max'=>200),
 			array('driver_name, driver_phone', 'length', 'max'=>50),
 			array('trip_date_start, trip_date_end, in_time, out_time, booked_on, created_on, updated_on', 'safe'),
+                        array('trip_date_start, trip_date_end', 'isValidTripDate'),
+                        array('trip_date_end', 'isValidTripEndDate'),                    
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, vehicle_regn_no, vehicle_type, vehicle_id, employee_id, trip_type, trip_date_start, trip_date_end, driver_name, driver_phone, in_time, out_time, start_odo, end_odo, from_location, from_location_id, to_location, to_location_id, job_id, transporter_id, package_id, booked_by, booked_on, created_by, created_on, updated_by, updated_on', 'safe', 'on'=>'search'),
 		);
 	}
 
+        public function isValidTripDate($attribute, $params)
+        {
+            if ($this->$attribute < $this->booked_on) {
+                $this->addError($attribute, $attribute . ' cannot be earlier than the Booked date');
+            }
+            
+        }
+        
+        public function isValidTripEndDate($attribute, $params)
+        {
+            if ($this->$attribute < $this->trip_date_start) {
+                $this->addError($attribute, $attribute . ' cannot be earlier than the Trip Start date');
+            }
+            
+        }
 	/**
 	 * @return array relational rules.
 	 */
@@ -79,6 +96,7 @@ class Trip extends sifsActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+                    'jobs'=>array(self::MANY_MANY, 'Job', 'tripjob(trip_id,job_id'),
 		);
 	}
 
