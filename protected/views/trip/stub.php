@@ -2,33 +2,32 @@
 <br><br>
 <div style="width:100%; overflow:hidden;">
     <div style="width: 300px; float: left;">
-         <h1>Work Order no. <?php echo $model->id; ?></h1>
+         <h1>Trip no. <?php echo $model->id." dtd ".$model->booked_on; ?></h1>
         <br>
-        Issued to:
+        <h3>Vehicle Details</h3>
+        <?php if (empty($model->vehicle_id)) { ?>
+            <br> <?php echo "RENTAL VEHICLE"; ?> <br>
+            <h4> <?php echo Settings::model()->findBySettingKey($model->vehicle_type); ?></h4>
+            <h4> <?php echo $model->vehicle_reg_no; ?></h4>
+        <?php } else { ?>
+            <br> <?php echo "OWN VEHICLE"; ?> <br>
+            <h4> <?php echo Vehicle::model()->findbyPk($model->vehicle_id)->regn_no; ?></h4>
+        <?php } ?>
         <h5>
-            <?php foreach ($model->transporters->addresses as $Address) { 
-                if ($Address->type == "BILLING") {
-                ?>
-                    <?php echo $model->transporters->party_name; ?><br/>
-                    <?php echo $Address->line_1; ?><br/>
-                    <?php echo $Address->line_2; ?><br/>
-                    <?php echo $Address->district.', '; ?><br/>
-                    <?php echo $Address->state.', '.$Address->country.' '.$Address->pincode; ?>
-            <?php } } ?>
+
         </h5>
         <br>
         We request you to kindly place the vehicle(s) at <b> <?php echo $model->from_location." on ".$model->trip_date_start; ?> </b>
         <br>Delivery at <b> <?php echo $model->to_location; ?> </b>
         <br>
-        Vehicle(s) Type - <?php echo Settings::model()->findByPk($model->vehicle_type)->setting_value;$model->vehicle_type;?><br/>
-        Special Instructions - <?php echo $model->vehicle_instructions; ?><br/>
+        Special Instructions - <?php echo 'vehicle'; ?><br/>
         <br>
         Cargo details as under
         <br><br>
     </div>
     <div style="width: 300px; float: right;">    
         <?php $this->widget('zii.widgets.CDetailView', array(
-            'data'=>$model,
+            'data'=>$jobsDataProvider,
             'attributes'=>array(
                     array(
                         'name'=>'job_id',
@@ -80,7 +79,7 @@
     </div>
 </div>
 
-<div>
+<!--<div>
     <?php if ($model->jobs->mode == 'SEA FCL') {
     $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'package-grid',
@@ -156,77 +155,8 @@
 ?>
     
     
-</div>
-<br/><br/>
-Payments made as under
-<br><br>
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'payment-grid',
-	'dataProvider'=>$paymentsDataProvider,
-	'columns'=>array(
-		array(
-                        'name'=>'id',
-                        'type'=>'raw',
-                        'filter'=>'',
-                        'value'=>'CHtml::link(CHtml::encode($data->id), array(\'view\', \'id\'=>$data->id))',
-                        //'imageUrl'=>Yii::app()->baseUrl.'/images/click_icon.jpg',
-                ),
-                'payment_date',
-//                array(
-//                    'name'=>'party_id',
-//                    'value' => 'isset($data->party_id)?$data->parties->party_name:"  -  "',
-//                ),
-//		'employee_id',
-		//'payment_type',
-                array(
-                    'name'=>'Mode',
-                    'filter'=>array('CASH'=>'Cash','CHEQUE'=>'Cheque', 'TRANSFER'=>'Bank Transfer'),
-                    'value' => '$data->mode',
-                    
-                ),
-		
-		'instrument_no',
-		'instrument_date',
-		'instrument_bank',
-		array(
-                    'name'=>'Currency',
-                    'value' => '$data->currency',
-                    
-                ),
-//		'exchange_rate',
-//		'amount',            
-		array(
-                    'name'=>'Total Amount',
-                    'value' => '$data->total_amount',
-                    
-                ),		
-		/*
-                'transaction_no',
-		'currency',
-		'exchange_rate',
-		'tds',
-		'amount',
-		'total_amount',
-		'status',
-		'remaining_amount',
-		'is_adhoc',
-		'created_by',
-		'created_on',
-		'updated_by',
-		'updated_on',
-		*/
-	),
-        'summaryText' => '', 
-)); ?>
-<br>
-<div style="width:100%; overflow:hidden;">
-        <h5>Terms & Conditions </h5>
-        <i style="font-size: 9;">
-            1. Please let us know if you cannot place the vehicle at the destination on time. <br>
-            2. Conditions 2 <br>
-            3. Conditions 3 <br>
-        </i>
-</div>
+</div>-->
+
 
 <p style="text-align: center;"><strong>Electronic document. Does not require a signature to authorize.</strong></p>
 

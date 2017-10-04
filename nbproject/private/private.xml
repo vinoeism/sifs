@@ -2,20 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Library/WebServer/Documents/sifs/protected/models/Voucher.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/views/trip/admin.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/controllers/JobController.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/views/trip/addJobs.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/views/job/trip.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/controllers/TripController.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/views/workorderpackage/_form.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/views/invoice/stub.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/views/trip/index.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/controllers/WorkorderController.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/views/trip/update.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/views/workorder/stub.php</file>
-            <file>file:/Library/WebServer/Documents/sifs/protected/views/workorder/packages.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

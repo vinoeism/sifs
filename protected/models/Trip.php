@@ -96,7 +96,7 @@ class Trip extends sifsActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-                    'jobs'=>array(self::MANY_MANY, 'Job', 'tripjob(trip_id,job_id'),
+                    'jobs'=>array(self::MANY_MANY, 'Job', 'tripjob(trip_id,job_id)'),
 		);
 	}
 

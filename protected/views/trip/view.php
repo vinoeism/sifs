@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Trip', 'url'=>array('index')),
-	array('label'=>'Create Trip', 'url'=>array('create')),
+        array('label'=>'Add jobs', 'url'=>array('addjobs', 'id'=>$model->id)),
 	array('label'=>'Update Trip', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Trip', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Trip', 'url'=>array('admin')),
+        array('label'=>'Trip sheet', 'url'=>array('generateTripsheet','id'=>$model->id)),
+	//array('label'=>'Delete Trip', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	//array('label'=>'Manage Trip', 'url'=>array('admin')),
 );
 ?>
 

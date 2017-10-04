@@ -250,18 +250,9 @@ class TripController extends Controller
 	{
                 # You can easily override default constructor's params
                 $mPDF1 = Yii::app()->ePdf->mpdf();
-
-                $itemsDataProvider= new CActiveDataProvider('Job',
-                        array(
-                            'criteria'=>array(
-                                'condition'=>'job_id=:jobID AND isActive=1',
-                                'params'=>array(':jobID'=>  $this->loadModel($id)->job_id),
-                            ),
-                            'pagination'=>array(
-                                'pageSize'=>15,
-                            )
-                        )
-                    );
+                $model = $this->loadModel($id);
+                $jobsDataProvider= new CActiveDataProvider('Job');
+                $jobsDataProvider->setData($model->jobs);
                 $packagesDataProvider= new CActiveDataProvider('Package',
                             array(
                                 'criteria'=>array(
@@ -273,29 +264,7 @@ class TripController extends Controller
                                 )
                             )
                         );
-                $paymentsDataProvider= new CActiveDataProvider('Payment',
-                            array(
-                                'criteria'=>array(
-                                    'condition'=>'id in (select payment_id from voucherpayment where voucher_id in ( select id from voucher where wo_id=:woId ))',
-                                    'params'=>array(':woId'=>$id),
-                                ),
-                                'pagination'=>array(
-                                    'pageSize'=>15,
-                                )
-                            )
-                        );
-                $wopkgsDataProvider = new CActiveDataProvider('Workorderpackage');
-                $wopkgsDataProvider->setData(Workorder::model()->findbyPk($id)->workorderpackages);   
-//                $wopkgsDataProvider = new CActiveDataProvider('WorkorderPackage',
-//                            array(
-//                                'criteria'=>array(
-//                                    
-//                                ),
-//                                'pagination'=>array(
-//                                    'pagesize'=>15,
-//                                )
-//                            )
-//                        );
+
                 # Load a stylesheet
                 $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
                 $mPDF1->WriteHTML($stylesheet, 1);
@@ -305,11 +274,9 @@ class TripController extends Controller
                 
                 $mPDF1->debug = true;
                 $mPDF1->WriteHTML($this->renderPartial('stub',array(
-                            'model'=>$this->loadModel($id),
-                            'itemsDataProvider' => $itemsDataProvider,
+                            'model'=>$model,
+                            'jobsDataProvider' => $jobsDataProvider,
                             'packagesDataProvider'=> $packagesDataProvider,
-                            'paymentsDataProvider'=> $paymentsDataProvider,
-                            'wopkgsDataProvider'=>$wopkgsDataProvider,
                             ),true));
 
                 $mPDF1->Output();

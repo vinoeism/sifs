@@ -13,7 +13,6 @@ $this->menu=array(
 	array('label'=>'Create Trip', 'url'=>array('create')),
 	array('label'=>'View Trip', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage Trip', 'url'=>array('admin')),
-        array('label'=>'Add jobs', 'url'=>array('addjobs', 'id'=>$model->id)),
 );
 ?>
 
